@@ -66,8 +66,8 @@ their account at `https://<YourSAMLBoxURL>/admin/enterprise/:domain`. Your custo
 into SAMLBox with a JWT with the the domain name as the scope.
 
 :::tip
-If you take this approach, have your enterprise customers first create accounts with email / password so 
-that you can generate JWTs for the user who will be configuring their IDP in SAMLBox.
+If you take this approach, have your enterprise customers first create accounts in your application 
+with email / password so that you can generate JWTs for the user who will be configuring their IDP in SAMLBox.
 :::
 
 The enterprise user will choose their IDP, and SAMLBox will generate all of the configuration information 
