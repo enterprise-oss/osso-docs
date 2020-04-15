@@ -1,0 +1,113 @@
+/* stylelint-disable docusaurus/copyright-header */
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(187deg, #2E80A7 0%, #006494 40%, #005B87 100%);
+  z-index: 10;
+  color: #E4DCC1;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.heroBanner:first-child {
+  opacity: .99;
+}
+
+@media screen and (max-width: 966px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.featureImage {
+  height: 200px;
+  width: 200px;
+}
+
+/* Fish Animations */
+
+img.fish{
+  overflow:visible;
+}
+
+@keyframes swim
+{
+	0% {margin-left: -235px}
+	70% {margin-left: 100%;}
+	100% {margin-left: 100%;}
+}
+
+.fish{
+  top: 2em;
+  user-select: none;
+  z-index: -1;
+	position: absolute;	
+	animation: swim 30s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+  width: 40px;
+  margin-left: -40px;
+}
+
+.fish:nth-of-type(even){
+  animation-direction: reverse;
+  animation-timing-function: ease-out;
+}
+
+.fish1 {
+  margin-top: 180px;
+  animation: bounce 2s infinite;
+	animation-delay: 0.5s;
+}
+
+.fish2 {
+  margin-top: 5em;
+  animation: bounce 2s infinite;
+	animation-delay: 0.7s;
+}
+
+svg #fish4{
+	animation-delay: 0.4s;
+	-webkit-animation-delay: 0.4s;
+}
+
+svg #fish5{
+	animation-delay: 0.1s;
+	-webkit-animation-delay: 0.1s;
+}
+
+svg #fish6{
+	animation-delay: 0.3s;
+	-webkit-animation-delay: 0.3s;
+}
+
+@keyframes bounce {
+  0%, 50%, 100% {
+    transform: rotate(0) translateY(0);
+  }
+  25% {
+    transform: rotate(-2deg) translateY(-5px);
+  }
+  75% {
+    transform: rotate(1deg) translateY(-3px);
+  }
+}
