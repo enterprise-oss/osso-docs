@@ -9,7 +9,7 @@ Security Assertion Markup Language (SAML) is an open specification that allows I
 to securely pass authorization credentials to a Service Provider (SP). SAML is conceptually very similar to 
 OAuth - instead of a user creating a password based account for every service they use, an IDP centralizes 
 identity for the user, and they use their IDP credentials to access the services they use. Where OAuth 
-is generally more consumer friendly, enterprise companies often require the services they purchase to 
+is generally used for consumer oriented apps, enterprise companies often require the services they purchase to 
 offer SAML based Single Sign On (SSO).
 
 :::tip
