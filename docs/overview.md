@@ -1,7 +1,7 @@
 ---
 id: overview
-title: Overview
-sidebar_label: Overview
+title: SAMLBox Overview
+sidebar_label: SAMLBox Overview
 ---
 
 SAMLBox provides an open-source microservice for authenticating users against SAML-based Identity Providers.

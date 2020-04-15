@@ -1,6 +1,6 @@
 ---
 id: what-is-saml
-title: What Is Saml?
+title: What Is SAML?
 ---
 
 ## Background
@@ -66,8 +66,9 @@ that requires SAML-based authentication.
 
 While SAML is an open specification, each IDP tends to name things a little differently, and has different processes 
 for configuring a SAML app in a customer instance. You can't assume that your customer will know exactly how to 
-configure your app in their instance, so your team will need to learn how to configure a SAML app in at least a handful
-of IDPs, and will need to learn how to debug and support authentication issues that may arise.
+configure your app in their instance, so your team will need to learn the vagaries of each IDP, and how to 
+configure a SAML app in at least a handful of IDPs, and will need to learn how to debug and support authentication 
+issues that may arise.
 
 ## SAMLBox
 
