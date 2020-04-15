@@ -49,9 +49,9 @@ the account's domain name and the Identity Provider they use (i.e. Okta, OneLogi
 web form, and SAMLBox will generate a _pending_ Identity Provider instance. 
 
 The Admin UI will then provide all of the information your enterprise customer needs to configure your app in their 
-IDP instance. SAMLBox will also generate a PDF document that you can send your enterprise customer, specific to their 
+IDP admin dashboard. SAMLBox will also generate a PDF document that you can send your enterprise customer, specific to their 
 IDP, that will walk them through configuration, and tell them what information they need to relay back to you. The 
-enterprise employee then goes and configures your app in their IDP instance while you wait. 
+enterprise employee then goes and configures your app in their IDP admin dashboard while you wait. 
 
 Once you receive configuration information back from your customer, return to the SAMLBox Admin UI, and find the pending 
 Identity Provider instance for the account you are onboarding. When you visit the pending connection, you'll be 
@@ -71,9 +71,9 @@ that you can generate JWTs for the user who will be configuring their IDP in SAM
 :::
 
 The enterprise user will choose their IDP, and SAMLBox will generate all of the configuration information 
-needed to configure your application on the IDP instance, as well as a PDF document to walk the enterprise 
-user through configuring your application on the IDP instance.
+needed to configure your application on their IDP admin dashboard, as well as a PDF document to walk the enterprise 
+user through configuring your application on their IDP admin dashboard.
 
-Once they complete configuration on the IDP instance, the enterprise user will be able to input and upload 
-configuration into SAMLBox, which will promote the Identiy Provider instance to _live_, and allowing users 
-from that enterprise to start signing in.
+Once they complete configuration on the IDP admin dashboard, the enterprise user will be able to input and upload 
+the final configuration information into SAMLBox, which will promote the Identity Provider instance to _live_, 
+and allow users from that enterprise to start signing in.
