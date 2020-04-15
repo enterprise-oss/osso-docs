@@ -1,11 +1,11 @@
 module.exports = {
   title: 'SAMLBox',
   tagline: 'Authenticate Single Sign On users via SAML',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://samlbox.netlify.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
-  organizationName: 'enterpris-oss', // Usually your GitHub org/user name.
-  projectName: 'saml-box', // Usually your repo name.
+  organizationName: 'enterpris-oss',
+  projectName: 'saml-box',
   themeConfig: {
     navbar: {
       title: 'SAMLBox',
@@ -66,16 +66,16 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/enterprise-oss/saml-box',
             },
             {
               label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              href: 'https://twitter.com/samlbox',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Enterpise OSS - Built with Docusaurus.`,
     },
   },
   presets: [
