@@ -64,19 +64,16 @@ function Home() {
       title={siteConfig.title}
       description="A free open source SSO and SAML microservice">
       <header className={classnames('hero', styles.heroBanner)}>
-        <div className={styles.fish}>
-          <img className={styles.fish1} src="img/fish.svg" />
-        </div>
-        <div className={styles.fish}>
-          <img className={styles.fish2} src="img/fish2.svg" />
-        </div>
-        <div className="container">
-          <h1 className="hero__title">{siteConfig.title}</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <div className={styles.heroCopy}>
+          <p>
+            Authenticate Single Sign On users via SAML.
+            <br /><br />
+            For free.
+          </p>
           <div className={styles.buttons}>
             <Link
               className={classnames(
-                'button button--primary button--lg',
+                'button button--secondary button--lg',
                 styles.getStarted,
               )}
               to={useBaseUrl('docs/doc1')}>
@@ -84,6 +81,7 @@ function Home() {
             </Link>
           </div>
         </div>
+        <img className={styles.heroImage} src={'img/losso.svg'} alt='background image' />
       </header>
       <main>
         {features && features.length && (

@@ -1,30 +1,40 @@
 module.exports = {
-  title: 'SAMLBox',
-  tagline: 'Authenticate Single Sign On users via SAML',
+  title: 'OSSO',
+  // tagline: 'Authenticate Single Sign On users via SAML',
   url: 'https://samlbox.netlify.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
-  organizationName: 'enterpris-oss',
+  organizationName: 'enterprise-oss',
   projectName: 'saml-box',
+  stylesheets: [
+    'https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@600&display=swap',
+    'https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap'
+  ],
   themeConfig: {
     navbar: {
-      title: 'SAMLBox',
+      title: 'Osso',
       logo: {
-        alt: 'SAMLBox logo',
-        src: 'img/logo.png',
+        alt: 'OSSO logo',
+        src: 'img/logo.svg',
       },
       links: [
         {
+          to: 'docs/guides/what-is-saml',
+          activeBasePath: 'guides',
+          label: 'Guides',
+          position: 'right',
+        },
+        {
           to: 'docs/doc1',
           activeBasePath: 'docs',
-          label: 'Docs',
-          position: 'left',
-        },
-        { to: 'blog', label: 'Blog', position: 'left' },
-        {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
+          label: 'Documentation',
           position: 'right',
+        },
+        { to: 'blog', label: 'Blog', position: 'right' },
+        {
+          href: 'https://github.com/enterprise-oss/saml-box',
+          label: 'GitHub',
+          position: 'right'
         },
       ],
     },
@@ -41,19 +51,6 @@ module.exports = {
             {
               label: 'Second Doc',
               to: 'docs/doc2',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
             },
           ],
         },

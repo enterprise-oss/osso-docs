@@ -7,33 +7,47 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2D3E10;
-  --ifm-color-primary-dark: #29390f;
-  --ifm-color-primary-darker: #25330e;
-  --ifm-color-primary-darkest: #212e0c;
-  --ifm-color-primary-light: #404f25;
-  --ifm-color-primary-lighter: #53613b;
-  --ifm-color-primary-lightest: #667251;
-  --ifm-code-font-size: 95%;
+  --ifm-color-primary: #4e61a5;
+  --ifm-color-primary-dark: #465795;
+  --ifm-color-primary-darker: #42528c;
+  --ifm-color-primary-darkest: #374473;
+  --ifm-color-primary-light: #5a6db1;
+  --ifm-color-primary-lighter: #6274b5;
+  --ifm-color-primary-lightest: #7b8ac1;
 
- 
-  --ifm-color-secondary-lightest: #458EB1;  
-  --ifm-color-secondary-lighter: #2E80A7;
-  --ifm-color-secondary-light: #17729d;
-  --ifm-color-secondary:#006494;
-  --ifm-color-secondary-dark: #005B87;
-  --ifm-color-secondary-darker: #00527A;
-  --ifm-color-secondary-darkest: #00496C;
-
-  --ifm-navbar-background-color: #E4DCC1;
-
-  /* --ifm-footer-background-color: #00496C; */
-  /* --ifm-font-base-color: #262626; */
-  /* --ifm-font-family-base
-  --ifm-font-size-base
-  --ifm-line-height-base */
+  --ifm-color-secondary-lightest: #FFFFFF;  
+  --ifm-color-secondary: #E5E5E5;
 }
 
+body, html {
+  font-family: 'DM Sans', sans-serif;
+}
+
+.navbar__items.navbar__items {
+  flex: 1 0 0;
+}
+
+.navbar .navbar__items.navbar__items--right {
+  flex: 1.7 0 0;
+  margin-left: auto;
+  justify-content: flex-start;
+}
+
+.navbar .navbar__items.navbar__items--right > .react-toggle {
+  margin-left: auto;
+}
+
+.navbar .navbar__logo {
+  height: 2rem;
+}
+
+.navbar__title {
+  margin-top: -11px;
+  color: var(--ifm-color-primary);
+  font-family: 'Darker Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: 3rem;
+}
 .docusaurus-highlight-code-line {
   background-color: rgb(72, 77, 91);
   display: block;
