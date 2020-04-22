@@ -67,7 +67,7 @@ module.exports = {
             },
             {
               label: 'Twitter',
-              href: 'https://twitter.com/samlbox',
+              href: 'https://twitter.com/Osso',
             },
           ],
         },

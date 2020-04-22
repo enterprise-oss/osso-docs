@@ -70,9 +70,9 @@ configure your app in their instance, so your team will need to learn the vagari
 configure a SAML app in at least a handful of IDPs, and will need to learn how to debug and support authentication 
 issues that may arise.
 
-## SAMLBox
+## Osso
 
-SAMLBox solves these challenges by providing the boilerplate you need to manage muliple SAML tenants in your application, 
+Osso solves these challenges by providing the boilerplate you need to manage muliple SAML tenants in your application, 
 while also providing guides and documentation for your whole team, and even your enterprise customers. You'll still need 
 to educate your team, and you'll still need to configure the IDP instance for each customer that requires it. But if you 
-use all the tools in your SAMLBox your whole team will be confidently onboarding enterprise accounts in no time!
+use all the tools in your Osso your whole team will be confidently onboarding enterprise accounts in no time!

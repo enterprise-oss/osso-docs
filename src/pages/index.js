@@ -12,7 +12,7 @@ const features = [
     imageUrl: 'img/build_vs_buy.png',
     description: (
       <>
-        SAMLBox authenticates users against SAML Identity Provider services,
+        Osso authenticates users against SAML Identity Provider services,
         normalizes user payloads, and provides an OAuth server to sign those
         users into your application.
       </>
@@ -23,7 +23,7 @@ const features = [
     imageUrl: 'img/build_vs_buy.png',
     description: (
       <>
-        SAMLBox provides an admin UI, configuration API, and React components you can use in your
+        Osso provides an admin UI, configuration API, and React components you can use in your
         own application to onboard enterprise accounts and configure their SAML Identity Provider.
       </>
     ),
@@ -33,7 +33,7 @@ const features = [
     imageUrl: 'img/build_vs_buy.png',
     description: (
       <>
-        Beyond technical docuemtnation, SAMLBox provides guides and
+        Beyond technical docuemtnation, Osso provides guides and
         docs for your sales and success teams and your enterprise
         customers to make onboarding SAML accounts smooth sailing.
       </>
