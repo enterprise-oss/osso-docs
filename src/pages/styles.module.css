@@ -9,7 +9,7 @@
   position: relative;
   padding: 4rem 0;
   height: 630px;
-  background: var(--ifm-color-primary) url('/static/img/bg.png');     
+  background: var(--ifm-color-primary) url('/img/bg.png');     
   background-position: left -40px top -30px;
   background-blend-mode: soft-light;
   margin-bottom: 40px;
