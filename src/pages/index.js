@@ -9,7 +9,7 @@ import styles from './styles.module.css';
 const features = [
   {
     title: <>Treat SAML as OAuth</>,
-    imageUrl: 'img/catch_bigger.png',
+    imageUrl: 'img/build_vs_buy.png',
     description: (
       <>
         SAMLBox authenticates users against SAML Identity Provider services,
@@ -41,15 +41,9 @@ const features = [
   },
 ];
 
-function Feature({ imageUrl, title, description }) {
-  const imgUrl = useBaseUrl(imageUrl);
+function Feature({ title, description }) {
   return (
-    <div className={classnames('col col--4', styles.feature)}>
-      {imgUrl && (
-        <div className="text--center">
-          <img className={styles.featureImage} src={imgUrl} alt={title} />
-        </div>
-      )}
+    <div>
       <h3>{title}</h3>
       <p>{description}</p>
     </div>
@@ -63,38 +57,47 @@ function Home() {
     <Layout
       title={siteConfig.title}
       description="A free open source SSO and SAML microservice">
-      <header className={classnames('hero', styles.heroBanner)}>
-        <div className={styles.heroCopy}>
-          <p>
-            Authenticate Single Sign On users via SAML.
-            <br /><br />
-            For free.
+      <div className={styles.heroContainer}>
+        <header className={classnames('hero', styles.heroBanner)}>
+          <div className={styles.heroCopy}>
+            <p>
+              Authenticate<br />
+            Single Sign On users<br />
+            via SAML with free,<br />
+            open source software
           </p>
-          <div className={styles.buttons}>
-            <Link
-              className={classnames(
-                'button button--secondary button--lg',
-                styles.getStarted,
-              )}
-              to={useBaseUrl('docs/doc1')}>
-              Get Started
+            <div className={styles.buttons}>
+              <Link
+                className={classnames(
+                  'button button--secondary button--lg',
+                  styles.getStarted,
+                )}
+                to={useBaseUrl('docs/doc1')}>
+                Get Started
             </Link>
+            </div>
           </div>
-        </div>
-        <img className={styles.heroImage} src={'img/losso.svg'} alt='background image' />
-      </header>
+          <img className={styles.heroImage} src={'img/losso.svg'} alt='background image' />
+        </header>
+      </div>
       <main>
-        {features && features.length && (
-          <section className={styles.features}>
-            <div className="container">
-              <div className="row">
-                {features.map((props, idx) => (
-                  <Feature key={idx} {...props} />
-                ))}
+        <section className={styles.features}>
+          <div className="container">
+            <div className="row">
+              <div className='col col--6'>
+                <div className={styles.featureList}>
+                  {features.map((props, idx) => (
+                    <Feature key={idx} {...props} />
+                  ))}
+                </div>
+              </div>
+              <div className="col col--5 col--offset-1">
+                <img src='img/lander.png' alt='background image' />
               </div>
             </div>
-          </section>
-        )}
+
+          </div>
+        </section>
       </main>
     </Layout>
   );

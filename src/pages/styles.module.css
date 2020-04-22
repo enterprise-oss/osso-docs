@@ -4,11 +4,15 @@
  * and scoped locally.
  */
 
+ 
 .heroBanner {
   position: relative;
   padding: 4rem 0;
   height: 630px;
-  background-color: var(--ifm-color-primary);
+  background: var(--ifm-color-primary) url('/static/img/bg.png');     
+  background-position: left -40px top -30px;
+  background-blend-mode: soft-light;
+  margin-bottom: 40px;
 }
 
 .heroCopy {
@@ -43,80 +47,29 @@
 .features {
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  padding: 2rem 10rem;
   width: 100%;
 }
 
-.featureImage {
-  height: 200px;
-  width: 200px;
+.featureList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding-top: 100px;
 }
 
-/* Fish Animations */
-
-img.fish{
-  overflow:visible;
+.featureList > div {
+  margin-bottom: 240px;
 }
 
-@keyframes swim
-{
-	0% {margin-left: -235px}
-	70% {margin-left: 100%;}
-	100% {margin-left: 100%;}
+
+.features h3{
+  font-size: 30px;
+  color: var(--ifm-color-primary)
 }
 
-.fish{
-  top: 2em;
-  user-select: none;
-  z-index: -1;
-	position: absolute;	
-	animation: swim 30s;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
-  width: 40px;
-  margin-left: -40px;
-}
-
-.fish:nth-of-type(even){
-  animation-direction: reverse;
-  animation-timing-function: ease-out;
-}
-
-.fish1 {
-  margin-top: 180px;
-  animation: bounce 2s infinite;
-	animation-delay: 0.5s;
-}
-
-.fish2 {
-  margin-top: 5em;
-  animation: bounce 2s infinite;
-	animation-delay: 0.7s;
-}
-
-svg #fish4{
-	animation-delay: 0.4s;
-	-webkit-animation-delay: 0.4s;
-}
-
-svg #fish5{
-	animation-delay: 0.1s;
-	-webkit-animation-delay: 0.1s;
-}
-
-svg #fish6{
-	animation-delay: 0.3s;
-	-webkit-animation-delay: 0.3s;
-}
-
-@keyframes bounce {
-  0%, 50%, 100% {
-    transform: rotate(0) translateY(0);
-  }
-  25% {
-    transform: rotate(-2deg) translateY(-5px);
-  }
-  75% {
-    transform: rotate(1deg) translateY(-3px);
-  }
+.features p{
+  font-size: 24px;
+  color: var(--ifm-color-primary)
 }
