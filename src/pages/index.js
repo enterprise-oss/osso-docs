@@ -4,7 +4,9 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import { useMediaQuery } from 'react-responsive'
 import styles from './styles.module.css';
+import screens from '../utils/responsive';
 
 const features = [
   {
@@ -53,6 +55,8 @@ function Feature({ title, description }) {
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
+  const isLargeScreen = useMediaQuery({ query: screens.large })
+  console.log(isLargeScreen)
   return (
     <Layout
       title={siteConfig.title}
@@ -62,9 +66,9 @@ function Home() {
           <div className={styles.heroCopy}>
             <p>
               Authenticate<br />
-            Single Sign On users<br />
-            via SAML with free,<br />
-            open source software
+              Single Sign On users<br />
+              via SAML with free,<br />
+              open source software
           </p>
             <div className={styles.buttons}>
               <Link
@@ -77,7 +81,7 @@ function Home() {
             </Link>
             </div>
           </div>
-          <img className={styles.heroImage} src={'img/losso.svg'} alt='background image' />
+          {isLargeScreen && <img className={styles.heroImage} src={'img/losso.svg'} alt='background image' />}
         </header>
       </div>
       <main>
@@ -91,7 +95,7 @@ function Home() {
                   ))}
                 </div>
               </div>
-              <div className="col col--5 col--offset-1">
+              <div className={classnames("col col--5 col--offset-1", styles.imageContainer)} >
                 <img src='img/lander.png' alt='background image' />
               </div>
             </div>
