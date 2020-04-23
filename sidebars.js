@@ -3,7 +3,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Guides',
-      items: ['guides/what-is-saml', 'overview',
+      items: ['guides/what-is-saml', 'guides/overview',
         {
           type: 'category',
           label: 'IDP Configuration',

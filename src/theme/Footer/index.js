@@ -28,7 +28,7 @@ function Footer() {
             </div>
           )}
           <div className={styles.footerCol}>
-            <img src={'img/logo-alt.svg'} alt='osso logo' />
+            <img src={'/img/logo-alt.svg'} alt='osso logo' />
           </div>
           {isLargeScreen && (
             <div className={styles.footerCol}>
