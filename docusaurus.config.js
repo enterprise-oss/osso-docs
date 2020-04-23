@@ -1,6 +1,6 @@
 module.exports = {
   title: 'OSSO',
-  // tagline: 'Authenticate Single Sign On users via SAML',
+  tagline: 'Authenticate Single Sign On users via SAML',
   url: 'https://samlbox.netlify.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',

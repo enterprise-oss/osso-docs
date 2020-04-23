@@ -11,7 +11,6 @@ import screens from '../utils/responsive';
 const features = [
   {
     title: <>Treat SAML as OAuth</>,
-    imageUrl: 'img/build_vs_buy.png',
     description: (
       <>
         Osso authenticates users against SAML Identity Provider services,
@@ -22,7 +21,6 @@ const features = [
   },
   {
     title: <>Configuration Boilerplate</>,
-    imageUrl: 'img/build_vs_buy.png',
     description: (
       <>
         Osso provides an admin UI, configuration API, and React components you can use in your
@@ -32,7 +30,6 @@ const features = [
   },
   {
     title: <>Docs for Your Whole Team</>,
-    imageUrl: 'img/build_vs_buy.png',
     description: (
       <>
         Beyond technical docuemtnation, Osso provides guides and
@@ -56,7 +53,7 @@ function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   const isLargeScreen = useMediaQuery({ query: screens.large })
-  console.log(isLargeScreen)
+
   return (
     <Layout
       title={siteConfig.title}
@@ -76,7 +73,7 @@ function Home() {
                   'button button--secondary button--lg',
                   styles.getStarted,
                 )}
-                to={useBaseUrl('docs/doc1')}>
+                to={useBaseUrl('guides/what-is-saml')}>
                 Get Started
             </Link>
             </div>
