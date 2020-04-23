@@ -17,6 +17,11 @@
   font-size: 24px;
 }
 
+@media screen and (max-width: 996px) {
+  .footerRow{
+    flex-direction: column;
+  }
+}
 .footerCol {
   flex: 0 1 32%;
   display: flex;
