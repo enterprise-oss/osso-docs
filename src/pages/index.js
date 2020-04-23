@@ -57,15 +57,13 @@ function Home() {
   return (
     <Layout
       title={siteConfig.title}
-      description="A free open source SSO and SAML microservice">
+      description="A free open source software for SSO auth">
       <div className={styles.heroContainer}>
         <header className={classnames('hero', styles.heroBanner)}>
           <div className={styles.heroCopy}>
             <p>
-              Authenticate<br />
-              Single Sign On users<br />
-              via SAML with free,<br />
-              open source software
+              Authenticate Single Sign-On users
+              with free, open source software
           </p>
             <div className={styles.buttons}>
               <Link
@@ -78,7 +76,7 @@ function Home() {
             </Link>
             </div>
           </div>
-          {isLargeScreen && <img className={styles.heroImage} src={'img/losso.svg'} alt='background image' />}
+          {isLargeScreen && <img className={styles.heroImage} src={'img/losso2.svg'} alt='background image' />}
         </header>
       </div>
       <main>

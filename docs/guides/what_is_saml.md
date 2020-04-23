@@ -31,8 +31,9 @@ as one of your other customers.
 SAML itself is not a challenging protocol to adopt. There's tons of existing open-source software, often 
 provided by IDPs themselves, that can help you get a SAML proof of concept shipped in a couple of hours.
 
-The challenges are in turning this proof of concept into a production-ready system that everyone from product 
-to sales understands.
+The challenges are in turning this proof of concept into a production-ready set of features that engineering 
+knows how to debug, sales knows how to sell, and customer success knows how to onboard for your highest 
+value accounts.
 
 ### Configure IDP Instances for Multi-tenancy
 
@@ -75,4 +76,18 @@ issues that may arise.
 Osso solves these challenges by providing the boilerplate you need to manage muliple SAML tenants in your application, 
 while also providing guides and documentation for your whole team, and even your enterprise customers. You'll still need 
 to educate your team, and you'll still need to configure the IDP instance for each customer that requires it. But if you 
-use all the tools in your Osso your whole team will be confidently onboarding enterprise accounts in no time!
+use all the Osso tools your whole team will be confidently onboarding enterprise accounts in no time!
+
+## Alternatives
+
+Engineering is about tradeoffs, and you'll have to decide if Osso is right for you. One alternative would be to build 
+multi-tenant SAML yourself. Feel free to use Osso as a starting point, and review the annotated branch on Github for 
+a more technical explanation of the moving parts. The challenge with this approach will be in learning the ins and outs 
+of various Identity Providers and building against those vagaries, though Osso's IDP guides can help.
+
+Another alternative is to buy a service from an authentication vendor. AWS offers Cognito, Auth0 has support for SAML, 
+and Logon Labs is a third option. Some IDPs are ven getting in to this space as well, such as Okta. In our experience, 
+these services are all pretty obtuse, not well documented and expensive. You'll have to sit through sales demos. They're 
+also closed source, often venture-backed, and may not be able to guarantee the uptime that you need. Finally, paid services 
+typically don't make it easy to migrate, so you're getting locked in to a vendor.
+

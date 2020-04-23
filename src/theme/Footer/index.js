@@ -7,38 +7,36 @@
 
 import React from 'react';
 import classnames from 'classnames';
+import { useMediaQuery } from 'react-responsive'
 
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import useBaseUrl from '@docusaurus/useBaseUrl';
+import screens from '../../utils/responsive';
 import styles from './styles.module.css';
 
 function Footer() {
-  const context = useDocusaurusContext();
-  const { siteConfig = {} } = context;
-  const { themeConfig = {} } = siteConfig;
-  const { footer } = themeConfig;
+  const isLargeScreen = useMediaQuery({ query: screens.large })
 
-  const { copyright, links = [], logo = {} } = footer || {};
-  const logoUrl = useBaseUrl(logo.src);
 
   return (
     <footer className={classnames('footer', styles.footer)}>
       <div className="container">
         <div className={styles.footerRow}>
-          <div className={styles.footerCol}>
-            <p>Osso by EnterpriseOSS</p>
-            <p>Brooklyn, NY 11216</p>
-            <a href="mailto:hello@enterpriseoss.dev">hello@enterpriseoss.dev</a>
-          </div>
+          {isLargeScreen && (
+            <div className={styles.footerCol}>
+              <p>Osso by EnterpriseOSS</p>
+              <p>Brooklyn, NY 11216</p>
+              <a href="mailto:hello@enterpriseoss.dev">hello@enterpriseoss.dev</a>
+            </div>
+          )}
           <div className={styles.footerCol}>
             <img src={'img/logo-alt.svg'} alt='osso logo' />
           </div>
-          <div className={styles.footerCol}>
-            <a>F.A.Q</a>
-            <a>License</a>
-            <a>Privacy Policy</a>
-          </div>
+          {isLargeScreen && (
+            <div className={styles.footerCol}>
+              <a>F.A.Q</a>
+              <a>License</a>
+              <a>Privacy Policy</a>
+            </div>
+          )}
         </div>
       </div>
     </footer>

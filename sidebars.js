@@ -17,8 +17,8 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Features',
-      items: ['mdx',]
+      label: 'Identity Providers',
+      items: ['idp/overview', 'idp/okta',]
     },
   ],
 };
