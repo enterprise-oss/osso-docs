@@ -63,11 +63,11 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/enterprise-oss/saml-box',
+              href: 'https://github.com/enterprise-oss/osso',
             },
             {
               label: 'Twitter',
-              href: 'https://twitter.com/Osso',
+              href: 'https://twitter.com/osso',
             },
           ],
         },
