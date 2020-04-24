@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'OSSO',
+  title: 'Osso',
   tagline: 'Authenticate Single Sign On users via SAML',
   url: 'https://samlbox.netlify.com',
   baseUrl: '/',
@@ -12,7 +12,6 @@ module.exports = {
   ],
   themeConfig: {
     algolia: {
-      appId: 'BH4D9OD16A',
       apiKey: 'e446f4b89c6d2f86db157cc2906a1520',
       indexName: 'ossoapp',
       algoliaOptions: {}, // Optional, if provided by Algolia
@@ -20,7 +19,7 @@ module.exports = {
     navbar: {
       title: 'Osso',
       logo: {
-        alt: 'OSSO logo',
+        alt: 'Osso logo',
         src: 'img/logo.svg',
       },
       links: [
