@@ -6,7 +6,7 @@
  */
 
  .footer {
-  background-color: var(--ifm-color-primary);
+  background-color: var(--ifm-hero-background-color);
   color: var(--ifm-color-secondary-lightest);
 }
 .footerRow{

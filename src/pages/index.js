@@ -7,6 +7,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useMediaQuery } from 'react-responsive'
 import styles from './styles.module.css';
 import screens from '../utils/responsive';
+import SAMLSvg from '../components/svg/saml';
 
 const features = [
   {
@@ -18,6 +19,7 @@ const features = [
         users into your application.
       </>
     ),
+    Component: SAMLSvg,
   },
   {
     title: <>Configuration Boilerplate</>,
@@ -27,6 +29,7 @@ const features = [
         own application to onboard enterprise accounts and configure their SAML Identity Provider.
       </>
     ),
+    Component: SAMLSvg,
   },
   {
     title: <>Docs for Your Whole Team</>,
@@ -37,22 +40,15 @@ const features = [
         customers to make onboarding SAML accounts smooth sailing.
       </>
     ),
+    Component: SAMLSvg,
   },
 ];
-
-function Feature({ title, description }) {
-  return (
-    <div>
-      <h3>{title}</h3>
-      <p>{description}</p>
-    </div>
-  );
-}
 
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   const isLargeScreen = useMediaQuery({ query: screens.large })
+  const isSmallScreen = useMediaQuery({ query: screens.small })
 
   return (
     <Layout
@@ -82,23 +78,28 @@ function Home() {
       <main>
         <section className={styles.features}>
           <div className="container">
-            <div className="row">
-              <div className='col col--6'>
-                <div className={styles.featureList}>
-                  {features.map((props, idx) => (
-                    <Feature key={idx} {...props} />
-                  ))}
+            {features.map(({ title, description, Component }, idx) => (
+              <div className={classnames("row", styles.row)} >
+                <div className='col col--6'>
+                  <div className={styles.featureList}>
+                    <div>
+                      <h3>
+                        {isLargeScreen && <span className={styles.titleMarker} />}
+                        {title}
+                      </h3>
+                      <p>{description}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className={classnames("col col--4 col--offset-2", styles.imageContainer)} >
+                  <Component />
                 </div>
               </div>
-              <div className={classnames("col col--5 col--offset-1", styles.imageContainer)} >
-                <img src='img/lander.png' alt='background image' />
-              </div>
-            </div>
-
+            ))}
           </div>
         </section>
       </main>
-    </Layout>
+    </Layout >
   );
 }
 

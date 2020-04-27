@@ -17,6 +17,16 @@
 
   --ifm-color-secondary-lightest: #FFFFFF;  
   --ifm-color-secondary: #E5E5E5;
+
+  --ifm-hero-background-color: var(--ifm-color-primary);
+
+  --ifm-landing-page-font-color: var(--ifm-color-primary);
+}
+
+html[data-theme='dark']{
+  --ifm-hero-background-color: #1e2125;
+  --ifm-landing-page-font-color: var(--ifm-color-secondary-lightest);
+
 }
 
 body, html {
