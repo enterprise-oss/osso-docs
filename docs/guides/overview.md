@@ -18,6 +18,20 @@ users into your application.
 Osso is a complete solution for authenticating users via SAML. It's offered as a microservice that 
 you can deploy to your own infrastructure. The application is written in Ruby with the Sinatra framework.
 
+The microservice includes two main aspects of functionality - IDP configuration and user authentication. 
+
+IDP configuration is necessary for every account that wishes to use SAML-based authentication, and Osso 
+provides an admin interface for configuration, as well as back end functionality to persist configuration 
+that is used during user authentication.
+
+Osso's authentication functionality allows you to send users who require SAML authentication to an OAuth authorization 
+endpoint inside your Osso instance. Osso will then send the user to their IDP based on the configuration you 
+performed perviously. Once the user logs in to their IDP, they are redirected back to your Osso instance, where 
+Osso normalizes the user payload from various IDPs.
+
+Osso then sends the user back to your application's OAuth redirect URI with a `code` parameter. Following the OAuth 
+spec, you'll exchange this code for a profile describing the user, allowing you to sign the user into your application.
+
 See our technical documentation on deployment.
 
 ## Enterprise Onboarding

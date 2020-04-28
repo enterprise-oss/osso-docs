@@ -53,7 +53,7 @@ body, html {
 
 .navbar__title {
   margin-top: -11px;
-  color: var(--ifm-color-primary);
+  color: var(--ifm-landing-page-font-color);
   font-family: 'Darker Grotesque', sans-serif;
   font-weight: 600;
   font-size: 3rem;

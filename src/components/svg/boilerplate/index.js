@@ -5,8 +5,8 @@ import styles from './styles.module.css';
 
 export default () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.75 })
-  return (
 
+  return (
     <svg ref={ref} className={classnames(styles.svg, { [styles.active]: inView })} width="156" height="337" viewBox="0 0 156 337" fill="none" xmlns="http://www.w3.org/2000/svg" >
       <path d="M75.8712 249.55C75.5648 249.526 75.3476 249.237 75.4145 248.937L77.5482 239.369C77.678 238.787 78.5343 238.88 78.5362 239.477L78.5661 249.278C78.567 249.585 78.2935 249.82 77.9893 249.778C77.2894 249.682 76.5832 249.606 75.8712 249.55Z" className={styles.svgElem1}></path>
       <path d="M83.5988 251.009C83.305 250.92 83.1552 250.592 83.2848 250.313L87.4193 241.435C87.671 240.894 88.4875 241.169 88.3612 241.752L86.2876 251.325C86.2226 251.626 85.9043 251.797 85.616 251.69C84.9525 251.444 84.2799 251.217 83.5988 251.009Z" className={styles.svgElem2}></path>
