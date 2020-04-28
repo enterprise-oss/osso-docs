@@ -7,7 +7,10 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useMediaQuery } from 'react-responsive'
 import styles from './styles.module.css';
 import screens from '../utils/responsive';
+
 import SAMLSvg from '../components/svg/saml';
+import BoilerplateSvg from '../components/svg/boilerplate';
+import TeamDocsSvg from '../components/svg/team_docs';
 
 const features = [
   {
@@ -29,7 +32,7 @@ const features = [
         own application to onboard enterprise accounts and configure their SAML Identity Provider.
       </>
     ),
-    Component: SAMLSvg,
+    Component: BoilerplateSvg,
   },
   {
     title: <>Docs for Your Whole Team</>,
@@ -40,7 +43,7 @@ const features = [
         customers to make onboarding SAML accounts smooth sailing.
       </>
     ),
-    Component: SAMLSvg,
+    Component: TeamDocsSvg,
   },
 ];
 
@@ -48,7 +51,6 @@ function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   const isLargeScreen = useMediaQuery({ query: screens.large })
-  const isSmallScreen = useMediaQuery({ query: screens.small })
 
   return (
     <Layout
@@ -91,7 +93,7 @@ function Home() {
                     </div>
                   </div>
                 </div>
-                <div className={classnames("col col--4 col--offset-2", styles.imageContainer)} >
+                <div className={classnames("col col--5 col--offset-1", styles.imageContainer)} >
                   <Component />
                 </div>
               </div>

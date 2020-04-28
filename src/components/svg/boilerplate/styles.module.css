@@ -1,0 +1,944 @@
+.svg {
+  margin: 0 auto;
+  display: block;
+}
+
+.svg .svgElem1 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0s;
+          transition: fill 2s linear 0s;
+}
+
+.svg.active .svgElem1 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem2 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.05s;
+          transition: fill 2s linear 0.05s;
+}
+
+.svg.active .svgElem2 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem3 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.1s;
+          transition: fill 2s linear 0.1s;
+}
+
+.svg.active .svgElem3 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem4 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.15000000000000002s;
+          transition: fill 2s linear 0.15000000000000002s;
+}
+
+.svg.active .svgElem4 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem5 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.2s;
+          transition: fill 2s linear 0.2s;
+}
+
+.svg.active .svgElem5 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem6 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.25s;
+          transition: fill 2s linear 0.25s;
+}
+
+.svg.active .svgElem6 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem7 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.30000000000000004s;
+          transition: fill 2s linear 0.30000000000000004s;
+}
+
+.svg.active .svgElem7 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem8 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.35000000000000003s;
+          transition: fill 2s linear 0.35000000000000003s;
+}
+
+.svg.active .svgElem8 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem9 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.4s;
+          transition: fill 2s linear 0.4s;
+}
+
+.svg.active .svgElem9 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem10 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.45s;
+          transition: fill 2s linear 0.45s;
+}
+
+.svg.active .svgElem10 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem11 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.5s;
+          transition: fill 2s linear 0.5s;
+}
+
+.svg.active .svgElem11 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem12 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.55s;
+          transition: fill 2s linear 0.55s;
+}
+
+.svg.active .svgElem12 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem13 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.6000000000000001s;
+          transition: fill 2s linear 0.6000000000000001s;
+}
+
+.svg.active .svgElem13 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem14 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.65s;
+          transition: fill 2s linear 0.65s;
+}
+
+.svg.active .svgElem14 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem15 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.7000000000000001s;
+          transition: fill 2s linear 0.7000000000000001s;
+}
+
+.svg.active .svgElem15 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem16 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.75s;
+          transition: fill 2s linear 0.75s;
+}
+
+.svg.active .svgElem16 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem17 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.8s;
+          transition: fill 2s linear 0.8s;
+}
+
+.svg.active .svgElem17 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem18 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.8500000000000001s;
+          transition: fill 2s linear 0.8500000000000001s;
+}
+
+.svg.active .svgElem18 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem19 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.9s;
+          transition: fill 2s linear 0.9s;
+}
+
+.svg.active .svgElem19 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem20 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 0.9500000000000001s;
+          transition: fill 2s linear 0.9500000000000001s;
+}
+
+.svg.active .svgElem20 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem21 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1s;
+          transition: fill 2s linear 1s;
+}
+
+.svg.active .svgElem21 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem22 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.05s;
+          transition: fill 2s linear 1.05s;
+}
+
+.svg.active .svgElem22 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem23 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.1s;
+          transition: fill 2s linear 1.1s;
+}
+
+.svg.active .svgElem23 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem24 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.1500000000000001s;
+          transition: fill 2s linear 1.1500000000000001s;
+}
+
+.svg.active .svgElem24 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem25 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.2000000000000002s;
+          transition: fill 2s linear 1.2000000000000002s;
+}
+
+.svg.active .svgElem25 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem26 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.25s;
+          transition: fill 2s linear 1.25s;
+}
+
+.svg.active .svgElem26 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem27 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.3s;
+          transition: fill 2s linear 1.3s;
+}
+
+.svg.active .svgElem27 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem28 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.35s;
+          transition: fill 2s linear 1.35s;
+}
+
+.svg.active .svgElem28 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem29 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.4000000000000001s;
+          transition: fill 2s linear 1.4000000000000001s;
+}
+
+.svg.active .svgElem29 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem30 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.4500000000000002s;
+          transition: fill 2s linear 1.4500000000000002s;
+}
+
+.svg.active .svgElem30 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem31 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.5s;
+          transition: fill 2s linear 1.5s;
+}
+
+.svg.active .svgElem31 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem32 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.55s;
+          transition: fill 2s linear 1.55s;
+}
+
+.svg.active .svgElem32 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem33 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.6s;
+          transition: fill 2s linear 1.6s;
+}
+
+.svg.active .svgElem33 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem34 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.6500000000000001s;
+          transition: fill 2s linear 1.6500000000000001s;
+}
+
+.svg.active .svgElem34 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem35 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.7000000000000002s;
+          transition: fill 2s linear 1.7000000000000002s;
+}
+
+.svg.active .svgElem35 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem36 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.75s;
+          transition: fill 2s linear 1.75s;
+}
+
+.svg.active .svgElem36 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem37 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.8s;
+          transition: fill 2s linear 1.8s;
+}
+
+.svg.active .svgElem37 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem38 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.85s;
+          transition: fill 2s linear 1.85s;
+}
+
+.svg.active .svgElem38 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem39 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.9000000000000001s;
+          transition: fill 2s linear 1.9000000000000001s;
+}
+
+.svg.active .svgElem39 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem40 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 1.9500000000000002s;
+          transition: fill 2s linear 1.9500000000000002s;
+}
+
+.svg.active .svgElem40 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem41 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2s;
+          transition: fill 2s linear 2s;
+}
+
+.svg.active .svgElem41 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem42 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.0500000000000003s;
+          transition: fill 2s linear 2.0500000000000003s;
+}
+
+.svg.active .svgElem42 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem43 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.1s;
+          transition: fill 2s linear 2.1s;
+}
+
+.svg.active .svgElem43 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem44 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.15s;
+          transition: fill 2s linear 2.15s;
+}
+
+.svg.active .svgElem44 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem45 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.2s;
+          transition: fill 2s linear 2.2s;
+}
+
+.svg.active .svgElem45 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem46 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.25s;
+          transition: fill 2s linear 2.25s;
+}
+
+.svg.active .svgElem46 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem47 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.3000000000000003s;
+          transition: fill 2s linear 2.3000000000000003s;
+}
+
+.svg.active .svgElem47 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem48 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.35s;
+          transition: fill 2s linear 2.35s;
+}
+
+.svg.active .svgElem48 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem49 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.4000000000000004s;
+          transition: fill 2s linear 2.4000000000000004s;
+}
+
+.svg.active .svgElem49 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem50 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.45s;
+          transition: fill 2s linear 2.45s;
+}
+
+.svg.active .svgElem50 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem51 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.5s;
+          transition: fill 2s linear 2.5s;
+}
+
+.svg.active .svgElem51 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem52 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.5500000000000003s;
+          transition: fill 2s linear 2.5500000000000003s;
+}
+
+.svg.active .svgElem52 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem53 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.6s;
+          transition: fill 2s linear 2.6s;
+}
+
+.svg.active .svgElem53 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem54 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.6500000000000004s;
+          transition: fill 2s linear 2.6500000000000004s;
+}
+
+.svg.active .svgElem54 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem55 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.7s;
+          transition: fill 2s linear 2.7s;
+}
+
+.svg.active .svgElem55 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem56 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.75s;
+          transition: fill 2s linear 2.75s;
+}
+
+.svg.active .svgElem56 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem57 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.8000000000000003s;
+          transition: fill 2s linear 2.8000000000000003s;
+}
+
+.svg.active .svgElem57 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem58 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.85s;
+          transition: fill 2s linear 2.85s;
+}
+
+.svg.active .svgElem58 {
+  fill: var(--ifm-landing-page-font-color);
+}
+
+.svg .svgElem59 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.9000000000000004s;
+          transition: fill 2s linear 2.9000000000000004s;
+}
+
+.svg.active .svgElem59 {
+  fill: rgb(255, 205, 131);
+}
+
+.svg .svgElem60 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 2.95s;
+          transition: fill 2s linear 2.95s;
+}
+
+.svg.active .svgElem60 {
+  fill: rgb(255, 205, 131);
+}
+
+.svg .svgElem61 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3s;
+          transition: fill 2s linear 3s;
+}
+
+.svg.active .svgElem61 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem62 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.0500000000000003s;
+          transition: fill 2s linear 3.0500000000000003s;
+}
+
+.svg.active .svgElem62 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem63 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.1s;
+          transition: fill 2s linear 3.1s;
+}
+
+.svg.active .svgElem63 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem64 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.1500000000000004s;
+          transition: fill 2s linear 3.1500000000000004s;
+}
+
+.svg.active .svgElem64 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem65 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.2s;
+          transition: fill 2s linear 3.2s;
+}
+
+.svg.active .svgElem65 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem66 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.25s;
+          transition: fill 2s linear 3.25s;
+}
+
+.svg.active .svgElem66 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem67 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.3000000000000003s;
+          transition: fill 2s linear 3.3000000000000003s;
+}
+
+.svg.active .svgElem67 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem68 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.35s;
+          transition: fill 2s linear 3.35s;
+}
+
+.svg.active .svgElem68 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem69 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.4000000000000004s;
+          transition: fill 2s linear 3.4000000000000004s;
+}
+
+.svg.active .svgElem69 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem70 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.45s;
+          transition: fill 2s linear 3.45s;
+}
+
+.svg.active .svgElem70 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem71 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.5s;
+          transition: fill 2s linear 3.5s;
+}
+
+.svg.active .svgElem71 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem72 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.5500000000000003s;
+          transition: fill 2s linear 3.5500000000000003s;
+}
+
+.svg.active .svgElem72 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem73 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.6s;
+          transition: fill 2s linear 3.6s;
+}
+
+.svg.active .svgElem73 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem74 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.6500000000000004s;
+          transition: fill 2s linear 3.6500000000000004s;
+}
+
+.svg.active .svgElem74 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem75 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.7s;
+          transition: fill 2s linear 3.7s;
+}
+
+.svg.active .svgElem75 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem76 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.75s;
+          transition: fill 2s linear 3.75s;
+}
+
+.svg.active .svgElem76 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem77 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.8000000000000003s;
+          transition: fill 2s linear 3.8000000000000003s;
+}
+
+.svg.active .svgElem77 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem78 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.85s;
+          transition: fill 2s linear 3.85s;
+}
+
+.svg.active .svgElem78 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem79 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.9000000000000004s;
+          transition: fill 2s linear 3.9000000000000004s;
+}
+
+.svg.active .svgElem79 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem80 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 3.95s;
+          transition: fill 2s linear 3.95s;
+}
+
+.svg.active .svgElem80 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem81 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4s;
+          transition: fill 2s linear 4s;
+}
+
+.svg.active .svgElem81 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem82 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.05s;
+          transition: fill 2s linear 4.05s;
+}
+
+.svg.active .svgElem82 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem83 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.1000000000000005s;
+          transition: fill 2s linear 4.1000000000000005s;
+}
+
+.svg.active .svgElem83 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem84 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.15s;
+          transition: fill 2s linear 4.15s;
+}
+
+.svg.active .svgElem84 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem85 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.2s;
+          transition: fill 2s linear 4.2s;
+}
+
+.svg.active .svgElem85 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem86 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.25s;
+          transition: fill 2s linear 4.25s;
+}
+
+.svg.active .svgElem86 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem87 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.3s;
+          transition: fill 2s linear 4.3s;
+}
+
+.svg.active .svgElem87 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem88 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.3500000000000005s;
+          transition: fill 2s linear 4.3500000000000005s;
+}
+
+.svg.active .svgElem88 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem89 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.4s;
+          transition: fill 2s linear 4.4s;
+}
+
+.svg.active .svgElem89 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem90 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.45s;
+          transition: fill 2s linear 4.45s;
+}
+
+.svg.active .svgElem90 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem91 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.5s;
+          transition: fill 2s linear 4.5s;
+}
+
+.svg.active .svgElem91 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem92 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.55s;
+          transition: fill 2s linear 4.55s;
+}
+
+.svg.active .svgElem92 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem93 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.6000000000000005s;
+          transition: fill 2s linear 4.6000000000000005s;
+}
+
+.svg.active .svgElem93 {
+  fill: rgb(196, 196, 196);
+}
+
+.svg .svgElem94 {
+  fill: transparent;
+  -webkit-transition: fill 2s linear 4.65s;
+          transition: fill 2s linear 4.65s;
+}
+
+.svg.active .svgElem94 {
+  fill: rgb(196, 196, 196);
+}
