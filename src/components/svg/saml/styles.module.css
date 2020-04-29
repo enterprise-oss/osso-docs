@@ -3,6 +3,7 @@
 .svg {
   margin: 0 auto;
   display: block;
+  max-width: 299px;
 }
 
 .svg .svgElem1 {

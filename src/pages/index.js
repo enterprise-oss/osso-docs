@@ -38,7 +38,7 @@ const features = [
     title: <>Docs for Your Whole Team</>,
     description: (
       <>
-        Beyond technical docuemtnation, Osso provides guides and
+        Beyond technical documentation, Osso provides guides and
         docs for your sales and success teams and your enterprise
         customers to make onboarding SAML accounts smooth sailing.
       </>
@@ -81,19 +81,15 @@ function Home() {
         <section className={styles.features}>
           <div className="container">
             {features.map(({ title, description, Component }, idx) => (
-              <div className={classnames("row", styles.row)} >
-                <div className='col col--6'>
-                  <div className={styles.featureList}>
-                    <div>
-                      <h3>
-                        {isLargeScreen && <span className={styles.titleMarker} />}
-                        {title}
-                      </h3>
-                      <p>{description}</p>
-                    </div>
-                  </div>
+              <div key={idx} className={classnames("row", styles.row)} >
+                <div className='col'>
+                  <h3>
+                    {isLargeScreen && <span className={styles.titleMarker} />}
+                    {title}
+                  </h3>
+                  <p>{description}</p>
                 </div>
-                <div className={classnames("col col--5 col--offset-1", styles.imageContainer)} >
+                <div className={classnames("col", styles.imageContainer)} >
                   <Component />
                 </div>
               </div>

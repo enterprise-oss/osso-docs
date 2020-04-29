@@ -1,13 +1,7 @@
 .svg {
-  margin: 0 auto;
-  display: block;
+  display: inline-block;
 }
 
-.svg .svgElem1 {
-  fill: transparent;
-  -webkit-transition: fill 2s linear 0s;
-          transition: fill 2s linear 0s;
-}
 .connector {
   stroke: var(--ifm-landing-page-font-color);
 }

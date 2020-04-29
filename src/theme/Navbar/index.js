@@ -10,6 +10,7 @@ import classnames from 'classnames';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import { useMediaQuery } from 'react-responsive'
 
 import SearchBar from '@theme/SearchBar';
 import Toggle from '@theme/Toggle';
@@ -20,6 +21,7 @@ import useLogo from '@theme/hooks/useLogo';
 
 import styles from './styles.module.css';
 import Logo from '../../components/svg/logo';
+import screens from '../../utils/responsive';
 
 function NavLink({ activeBasePath, to, href, label, position, ...props }) {
   const toUrl = useBaseUrl(to);
@@ -129,6 +131,7 @@ function Navbar() {
     e => (e.target.checked ? setDarkTheme() : setLightTheme()),
     [setLightTheme, setDarkTheme],
   );
+  const isLargeScreen = useMediaQuery({ query: screens.large })
 
   return (
     <nav
@@ -165,9 +168,7 @@ function Navbar() {
             </svg>
           </div>
           <Link className="navbar__brand" to={logoLink} {...logoLinkProps}>
-            {logoImageUrl != null && (
-              <Logo />
-            )}
+            {isLargeScreen && <Logo />}
             {title != null && (
               <strong
                 className={classnames('navbar__title', {
@@ -216,12 +217,7 @@ function Navbar() {
             to={logoLink}
             {...logoLinkProps}>
             {logoImageUrl != null && (
-              <img
-                key={isClient}
-                className="navbar__logo"
-                src={logoImageUrl}
-                alt={logoAlt}
-              />
+              <Logo />
             )}
             {title != null && (
               <strong className="navbar__title">{title}</strong>

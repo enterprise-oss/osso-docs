@@ -20,7 +20,7 @@ module.exports = {
       title: 'Osso',
       logo: {
         alt: 'Osso logo',
-        src: 'img/logo.svg',
+        src: '//LogoComponent',
       },
       links: [
         {

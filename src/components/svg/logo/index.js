@@ -1,8 +1,9 @@
+import classnames from 'classnames';
 import React from 'react';
 import styles from './styles.module.css';
 
 export default () => (
-  <svg className="navbar__logo" width={64} height={64} viewBox="0 0 64 64" fill="none">
+  <svg className={classnames("navbar__logo", styles.svg)} viewBox="0 0 64 64" fill="none">
     <path
       className={styles.connector}
       d="M47.5 19.994s-32-12.494-32-2S47 35 47 46.45c0 11.452-31.5-2-31.5-2"

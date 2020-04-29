@@ -12,7 +12,7 @@
   background-image: url('/img/bg.png');     
   background-position: left -40px top -30px;
   background-blend-mode: soft-light;
-  margin-bottom: 40px;
+  margin-bottom: 169px;
 }
 
 .heroCopy {
@@ -43,15 +43,9 @@
   width: 100%;
 }
 
-.featureList {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-  padding-top: 100px;
-}
 
 .row {
+  align-items: center;
   margin-bottom: 120px;
 }
 
@@ -67,7 +61,8 @@
 
 .features h3{
   font-size: 30px;
-  color: var(--ifm-landing-page-font-color)
+  color: var(--ifm-landing-page-font-color);
+  margin-bottom: 16px;
 }
 
 .features p{
@@ -78,6 +73,7 @@
 @media screen and (max-width: 996px) {
   .heroBanner {
     height: 320px;
+    margin-bottom: 56px;
   }
 
   .heroCopy {
@@ -89,9 +85,8 @@
     font-size: 24px;
   }
 
-  .imageContainer > svg {
-    display: block;
-    margin: 0 auto;
+  .imageContainer {
+    margin-bottom: 32px;
   }
 
   .row {
@@ -106,6 +101,7 @@
     display: block;
     border-bottom: 1px solid #FFCD83;
     margin: 56px 0;
+    width: 100%;
   }
 
   .row:last-of-type {
