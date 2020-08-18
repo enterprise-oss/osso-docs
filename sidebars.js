@@ -13,7 +13,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Documentation',
-      items: ['doc1',]
+      items: ['deployment', 'doc1']
     },
     {
       type: 'category',
