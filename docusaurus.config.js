@@ -1,11 +1,11 @@
 module.exports = {
   title: 'Osso',
   tagline: 'Authenticate Single Sign On users via SAML',
-  url: 'https://samlbox.netlify.com',
+  url: 'https://ossoapp.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'enterprise-oss',
-  projectName: 'saml-box',
+  projectName: 'osso-docs',
   stylesheets: [
     'https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@600&display=swap',
     'https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap'
@@ -37,7 +37,7 @@ module.exports = {
         },
         { to: 'blog', label: 'Blog', position: 'right' },
         {
-          href: 'https://github.com/enterprise-oss/saml-box',
+          href: 'https://github.com/enterprise-oss/osso-docs',
           label: 'GitHub',
           position: 'right'
         },
@@ -87,7 +87,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/enterprise-oss/saml-box-docs/edit/master/',
+            'https://github.com/enterprise-oss/osso-docs/edit/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
