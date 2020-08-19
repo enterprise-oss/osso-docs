@@ -5,9 +5,9 @@ title: Deployment
 
 Osso is primarily available as a Ruby application. The main Github repository 
 is a light Sinatra application written around the Osso gem, which is itself 
-a couple of Sinatra applications with shared models, helpers, and migrations 
+a collection of modular Sinatra applications with shared models, helpers, and migrations 
 to back the models. Osso can be deployed to Heroku or any cloud provider that 
-supports app json, or own your own if you're familiar with Rack applications.
+supports app.json with one click, or anywhere you can deploy Rack applications.
 
 This approach allows developers to deploy an instance of Osso from the main 
 Github repository while receiving updates via the Ruby gem. You can also add 
