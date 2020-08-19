@@ -86,8 +86,8 @@ a more technical explanation of the moving parts. The challenge with this approa
 of various Identity Providers and building against those vagaries, though Osso's IDP guides can help.
 
 Another alternative is to buy a service from an authentication vendor. AWS offers Cognito, Auth0 has support for SAML, 
-and Logon Labs is a third option. Some IDPs are ven getting in to this space as well, such as Okta. In our experience, 
+and Logon Labs is a third option. Some IDPs are getting in to this space as well, such as Okta. In our experience, 
 these services are all pretty obtuse, not well documented and expensive. You'll have to sit through sales demos. They're 
-also closed source, often venture-backed, and may not be able to guarantee the uptime that you need. Finally, paid services 
+also closed source, often venture-backed, and may not be able to guarantee the certifications or uptime that you need. Finally, paid services 
 typically don't make it easy to migrate, so you're getting locked in to a vendor.
 
