@@ -5,13 +5,11 @@ title: What is Osso?
 
 Osso provides an open-source microservice for authenticating users against SAML-based Identity Providers.
 
-You deploy your own instance of Osso and use it to onboard enterprise accounts using the Admin UI, 
-which allows your team members or to onbaord enterprise accounts by setting up an Identity Provider. 
-You can also setup the Admin UI to allow enterprise customers to configure their own Identity Provider 
-for your application.
+You deploy your own instance of Osso and use it to onboard enterprise accounts using the Admin UI, which allows your team members or customers to set up a SAML-based Identity Provider. 
 
-Finally, consume your Osso microservice's OAuth server in your own application to begin signing SAML-based 
-users into your application.
+Then consume your Osso microservice's OAuth server in your own application to begin signing SAML-based users into your application. Send users who want to sign in via SAML to your Osso instance as part of an OAuth 2.0 authorization flow and receive a normalized user profile.
+
+## Admin UI
 
 ## Deployment
 
