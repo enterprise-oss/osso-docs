@@ -24,7 +24,7 @@ module.exports = {
       },
       links: [
         {
-          to: 'docs/guides/what-is-saml',
+          to: 'docs/overview',
           activeBasePath: 'guides',
           label: 'Guides',
           position: 'right',

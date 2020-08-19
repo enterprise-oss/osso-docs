@@ -1,28 +1,33 @@
 module.exports = {
   someSidebar: [
+    'what-is-saml',
+    'overview',
     {
       type: 'category',
-      label: 'Guides',
+      label: 'Integration',
       items: [
-        'guides/what-is-saml',
-        'guides/overview',
-        'guides/deployment',
-        'guides/jwt-authentication',
+        'integration/deployment',
+        'integration/jwt-authentication',
+        'integration/oauth-consumption',
+        'integration/test',
+        'integration/self-serve-osso-react',
+      ]
+    },
+    {
+      type: 'category',
+      label: 'Usage',
+      items: [
         {
           type: 'category',
           label: 'IDP Configuration',
-          items: ['guides/idp-config/admin-ui'],
-        }]
-    },
-    {
-      type: 'category',
-      label: 'Documentation',
-      items: ['doc1']
-    },
-    {
-      type: 'category',
-      label: 'Identity Providers',
-      items: ['idp/overview', 'idp/okta',]
+          items: ['integration/idp-config/admin-ui'],
+        },
+        {
+          type: 'category',
+          label: 'Identity Providers',
+          items: ['idp/overview', 'idp/okta',]
+        },
+      ]
     },
   ],
 };

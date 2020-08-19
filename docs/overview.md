@@ -47,11 +47,11 @@ See our IDP configuration guide to learn about the configuration process. Then s
 documentation to learn how to authenticate your team members and enterprise accounts to access the Admin UI 
 using JSON Web Tokens (JWTs). You may also want to review our guide on enterprise facing documentation.
 
-## Consume OAuth Server
+<!-- ## Consume OAuth Server
 
 Once your Osso instance is deployed, and you've configured at least one OAuth Client and  Identity Provider 
 instance, you're ready to start signing users into your application. You'll use slightly-modified OAuth to 
 consume the user resources that Osso provides, allowing you to sign the SAML-based users into your application.
 
 See our guide on Sign-In UX to learn how you can integrate Osso into your existing login experience. Then see 
-our technical documentation on consuming the OAuth resources. 
+our technical documentation on consuming the OAuth resources.  -->
