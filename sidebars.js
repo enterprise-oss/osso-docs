@@ -17,7 +17,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Documentation',
-      items: ['deployment', 'doc1']
+      items: ['doc1']
     },
     {
       type: 'category',
