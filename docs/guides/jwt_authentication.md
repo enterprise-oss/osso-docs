@@ -1,4 +1,7 @@
-# JWT Authentication
+---
+id: jwt-authentication
+title: JWT Authentication
+---
 
 > Osso Hosted users can skip this step and reduce the integration load on your dev team.
 
