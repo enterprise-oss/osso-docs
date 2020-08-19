@@ -1,6 +1,6 @@
 ---
 id: overview
-title: Osso Overview
+title: What is Osso?
 ---
 
 Osso provides an open-source microservice for authenticating users against SAML-based Identity Providers.

@@ -1,6 +1,6 @@
 ---
 id: what-is-saml
-title: What Is SAML?
+title: What is SAML?
 ---
 
 ## Background
