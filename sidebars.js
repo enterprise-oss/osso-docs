@@ -6,6 +6,7 @@ module.exports = {
       items: [
         'guides/what-is-saml',
         'guides/overview',
+        'guides/deployment',
         'guides/jwt-authentication',
         {
           type: 'category',
