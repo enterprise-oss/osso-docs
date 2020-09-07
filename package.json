@@ -1,6 +1,6 @@
 {
   "name": "osso-docs",
-  "version": "1.0.0.rc",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "docusaurus start",
