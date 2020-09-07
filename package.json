@@ -1,6 +1,6 @@
 {
-  "name": "saml-box-docs",
-  "version": "0.0.0",
+  "name": "osso-docs",
+  "version": "1.0.0.rc",
   "private": true,
   "scripts": {
     "start": "docusaurus start",
