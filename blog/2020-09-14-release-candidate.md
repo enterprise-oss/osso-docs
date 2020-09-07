@@ -14,6 +14,8 @@ Osso is a free, open-source service for adding SAML-based SSO to your applicatio
 
 ### SAML-based SSO
 
+(shorter version of What is SAML from docs)
+
 ### Building off existing OSS
 
 Osso depends on some important open source projects in order to provide authentication functionality. OneLogin maintains `ruby-saml`, a ruby gem that "provides a means for managing authorization initialization and confirmation requests from identity providers." SAML is 15 year old open standard - we don't see any need to reinvent the wheel here, and this project is stable, well-tested and well-maintained.
@@ -50,3 +52,22 @@ In some ways we see this as the biggest value add - our open source docs should 
 
 ### Next steps
 
+Between now and a proper v1 release, here's what the Osso team will be focused on:
+
+#### More Providers
+
+We plan to keep adding providers, and the bulk of this work is in creating our industry best documentation. We plan to add Google (SAML), OneLogin, Ping, Gluu (yay OSS!), and others that the community asks for. 
+
+#### Self-serve Paid Plans
+
+We'll always be free and open source, but we'll also sell paid hosted plans for companies that wish to decrease the integration workload on the development team or would like to have the peace of mind that the Osso team can provide support if anything comes up. Our hosted plans will be a deployment of an Osso instance, and your data will not be mixed with other Osso customers'.
+
+#### More OAuth Consumption Libraries
+
+We're releasing omniauth-osso today for Ruby apps, and have started on a Passport strategy for NodeJS apps. We'd like to further explore consuming OAuth in other languages and offering libraries to make consuming your Osso instance easy in whatever langauge you write your backend.
+
+#### Let's chat!
+
+We're really intersted in having conversations with Engineering and Sales leaders who have maybe heard of SAML, or have it on their backlog, who might consider using Osso. We'd also be thrilled to chat with folks on the other side of this - anyone in IT or Infosec who administers their company's Identity Provider.
+
+You can reach us at team@enterpriseoss.dev
