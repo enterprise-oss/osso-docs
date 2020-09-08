@@ -55,7 +55,7 @@ You may be asking yourself _If Osso depends on these other projects for so much 
 
 As we've seen, there's already plenty of OSS for adding SAML-based SSO to your application. So what value does Osso actually provide?
 
-While the OSS we've discussed is great and well-documented, there's a huge gap between setting up an SSO proof of concept and releasing SSO as a scalable feature that Sales knows how to sell, Customer Success knows how to onboard and troubleshoot, and Engineering knows how to debug. If you were to follow [OneLogin's Ruby SAML Authenticatiopn Examples](https://developers.onelogin.com/saml/ruby), you might think 
+While the OSS we've discussed is great and well-documented, there's a huge gap between setting up an SSO proof of concept and releasing SSO as a scalable feature that Sales knows how to sell, Customer Success knows how to onboard and troubleshoot, and Engineering knows how to debug. If you were to follow [OneLogin's Ruby SAML Authenticatiopn Examples](https://developers.onelogin.com/saml/ruby), you might think you can add SAML integration in under an hour. But the truth is this proof of concept is wholly insufficient for building out a scalable SSO integration.
 
 Osso provides two main areas of functionality to help close this gap: CRUD and Docs.
 
