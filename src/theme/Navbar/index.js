@@ -105,7 +105,7 @@ function Navbar() {
   const {
     siteConfig: {
       themeConfig: {
-        navbar: { title, links = [], hideOnScroll = false } = {},
+        navbar: { title, items: links = [], hideOnScroll = false } = {},
         disableDarkMode = false,
       },
     },

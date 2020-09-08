@@ -16,13 +16,22 @@ module.exports = {
       indexName: 'ossoapp',
       algoliaOptions: {}, // Optional, if provided by Algolia
     },
+    announcementBar: {
+      id: 'support_us', // Any value that will identify this message.
+      content:
+        'Osso v1.0.0.rc is out! 🎉 🍾 Read our <a href="/blog/1-0-0-release-candidate">launch blog post</a>.',
+      backgroundColor: '#fafbfc', // Defaults to `#fff`.
+      textColor: '#091E42', // Defaults to `#000`.
+      isCloseable: false, // Defaults to `true`.
+    },
     navbar: {
       title: 'Osso',
       logo: {
         alt: 'Osso logo',
         src: '//LogoComponent',
       },
-      links: [
+      
+      items: [
         {
           to: 'docs/overview',
           activeBasePath: 'guides',
@@ -37,7 +46,7 @@ module.exports = {
         },
         { to: 'blog', label: 'Blog', position: 'right' },
         {
-          href: 'https://github.com/enterprise-oss/osso-docs',
+          href: 'https://github.com/enterprise-oss/osso',
           label: 'GitHub',
           position: 'right'
         },

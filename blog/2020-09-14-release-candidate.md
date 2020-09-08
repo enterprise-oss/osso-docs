@@ -1,5 +1,5 @@
 ---
-id: 1-0-0-release-candidate
+slug: 1-0-0-release-candidate
 title: Osso v1.0.0.rc Available Now
 author: Sam Bauch
 author_title: Cofounder
@@ -14,15 +14,40 @@ Osso is a free, open-source service for adding SAML-based SSO to your applicatio
 
 ### SAML-based SSO
 
-(shorter version of What is SAML from docs)
+Security Assertion Markup Language (SAML) is an open specification that allows Identity Providers (IDPs) 
+to securely pass authorization credentials to a Service Provider (SP). SAML is conceptually very similar to 
+OAuth - instead of a user creating a password based account for every service they use, an IDP centralizes 
+identity for the user, and they use their IDP credentials to access the services they use. Where OAuth 
+is generally used for consumer oriented apps, enterprise companies often require the services they purchase to 
+offer SAML based Single Sign On (SSO).
+
+Another important distinction between OAuth and SAML based SSO is that SAML IDPs require you to configure your 
+application to receive authorization credentials _per IDP instance_ rather than for the IDP as an entity. With OAuth, 
+you integrate a provider like Twitter once, and all Twitter users can now sign in with their Twitter account. 
+
+With SAML, any time an Okta (or OneLogin, or Microsoft Azure ADFS) customer wants to sign in to your application from 
+their IDP instance, you need to configure your application to receive a SAML assertion from that instance. 
+You'll repeat this for every account that requires SAML-based authentication, even if they use the same IDP 
+as one of your other customers. Your customer must then also configure your application in their IDP, completing the 
+secure handshake that allows the customer's users to begin signing in to your application.
+
+
+### What is Osso
+
+Osso is an open-source microservice for authenticating users against SAML-based Identity Providers and signing them into your application.
+
+You deploy your own instance of Osso and use it to onboard enterprise accounts using the Admin UI, which allows your team members or customers to configure a SAML-based Identity Provider. Osso generates PDF documentation for your enterprise customer to then configure your application in their IDP.
+
+You consume your Osso microservice's OAuth server in your own application to begin signing SAML-based users into your application. Send users who want to sign in via SAML to your Osso instance as part of an OAuth 2.0 authorization flow and once they've authenticated against their IDP, exchange an access token for a normalized user profile.
+
 
 ### Building off existing OSS
 
-Osso depends on some important open source projects in order to provide authentication functionality. OneLogin maintains `ruby-saml`, a ruby gem that "provides a means for managing authorization initialization and confirmation requests from identity providers." SAML is 15 year old open standard - we don't see any need to reinvent the wheel here, and this project is stable, well-tested and well-maintained.
+Osso depends on some important open source projects in order to provide authentication functionality. OneLogin maintains [ruby-saml](https://github.com/onelogin/ruby-saml), a ruby gem that "provides a means for managing authorization initialization and confirmation requests from identity providers." SAML is 15 year old open standard - we don't see any need to reinvent the wheel here, and this project is stable, well-tested and well-maintained.
 
-Osso depends directly on `omniauth-multi-provider` which itself utilizes `ruby-saml`. Omniauth is a popular multilpe-provider authentication system for Rack-based applications, and this provider gem wraps `ruby-saml` so it can be used in the familiar Omniauth authentication flow. `omniauth-multi-provider` is similarly well-tested, and we again saw no reason to reinvent this additional wheel.
+Osso depends directly on [omniauth-multi-provider](https://github.com/salsify/omniauth-multi-provider) which itself utilizes `ruby-saml`. Omniauth is a popular multilpe-provider authentication system for Rack-based applications, and this provider gem wraps `ruby-saml` so it can be used in the familiar Omniauth authentication flow. `omniauth-multi-provider` is similarly well-tested, and we again saw no reason to reinvent this additional wheel.
 
-Finally, Osso provides an OAuth Server. OAuth is another stable and open standard, albeit one that is more familiar to modern web developers. You send your users through Osso as part of an OAuth authorization flow - Osso handles the SAML part, and once authenticated against an IDP, sends the user back to your application, eventually allowing you to request a profile for the user using an access token. Osso depends on `rack-oauth2` to provide a spec compliant OAuth server.
+Finally, Osso provides an OAuth Server. OAuth is another stable and open standard, albeit one that is more familiar to modern web developers. You send your users through Osso as part of an OAuth authorization flow - Osso handles the SAML part, and once authenticated against an IDP, sends the user back to your application, eventually allowing you to request a profile for the user using an access token. Osso depends on [rack-oauth2](https://github.com/nov/rack-oauth2) to provide a spec compliant OAuth server.
 
 You may be asking yourself _If Osso depends on these other projects for so much functionality, what does Osso actually do?_
 
@@ -30,7 +55,7 @@ You may be asking yourself _If Osso depends on these other projects for so much 
 
 As we've seen, there's already plenty of OSS for adding SAML-based SSO to your application. So what value does Osso actually provide?
 
-While the OSS we've discussed is great and well-documented, there's a huge gap between setting up an SSO proof of concept and releasing SSO as a scalable feature that Sales knows how to sell, Customer Success knows how to onboard and troubleshoot, and Engineering knows how to debug.
+While the OSS we've discussed is great and well-documented, there's a huge gap between setting up an SSO proof of concept and releasing SSO as a scalable feature that Sales knows how to sell, Customer Success knows how to onboard and troubleshoot, and Engineering knows how to debug. If you were to follow [OneLogin's Ruby SAML Authenticatiopn Examples](https://developers.onelogin.com/saml/ruby), you might think 
 
 Osso provides two main areas of functionality to help close this gap: CRUD and Docs.
 
@@ -70,4 +95,4 @@ We're releasing omniauth-osso today for Ruby apps, and have started on a Passpor
 
 We're really intersted in having conversations with Engineering and Sales leaders who have maybe heard of SAML, or have it on their backlog, who might consider using Osso. We'd also be thrilled to chat with folks on the other side of this - anyone in IT or Infosec who administers their company's Identity Provider.
 
-You can reach us at team@enterpriseoss.dev
+You can reach us at hello@enterpriseoss.dev
