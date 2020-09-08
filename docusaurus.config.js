@@ -38,12 +38,6 @@ module.exports = {
           label: 'Guides',
           position: 'right',
         },
-        {
-          to: 'docs/doc1',
-          activeBasePath: 'docs',
-          label: 'Documentation',
-          position: 'right',
-        },
         { to: 'blog', label: 'Blog', position: 'right' },
         {
           href: 'https://github.com/enterprise-oss/osso',
@@ -58,14 +52,7 @@ module.exports = {
         {
           title: 'Docs',
           items: [
-            {
-              label: 'Style Guide',
-              to: 'docs/doc1',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2',
-            },
+           
           ],
         },
         {
