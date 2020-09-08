@@ -69,7 +69,7 @@ function Home() {
                   'button button--secondary button--lg',
                   styles.getStarted,
                 )}
-                to={useBaseUrl('docs/guides/what-is-saml')}>
+                to={useBaseUrl('docs/what-is-saml')}>
                 Get Started
             </Link>
             </div>
