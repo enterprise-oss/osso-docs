@@ -31,11 +31,6 @@ module.exports = {
     },
     navbar: {
       title: 'Osso',
-      logo: {
-        alt: 'Osso logo',
-        src: '//LogoComponent',
-      },
-      
       items: [
         {
           to: 'docs/overview',
