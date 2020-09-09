@@ -1,0 +1,99 @@
+---
+slug: 1-0-0-release-candidate
+title: Osso v1.0.0.rc Available Now
+author: Sam Bauch
+author_title: Co-founder
+author_url: https://github.com/sbauch
+author_image_url: https://avatars1.githubusercontent.com/u/923033?s=460&u=db9bb41f9b279750c74afc1be0ab51db05539593&v=4
+tags: [Osso, SAML, SSO]
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+We've been hard at work building Osso for a few months now and are ready to lift the curtain!
+
+Osso is a free, open-source service for adding SAML-based SSO to your application. As a B2B SAAS company matures and begins selling to larger companies, SAML-based SSO becomes a neccessary feature in order to close security-minded enterprises. While SAML is an open standard, and tons of open-source software already exists to help developers integrate SAML, there's a huge gap between the existing OSS and the project of building a scalable, sellable and servicable SAML integration. Osso closes that gap by providing a full-featured microservice for integrating and configuring SAML for your enterprise customers who demand it.
+
+<img class="blog-image" alt="Active Idp" src={useBaseUrl('img/active-idp.png')} />
+
+### SAML-based SSO
+
+Security Assertion Markup Language (SAML) is an open specification that allows Identity Providers (IDPs) to securely pass authorization credentials to a Service Provider (SP). SAML is conceptually very similar to OAuth - instead of a user creating a password based account for every service they use, an IDP centralizes identity for the user, and they use their IDP credentials to access the services they use. Where OAuth is generally used for consumer oriented apps, enterprise companies often require the services they purchase to offer SAML based Single Sign On (SSO).
+
+Another important distinction between OAuth and SAML based SSO is that SAML IDPs require you to configure your application to receive authorization credentials _per IDP instance_ rather than for the IDP as an entity. With OAuth, you integrate a provider like Twitter once, and all Twitter users can now sign in with their Twitter account. 
+
+With SAML, any time an Okta (or OneLogin, or Microsoft Azure ADFS) customer wants to sign in to your application from their IDP instance, you need to configure your application to receive a SAML assertion from that instance. 
+
+You'll repeat this for every account that requires SAML-based authentication, even if they use the same IDP as one of your other customers. Your customer must then also configure your application in their IDP, completing the secure handshake that allows the customer's users to begin signing in to your application.
+
+
+### What is Osso
+
+Osso is an open-source microservice for authenticating users against SAML-based Identity Providers and signing them into your application.
+
+You deploy your own instance of Osso and use it to onboard enterprise accounts using the Admin UI, which allows your team members or customers to configure a SAML-based Identity Provider. Osso generates PDF documentation for your enterprise customer to then configure your application in their IDP. Osso's PDF docs are tailored to each Identity Provider and are kept up to date as IDPs change their UIs, a task that may normally fall through the cracks if you roll your own SSO.
+
+You consume your Osso microservice's OAuth server in your own application to begin signing SAML-based users into your application. Send users who want to sign in via SAML to your Osso instance as part of an OAuth 2.0 authorization flow. Once they've authenticated against their IDP, Osso sends the user back to your application, and you exchange an access token for a normalized user profile.
+
+<img class="blog-image" alt="Customers" src={useBaseUrl('img/customer-crud.png')} />
+
+### Osso value add
+
+Plenty of OSS for adding SAML-based SSO to your application already exists, so what additional value does Osso actually provide?
+
+While existing OSS helps get you started with an SSO proof of concept, there's a huge gap between a proof of concept and releasing SSO as a scalable feature that Sales knows how to sell, Customer Success knows how to onboard and troubleshoot, and Engineering knows how to debug. If you were to follow [OneLogin's Ruby SAML Authentication Examples](https://developers.onelogin.com/saml/ruby), you might think you can add SAML integration in under an hour. But the truth is this proof of concept is wholly insufficient for building out a scalable SSO integration that supports multiple customers and multiple identity providers. An underbaked SAML integration will also create heavy sales and support burdens when a customer demands SSO.
+
+Osso provides two main areas of functionality to help close this gap and reduce the burden on your sales and success teams: CRUD and Docs.
+
+#### CRUD
+
+With Osso, our Identity Provider CRUD (create, read, update, destroy) helps you go from proof of concept to full-featured by allowing you to skip all of the biolerplate code needed to configure SAML identity providers for each enterprise customer. In a proof of concept, you might hard code some of the data needed to complete the authentication dance. As you start to scale the solution, you'll keep pulling on this thread, and soon realize that it's a bit bigger of a project involving some database tables, x509 certificate validation, and a UI to tie it all together. Start adding more identity providers and things get even more entangled.
+
+<img class="blog-image" alt="Docusaurus with Keytar" src={useBaseUrl('img/idp-crud.png')} />
+
+
+Instead, let Osso worry about the banal CRUD - deploy your Osso instance, authenticate your team, and you've got a full-featured Admin UI where your team can easily manage your customer's SAML Identity Providers.
+
+Since Osso requires that you send your users through an OAuth flow, Osso's Admin UI also includes a section for OAuth Client CRUD. If you've ever registered an OAuth client on Google or Facebook then this will be a familiar UI to you.
+
+#### Docs
+
+Osso generates PDF documentation for each one of your customers, specific to their provider. In a proof of concept, documentation might not be something you consider, but each Identity Provider has a very specific process for adding a SAML app for a enterprises's employees. These are also enterprise companies themselves, and the UIs are as obtuse as you would expect.
+
+We've taken great care in crafting straightforward and accurate documention for each provider we support (Okta and Microsoft Azure ADFS for now). When you onboard a enw customer in Osso, we provide you the white-labeled documentation to send to your client in order to configure your app in their IDP.
+
+<img class="blog-image" alt="Azure ADFS Docs" src={useBaseUrl('img/adfs-docs.png')} />
+
+In some ways we see this as the biggest value add - our open source docs should cut down on time to onboard and troubleshoot customers, and non-engineers may benefit form this the most.
+
+### Built off existing OSS
+
+Osso closes the gap between existing OSS and a scalable SSO solution by building off of the existing OSS.
+
+Osso depends on some important open source projects in order to provide authentication functionality. OneLogin maintains [ruby-saml](https://github.com/onelogin/ruby-saml), a ruby gem that "provides a means for managing authorization initialization and confirmation requests from identity providers." SAML is 15 year old open standard - we don't see any need to reinvent the wheel here, and this project is stable, well-tested and well-maintained.
+
+Osso depends directly on [omniauth-multi-provider](https://github.com/salsify/omniauth-multi-provider) which itself utilizes `ruby-saml`. Omniauth is a popular multilpe-provider authentication system for Rack-based applications, and this provider gem wraps `ruby-saml` so it can be used in the familiar Omniauth authentication flow. `omniauth-multi-provider` is similarly well-tested, and we again saw no reason to reinvent this additional wheel.
+
+Finally, Osso provides an OAuth Server. OAuth is another stable and open standard, albeit one that is more familiar to modern web developers. You send your users through Osso as part of an OAuth authorization flow - Osso handles the SAML part, and once authenticated against an IDP, sends the user back to your application, eventually allowing you to request a profile for the user using an access token. Osso depends on [rack-oauth2](https://github.com/nov/rack-oauth2) to provide a spec compliant OAuth server.
+
+### Next steps
+
+Between now and a proper v1 release, here's what the Osso team will be focused on:
+
+#### More Providers
+
+We plan to keep adding providers, and the bulk of this work is in creating our industry best documentation. We plan to add Google (SAML), OneLogin, Ping, Gluu (yay OSS!), and others that the community asks for. 
+
+#### Self-serve Paid Plans
+
+We'll always be free and open source, but we'll also sell paid hosted plans for companies that wish to decrease the integration workload on the development team or would like to have the peace of mind that the Osso team can provide support if anything comes up. Our hosted plans will be a deployment of an Osso instance, and your data will not be mixed with other Osso customers'.
+
+#### More OAuth Consumption Libraries
+
+We're releasing [omniauth-osso](https://github.com/enterprise-oss/omniauth-osso) today for Ruby apps, and have started on a Passport strategy for NodeJS apps. We'd like to further explore consuming OAuth in other languages and offering libraries to make consuming your Osso instance easy in whatever langauge you write your backend.
+
+#### Let's chat!
+
+We're really intersted in having conversations with Engineering and Sales leaders who have maybe heard of SAML, or have it on their backlog, who might consider using Osso. We'd also be thrilled to chat with folks on the other side of this - anyone in IT or Infosec who administers their company's Identity Provider.
+
+You can reach us at hello@enterpriseoss.dev

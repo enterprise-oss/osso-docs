@@ -22,6 +22,7 @@
   font-size: 36px;
   color: var(--ifm-color-secondary-lightest);
   z-index: 10;
+  line-height: 47px;
 }
 
 .heroImage {
@@ -35,6 +36,18 @@
 
 .buttons {
   display: flex;
+}
+
+.getStarted {
+  /* TODO: ghost button */
+  /* border: 1.5px solid #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 3px;
+  background: transparent; */
+}
+
+.getStarted:hover {
+  /* color: var(--ifm-landing-page-font-color); */
 }
 
 .features {
@@ -66,7 +79,7 @@
 }
 
 .features p{
-  font-size: 24px;
+  font-size: 20px;
   color: var(--ifm-landing-page-font-color)
 }
 

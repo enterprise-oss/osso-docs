@@ -14,7 +14,20 @@ module.exports = {
     algolia: {
       apiKey: 'e446f4b89c6d2f86db157cc2906a1520',
       indexName: 'ossoapp',
-      algoliaOptions: {}, // Optional, if provided by Algolia
+      searchParamaters: {
+        appId: 'BH4D9OD16A',
+      },
+    },
+    announcementBar: {
+      id: 'support_us', // Any value that will identify this message.
+      content:
+        'Osso v1.0.0.rc is out! 🎉 🍾 Read our <a href="/blog/1-0-0-release-candidate">launch blog post</a>.',
+      backgroundColor: '#fafbfc', // Defaults to `#fff`.
+      textColor: '#091E42', // Defaults to `#000`.
+      isCloseable: false, // Defaults to `true`.
+    },
+    gtag: {
+      trackingID: 'UA-177630158-1',
     },
     navbar: {
       title: 'Osso',
@@ -22,24 +35,20 @@ module.exports = {
         alt: 'Osso logo',
         src: '//LogoComponent',
       },
-      links: [
+      
+      items: [
         {
           to: 'docs/overview',
           activeBasePath: 'guides',
           label: 'Guides',
-          position: 'right',
+          position: 'left',
         },
+        { to: 'blog', label: 'Blog', position: 'left' },
         {
-          to: 'docs/doc1',
-          activeBasePath: 'docs',
-          label: 'Documentation',
+          href: 'https://github.com/enterprise-oss/osso',
           position: 'right',
-        },
-        { to: 'blog', label: 'Blog', position: 'right' },
-        {
-          href: 'https://github.com/enterprise-oss/osso-docs',
-          label: 'GitHub',
-          position: 'right'
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
         },
       ],
     },
@@ -49,14 +58,7 @@ module.exports = {
         {
           title: 'Docs',
           items: [
-            {
-              label: 'Style Guide',
-              to: 'docs/doc1',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2',
-            },
+           
           ],
         },
         {
