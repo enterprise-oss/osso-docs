@@ -35,15 +35,15 @@ You consume your Osso microservice's OAuth server in your own application to beg
 
 Plenty of OSS for adding SAML-based SSO to your application already exists, so what additional value does Osso actually provide?
 
-While existing OSS helps get you started with an SSO proof of concept, there's a huge gap between a proof of concept and releasing SSO as a scalable feature that Sales knows how to sell, Customer Success knows how to onboard and troubleshoot, and Engineering knows how to debug. If you were to follow [OneLogin's Ruby SAML Authenticatiopn Examples](https://developers.onelogin.com/saml/ruby), you might think you can add SAML integration in under an hour. But the truth is this proof of concept is wholly insufficient for building out a scalable SSO integration that supports multiple customers and multiple identity providers and will create heavy sales and support burdens for onboarding customers who demand SSO.
+While existing OSS helps get you started with an SSO proof of concept, there's a huge gap between a proof of concept and releasing SSO as a scalable feature that Sales knows how to sell, Customer Success knows how to onboard and troubleshoot, and Engineering knows how to debug. If you were to follow [OneLogin's Ruby SAML Authentication Examples](https://developers.onelogin.com/saml/ruby), you might think you can add SAML integration in under an hour. But the truth is this proof of concept is wholly insufficient for building out a scalable SSO integration that supports multiple customers and multiple identity providers. An underbaked SAML integration will also create heavy sales and support burdens when a customer demands SSO.
 
-Osso provides two main areas of functionality to help close this gap and reduce the burden on your business team: CRUD and Docs.
+Osso provides two main areas of functionality to help close this gap and reduce the burden on your sales and success teams: CRUD and Docs.
 
 #### CRUD
 
-With Osso, our Identity Provider CRUD (create, read, update, destroy) helps you go from proof of concept to full-featured by allowing you to skip all of the biolerplate code needed to configure SAML identity providers for each enterprise customer. In a POC, you might hard code some of the data needed to complete the authentication dance. As you start to scale the solution, you'll keep pulling on this thread, and soon realize that it's a bit bigger of a project involving some database tables, x509 certificate validation, and a UI to tie it all together. Start adding more identity providers and things get even more entangled.
+With Osso, our Identity Provider CRUD (create, read, update, destroy) helps you go from proof of concept to full-featured by allowing you to skip all of the biolerplate code needed to configure SAML identity providers for each enterprise customer. In a proof of concept, you might hard code some of the data needed to complete the authentication dance. As you start to scale the solution, you'll keep pulling on this thread, and soon realize that it's a bit bigger of a project involving some database tables, x509 certificate validation, and a UI to tie it all together. Start adding more identity providers and things get even more entangled.
 
-Instead, let Osso worry about the banal CRUD - deploy your Osso instance, authenticate your team, and you've got a full-featured Admin UI where your team can easily manage your customer's SAML providers.
+Instead, let Osso worry about the banal CRUD - deploy your Osso instance, authenticate your team, and you've got a full-featured Admin UI where your team can easily manage your customer's SAML Identity Providers.
 
 Since Osso requires that you send your users through an OAuth flow, Osso's Admin UI also includes a section for OAuth Client CRUD. If you've ever registered an OAuth client on Google or Facebook then this will be a familiar UI to you.
 
