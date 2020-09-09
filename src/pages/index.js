@@ -66,7 +66,7 @@ function Home() {
             <div className={styles.buttons}>
               <Link
                 className={classnames(
-                  'button button--primary button--lg',
+                  'button button--secondary button--lg',
                   styles.getStarted,
                 )}
                 to={useBaseUrl('docs/what-is-saml')}>
