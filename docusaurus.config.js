@@ -38,13 +38,14 @@ module.exports = {
           to: 'docs/overview',
           activeBasePath: 'guides',
           label: 'Guides',
-          position: 'right',
+          position: 'left',
         },
-        { to: 'blog', label: 'Blog', position: 'right' },
+        { to: 'blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/enterprise-oss/osso',
-          label: 'GitHub',
-          position: 'right'
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
         },
       ],
     },
