@@ -32,9 +32,7 @@ function Footer() {
           </div>
           {isLargeScreen && (
             <div className={styles.footerCol}>
-              <a>F.A.Q</a>
-              <a>License</a>
-              <a>Privacy Policy</a>
+             
             </div>
           )}
         </div>
