@@ -2,7 +2,7 @@
 slug: 1-0-0-release-candidate
 title: Osso v1.0.0.rc Available Now
 author: Sam Bauch
-author_title: Cofounder
+author_title: Co-founder
 author_url: https://github.com/sbauch
 author_image_url: https://avatars1.githubusercontent.com/u/923033?s=460&u=db9bb41f9b279750c74afc1be0ab51db05539593&v=4
 tags: [Osso, SAML, SSO]
