@@ -34,6 +34,9 @@
 }
 
 .buttons {
+  border: 1.5px solid #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 3px;
   display: flex;
 }
 
@@ -66,7 +69,7 @@
 }
 
 .features p{
-  font-size: 16px;
+  font-size: 20px;
   color: var(--ifm-landing-page-font-color)
 }
 
