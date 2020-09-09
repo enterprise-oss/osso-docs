@@ -26,6 +26,9 @@ module.exports = {
       textColor: '#091E42', // Defaults to `#000`.
       isCloseable: false, // Defaults to `true`.
     },
+    gtag: {
+      trackingID: 'UA-177630158-1',
+    },
     navbar: {
       title: 'Osso',
       logo: {
