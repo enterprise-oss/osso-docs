@@ -14,9 +14,9 @@ module.exports = {
     algolia: {
       apiKey: 'e446f4b89c6d2f86db157cc2906a1520',
       indexName: 'ossoapp',
-      algoliaOptions: {
+      searchParamaters: {
         appId: 'BH4D9OD16A',
-      }, // Optional, if provided by Algolia
+      },
     },
     announcementBar: {
       id: 'support_us', // Any value that will identify this message.
