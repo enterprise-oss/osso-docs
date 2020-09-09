@@ -47,7 +47,7 @@
 }
 
 .getStarted:hover {
-  color: var(--ifm-landing-page-font-color);
+  /* color: var(--ifm-landing-page-font-color); */
 }
 
 .features {
