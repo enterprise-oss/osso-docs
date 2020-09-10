@@ -29,11 +29,12 @@ const features = [
     Component: SAMLSvg,
   },
   {
-    title: <>Configuration Boilerplate</>,
+    title: <>SAML Config in Osso's UI or Yours</>,
     description: (
       <>
-        Osso provides an admin UI, configuration API, and React components you can use in your
-        own application to onboard enterprise accounts and configure their SAML Identity Provider.
+        Get started quickly by configuring your customers' SAML providers 
+        in the Osso Admin UI, or allow your customers to perform configuration 
+        themselves in your UI with hooks and components from our React library.
       </>
     ),
     Component: BoilerplateSvg,
