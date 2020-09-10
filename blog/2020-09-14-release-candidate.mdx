@@ -47,7 +47,7 @@ Osso provides two main areas of functionality to help close this gap and reduce 
 
 #### CRUD
 
-With Osso, our Identity Provider CRUD (create, read, update, destroy) helps you go from proof of concept to full-featured by allowing you to skip all of the biolerplate code needed to configure SAML identity providers for each enterprise customer. In a proof of concept, you might hard code some of the data needed to complete the authentication dance. As you start to scale the solution, you'll keep pulling on this thread, and soon realize that it's a bit bigger of a project involving some database tables, x509 certificate validation, and a UI to tie it all together. Start adding more identity providers and things get even more entangled.
+With Osso, our Identity Provider CRUD (create, read, update, destroy) helps you go from proof of concept to full-featured by allowing you to skip all of the boilerplate code needed to configure SAML identity providers for each enterprise customer. In a proof of concept, you might hard code some of the data needed to complete the authentication dance. As you start to scale the solution, you'll keep pulling on this thread, and soon realize that it's a bit bigger of a project involving some database tables, x509 certificate validation, and a UI to tie it all together. Start adding more identity providers and things get even more entangled.
 
 <img class="blog-image" alt="Docusaurus with Keytar" src={useBaseUrl('img/idp-crud.png')} />
 
@@ -60,11 +60,11 @@ Since Osso requires that you send your users through an OAuth flow, Osso's Admin
 
 Osso generates PDF documentation for each one of your customers, specific to their provider. In a proof of concept, documentation might not be something you consider, but each Identity Provider has a very specific process for adding a SAML app for a enterprises's employees. These are also enterprise companies themselves, and the UIs are as obtuse as you would expect.
 
-We've taken great care in crafting straightforward and accurate documention for each provider we support (Okta and Microsoft Azure ADFS for now). When you onboard a enw customer in Osso, we provide you the white-labeled documentation to send to your client in order to configure your app in their IDP.
+We've taken great care in crafting straightforward and accurate documention for each provider we support (Okta and Microsoft Azure ADFS for now). When you onboard a new customer in Osso, we provide you the white-labeled documentation to send to your client in order to configure your app in their IDP.
 
 <img class="blog-image" alt="Azure ADFS Docs" src={useBaseUrl('img/adfs-docs.png')} />
 
-In some ways we see this as the biggest value add - our open source docs should cut down on time to onboard and troubleshoot customers, and non-engineers may benefit form this the most.
+In some ways we see this as the biggest value add - our open source docs should cut down on time to onboard and troubleshoot customers, and non-engineers may benefit from this the most.
 
 ### Built off existing OSS
 
