@@ -1,3 +1,5 @@
+import '@enterprise-oss/ant-theme';
+
 import React from 'react';
 import classnames from 'classnames';
 import Layout from '@theme/Layout';
@@ -7,6 +9,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useMediaQuery } from 'react-responsive'
 import styles from './styles.module.css';
 import screens from '../utils/responsive';
+
+import { Button } from 'antd'
 
 import SAMLSvg from '../components/svg/saml';
 import BoilerplateSvg from '../components/svg/boilerplate';
@@ -64,14 +68,7 @@ function Home() {
               with free, open source software
           </p>
             <div className={styles.buttons}>
-              <Link
-                className={classnames(
-                  'button button--secondary button--lg',
-                  styles.getStarted,
-                )}
-                to={useBaseUrl('docs/what-is-saml')}>
-                Get Started
-            </Link>
+              <Button size="large" ghost href={useBaseUrl('docs/what-is-saml')}>Get Started</Button>
             </div>
           </div>
           {isLargeScreen && <img className={styles.heroImage} src={'img/losso2.svg'} alt='background image' />}

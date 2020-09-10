@@ -22,8 +22,6 @@ function Footer() {
         <div className={styles.footerRow}>
           {isLargeScreen && (
             <div className={styles.footerCol}>
-              <p>Osso by EnterpriseOSS</p>
-              <p>Brooklyn, NY 11216</p>
               <a href="mailto:hello@enterpriseoss.dev">hello@enterpriseoss.dev</a>
             </div>
           )}
@@ -32,7 +30,8 @@ function Footer() {
           </div>
           {isLargeScreen && (
             <div className={styles.footerCol}>
-             
+              <p>Osso by EnterpriseOSS, Inc.</p>
+              <p>Brooklyn, NY</p>
             </div>
           )}
         </div>

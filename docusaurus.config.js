@@ -31,11 +31,6 @@ module.exports = {
     },
     navbar: {
       title: 'Osso',
-      logo: {
-        alt: 'Osso logo',
-        src: '//LogoComponent',
-      },
-      
       items: [
         {
           to: 'docs/overview',
@@ -79,7 +74,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Enterpise OSS - Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Enterprise OSS - Built with Docusaurus.`,
     },
   },
   presets: [
@@ -97,4 +92,11 @@ module.exports = {
       },
     ],
   ],
+  plugins: [
+    [require.resolve("docusaurus-plugin-less"), {
+      lessOptions: {
+          javascriptEnabled: true,
+      }
+    }]
+  ]
 };

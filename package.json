@@ -11,8 +11,11 @@
   "dependencies": {
     "@docusaurus/core": "^2.0.0-alpha.63",
     "@docusaurus/preset-classic": "^2.0.0-alpha.63",
+    "@enterprise-oss/ant-theme": "^1.0.1",
     "add": "^2.0.6",
+    "antd": "^4.6.3",
     "classnames": "^2.2.6",
+    "docusaurus-plugin-less": "^1.0.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-intersection-observer": "^8.26.2",

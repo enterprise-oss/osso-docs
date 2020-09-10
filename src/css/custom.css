@@ -31,6 +31,7 @@ html[data-theme='dark']{
 
 body, html {
   font-family: 'DM Sans', sans-serif;
+  background-color: var(--ifm-background-color) !important;
 }
 
 .navbar__title {
