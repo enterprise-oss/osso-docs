@@ -68,7 +68,7 @@ function Home() {
               with free, open source software
           </p>
             <div className={styles.buttons}>
-              <Button size="large" ghost href={useBaseUrl('docs/what-is-saml')}>Get Started</Button>
+              <Button size="large" href={useBaseUrl('docs/what-is-saml')}>Learn more</Button>
             </div>
           </div>
           {isLargeScreen && <img className={styles.heroImage} src={'img/losso2.svg'} alt='background image' />}
