@@ -29,7 +29,7 @@ const features = [
     Component: SAMLSvg,
   },
   {
-    title: <>SAML Config in Osso's UI or Yours</>,
+    title: <>SAML Config Wherever You Want It</>,
     description: (
       <>
         Get started quickly by configuring your customers' SAML providers 
