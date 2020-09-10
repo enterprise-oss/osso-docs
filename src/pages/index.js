@@ -29,11 +29,12 @@ const features = [
     Component: SAMLSvg,
   },
   {
-    title: <>Configuration Boilerplate</>,
+    title: <>SAML Config Wherever You Want It</>,
     description: (
       <>
-        Osso provides an admin UI, configuration API, and React components you can use in your
-        own application to onboard enterprise accounts and configure their SAML Identity Provider.
+        Get started quickly by configuring your customers' SAML providers 
+        in the Osso Admin UI, or allow your customers to perform configuration 
+        themselves in your UI with hooks and components from our React library.
       </>
     ),
     Component: BoilerplateSvg,
@@ -59,7 +60,7 @@ function Home() {
   return (
     <Layout
       title={siteConfig.title}
-      description="A free open source software for SSO auth">
+      description="Free, open-source software for adding SAML based SSO to your application">
       <div className={styles.heroContainer}>
         <header className={classnames('hero', styles.heroBanner)}>
           <div className={styles.heroCopy}>
