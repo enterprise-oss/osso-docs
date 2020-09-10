@@ -13,7 +13,7 @@ The main Osso repository includes end-to-end tests via Cypress and CI steps for 
 
 The simplest way to deploy an Osso instance is with Heroku via the button below.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/enterprise-oss/osso)
 
 Heroku will run convenient setup scripts and set required environment variables to get you up and running quickly.
 
