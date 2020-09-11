@@ -33,7 +33,7 @@ Once the customer completes configuration in their IDP, they will return some in
 
 Osso also provides `@enterprise-oss/osso`, a React library composed of hooks and components that allow you to build SAML configuration into your own UI such that your enterprise customers can configure SAML Identity Providers on their own, without your customer success team's intervention.
 
-See our docs on [using the Admin UI](/docs/integration/admin-ui/overview) and [integrating @enterprise-oss/osso](/docs/integration/self-serve-osso-react).
+See our docs on [using the Admin UI](/docs/usage/admin-ui/overview) and [integrating @enterprise-oss/osso](/docs/integration/self-serve-osso-react).
 
 ## Consume OAuth Server
 
