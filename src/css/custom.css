@@ -70,7 +70,7 @@ html[data-theme='dark'] .header-github-link:before {
 }
 
 article > section.markdown > p {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .docusaurus-highlight-code-line {
