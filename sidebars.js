@@ -4,8 +4,9 @@ module.exports = {
     'overview',
     {
       type: 'category',
-      label: 'Integration',
+      label: 'Integration Docs',
       items: [
+        'integration/overview',
         'integration/deployment',
         'integration/jwt-authentication',
         'integration/oauth-consumption',
@@ -15,7 +16,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Usage',
+      label: 'Usage Guides',
       items: [
         {
           type: 'category',
