@@ -19,8 +19,8 @@ module.exports = {
       items: [
         {
           type: 'category',
-          label: 'IDP Configuration',
-          items: ['integration/idp-config/admin-ui'],
+          label: 'Admin UI',
+          items: ['usage/admin-ui/overview'],
         },
         {
           type: 'category',

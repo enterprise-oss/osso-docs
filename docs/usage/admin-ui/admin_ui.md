@@ -1,7 +1,7 @@
 ---
-id: admin-ui
-title: Admin UI
-sidebar_label: Admin UI
+id: overview
+title: Admin UI Overview
+sidebar_label: Overview
 ---
 
 Osso provides an Admin interface for managing SAML Identity Providers and OAuth Clients. 
