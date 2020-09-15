@@ -3,53 +3,44 @@ id: overview
 title: What is Osso?
 ---
 
-Osso provides an open-source microservice for authenticating users against SAML-based Identity Providers.
+Osso provides an open-source microservice for authenticating users against SAML-based Identity Providers. Osso includes all of the functionality needed to configure SAML Identity Providers for your customers and begin signing them in to your application. What is typically a multi-week project of building a scalable, sellable and serviceable SAML integration becomes just a few hours of work with Osso.
 
-You deploy your own instance of Osso and use it to onboard enterprise accounts using the Admin UI, which allows your team members or customers to set up a SAML-based Identity Provider. 
+You deploy your own instance of Osso and use it to onboard customers using the Admin UI, which allows your team members or customers to set up a SAML-based Identity Provider. You might also integrate SAML configuration forms to your own admin or account settings page using Osso's React library.
 
 Then consume your Osso microservice's OAuth server in your own application to begin signing SAML-based users into your application. Send users who want to sign in via SAML to your Osso instance as part of an OAuth 2.0 authorization flow and receive a normalized user profile.
 
-## Admin UI
-
 ## Deployment
 
-Osso is a complete solution for authenticating users via SAML. It's offered as a microservice that 
-you can deploy to your own infrastructure. The application is written in Ruby with the Sinatra framework.
+Osso is a complete solution for authenticating users via SAML. It's offered as a microservice that you can deploy to your own infrastructure. The application is written in Ruby with the Sinatra framework.
 
-The microservice includes two main aspects of functionality - IDP configuration and user authentication. 
+The simplest way to deploy Osso is with Heroku.
 
-IDP configuration is necessary for every account that wishes to use SAML-based authentication, and Osso 
-provides an admin interface for configuration, as well as back end functionality to persist configuration 
-that is used during user authentication.
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/enterprise-oss/osso)
 
-Osso's authentication functionality allows you to send users who require SAML authentication to an OAuth authorization 
-endpoint inside your Osso instance. Osso will then send the user to their IDP based on the configuration you 
-performed perviously. Once the user logs in to their IDP, they are redirected back to your Osso instance, where 
-Osso normalizes the user payload from various IDPs.
+Heroku will run convenient setup scripts and set required environment variables to get you up and running quickly.
 
-Osso then sends the user back to your application's OAuth redirect URI with a `code` parameter. Following the OAuth 
-spec, you'll exchange this code for a profile describing the user, allowing you to sign the user into your application.
+[Read more about deployment](/docs/integration/deployment).
 
-See our technical documentation on deployment.
+## Admin UI
 
-## Enterprise Onboarding
+Once you deploy an instance of Osso, you'll use JSON Web Tokens (JWTs) to authenticate users to Osso's Admin UI. The Admin UI offers two main areas of functionality - managing OAuth Clients and managing customers' Identity Providers.
 
-For each customer who wishes to use SAML-based authentication, there is a multi-step process that you and / or 
-your enterprise customer must perform to configure an Identity Provider instance.
+Your app will consume Osso using an OAuth 2.0 Authorization flow, so your engineering team can manage OAuth Clients and their identifiers, secrets and redirect URIs via the Admin UI. 
 
-The Osso Admin UI makes it easy to perform these tasks, and documents them well. To begin, we recommend your 
-team uses the Admin UI to onboard enterprise customers. Once the team understands the process well, you can 
-have your enterprise customers access the Admin UI to perform configuration themselves.
+For every customer who demands SAML SSO, your team, typically someone in customer success or account management, will need to work with the customer's IT department to enable SSO via their Identity Provider. Osso's Admin UI allows you to manage this process. Ask your customer which Identity Provider they use, and create a new Identity Provider record in Osso. Osso will generate PDF documentation, specific to the provider, that you then share with the customer.
 
-See our IDP configuration guide to learn about the configuration process. Then see our Admin UI technical 
-documentation to learn how to authenticate your team members and enterprise accounts to access the Admin UI 
-using JSON Web Tokens (JWTs). You may also want to review our guide on enterprise facing documentation.
+Once the customer completes configuration in their IDP, they will return some information back to you that you'll enter into Osso in order to finalize configuration.
 
-<!-- ## Consume OAuth Server
+Osso also provides `@enterprise-oss/osso`, a React library composed of hooks and components that allow you to build SAML configuration into your own UI such that your enterprise customers can configure SAML Identity Providers on their own, without your customer success team's intervention.
 
-Once your Osso instance is deployed, and you've configured at least one OAuth Client and  Identity Provider 
-instance, you're ready to start signing users into your application. You'll use slightly-modified OAuth to 
-consume the user resources that Osso provides, allowing you to sign the SAML-based users into your application.
+See our docs on [using the Admin UI](/docs/usage/admin-ui/overview) and [integrating @enterprise-oss/osso](/docs/integration/self-serve-osso-react).
 
-See our guide on Sign-In UX to learn how you can integrate Osso into your existing login experience. Then see 
-our technical documentation on consuming the OAuth resources.  -->
+## Consume OAuth Server
+
+Once your Osso instance is deployed, and you've configured at least one OAuth Client and Identity Provider, you're ready to start signing users into your application. You'll use slightly-modified OAuth to consume the user resources that Osso provides, allowing you to sign the SAML-based users into your application.
+
+Osso offers libararies for consuming OAuth for Ruby and NodeJS applications - omniauth-osso and passport-osso.
+
+See our technical documentation on [consuming OAuth](/docs/integration/oauth-consumption) and learn how you can [QA and test your integration](/docs/integration/test).
+
+
