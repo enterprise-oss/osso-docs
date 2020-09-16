@@ -57,7 +57,7 @@ Since Osso requires that you send your users through an OAuth flow, Osso's Admin
 
 Osso generates PDF documentation for each one of your customers, specific to their provider. In a proof of concept, documentation might not be something you consider, but each Identity Provider has a very specific process for adding a SAML app for a enterprises's employees. These are also enterprise companies themselves, and the UIs are as obtuse as you would expect.
 
-We've taken great care in crafting straightforward and accurate documention for each provider we support (Okta and Microsoft Azure ADFS for now). When you onboard a new customer in Osso, we provide you the white-labeled documentation to send to your client in order to configure your app in their IDP.
+We've taken great care in crafting straightforward and accurate documention for each provider we support (Okta, Microsoft Azure ADFS, OneLogin and Google for now). When you onboard a new customer in Osso, we provide you the white-labeled documentation to send to your client in order to configure your app in their IDP.
 
 <img class="blog-image" alt="Azure ADFS Docs" src={useBaseUrl('img/adfs-docs.png')} />
 
@@ -70,7 +70,7 @@ Osso closes the gap between existing OSS and a scalable SSO solution by building
 
 Osso depends on some important open source projects in order to provide authentication functionality. OneLogin maintains [ruby-saml](https://github.com/onelogin/ruby-saml), a ruby gem that "provides a means for managing authorization initialization and confirmation requests from identity providers." SAML is 15 year old open standard - we don't see any need to reinvent the wheel here, and this project is stable, well-tested and well-maintained.
 
-Osso depends directly on [omniauth-multi-provider](https://github.com/salsify/omniauth-multi-provider) which itself utilizes `ruby-saml`. Omniauth is a popular multilpe-provider authentication system for Rack-based applications, and this provider gem wraps `ruby-saml` so it can be used in the familiar Omniauth authentication flow. `omniauth-multi-provider` is similarly well-tested, and we again saw no reason to reinvent this additional wheel.
+Osso depends directly on [omniauth-multi-provider](https://github.com/salsify/omniauth-multi-provider) which itself utilizes `ruby-saml`. Omniauth is a popular multiple-provider authentication system for Rack-based applications, and this provider gem wraps `ruby-saml` so it can be used in the familiar Omniauth authentication flow. `omniauth-multi-provider` is similarly well-tested, and we again saw no reason to reinvent this additional wheel.
 
 Finally, Osso provides an OAuth Server. OAuth is another stable and open standard, albeit one that is more familiar to modern web developers. You send your users through Osso as part of an OAuth authorization flow - Osso handles the SAML part, and once authenticated against an IDP, sends the user back to your application, eventually allowing you to request a profile for the user using an access token. Osso depends on [rack-oauth2](https://github.com/nov/rack-oauth2) to provide a spec compliant OAuth server.
 
@@ -80,7 +80,7 @@ Between now and a proper v1 release, here's what the Osso team will be focused o
 
 #### • More Providers
 
-We plan to keep adding providers, and the bulk of this work is in creating our industry best documentation. We plan to add Google (SAML), OneLogin, Ping, Gluu (yay OSS!), and others that the community asks for. 
+We plan to keep adding providers, and the bulk of this work is in creating our industry best documentation. We plan to add ~~Google (SAML)~~ ✅, ~~OneLogin~~ ✅, Ping, Gluu (yay OSS!), and others that the community asks for. 
 
 #### • Self-serve Paid Plans
 
@@ -92,6 +92,6 @@ We're releasing [omniauth-osso](https://github.com/enterprise-oss/omniauth-osso)
 
 ### Let's chat :call_me_hand:
 
-We're really intersted in having conversations with Engineering and Sales leaders who have maybe heard of SAML, or have it on their backlog, who might consider using Osso. We'd also be thrilled to chat with folks on the other side of this - anyone in IT or Infosec who administers their company's Identity Provider.
+We're really interested in having conversations with Engineering and Sales leaders who have maybe heard of SAML, or have it on their backlog, who might consider using Osso. We'd also be thrilled to chat with folks on the other side of this - anyone in IT or Infosec who administers their company's Identity Provider.
 
 You can reach us at hello@enterpriseoss.dev
