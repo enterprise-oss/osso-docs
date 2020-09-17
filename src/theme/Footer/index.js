@@ -37,6 +37,7 @@ function Footer() {
               colon={false}
               hideRequiredMark
              >
+              <input type="hidden" name="form-name" value="email-list" />
               <Form.Item
                 label="Enter your email to receive updates from Osso"
                 name="email"
@@ -44,10 +45,9 @@ function Footer() {
               >
                 <Input.Group compact>
                   <Input type="email" style={{ width: '220px' }} />
-                  <Button type="submit">Submit</Button>
+                  <Button htmlType="submit">Submit</Button>
                 </Input.Group>
               </Form.Item>
-              <input type="hidden" name="form-name" value="email-list" />
              </Form>
             </div>
           )}
