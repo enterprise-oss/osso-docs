@@ -21,7 +21,7 @@
   }
 }
 .footerCol {
-  flex: 0 1 32%;
+  flex: 1 1 32%;
   display: flex;
   flex-direction: column;
 }
@@ -39,8 +39,12 @@
   width: 160px;
 }
 
-.footer a, .footer a:hover, .footer p { 
+.footer a, .footer a:hover, .footer p {
   display: block;
   margin: 0;
   color: var(--ifm-color-secondary-lightest);
+}
+
+.footer label {
+  color: var(--ifm-color-secondary-lightest) !important;
 }
