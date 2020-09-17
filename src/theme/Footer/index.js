@@ -40,7 +40,7 @@ function Footer() {
               <input type="hidden" name="form-name" value="email-list" />
               <Input.Group compact>
                 <label>Enter your email to receive updates from Osso</label>
-                <Input type="email" style={{ width: '220px' }} />
+                <Input name="email" type="email" style={{ width: '220px' }} />
                 <Button htmlType="submit">Submit</Button>
               </Input.Group>
              </Form>
