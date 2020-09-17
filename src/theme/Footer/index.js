@@ -38,16 +38,11 @@ function Footer() {
               hideRequiredMark
              >
               <input type="hidden" name="form-name" value="email-list" />
-              <Form.Item
-                label="Enter your email to receive updates from Osso"
-                name="email"
-                rules={[{ required: true, message: 'Please input your email' }]}
-              >
-                <Input.Group compact>
-                  <Input type="email" style={{ width: '220px' }} />
-                  <Button htmlType="submit">Submit</Button>
-                </Input.Group>
-              </Form.Item>
+              <Input.Group compact>
+                <label>Enter your email to receive updates from Osso</label>
+                <Input type="email" style={{ width: '220px' }} />
+                <Button htmlType="submit">Submit</Button>
+              </Input.Group>
              </Form>
             </div>
           )}
