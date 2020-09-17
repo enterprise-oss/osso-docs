@@ -44,7 +44,7 @@ function Footer() {
               >
                 <Input.Group compact>
                   <Input type="email" style={{ width: '220px' }} />
-                  <Button>Submit</Button>
+                  <Button type="submit">Submit</Button>
                 </Input.Group>
               </Form.Item>
               <input type="hidden" name="form-name" value="email-list" />
