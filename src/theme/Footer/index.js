@@ -36,6 +36,10 @@ function Footer() {
              <Form
               colon={false}
               hideRequiredMark
+              name="email-list"
+              method="post"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
              >
               <input type="hidden" name="form-name" value="email-list" />
               <Input.Group compact>
