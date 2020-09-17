@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = {
   title: 'Osso',
   tagline: 'Authenticate Single Sign On users via SAML',
@@ -103,6 +105,8 @@ module.exports = {
       lessOptions: {
           javascriptEnabled: true,
       }
-    }]
+    },
+    ],
+    path.resolve(__dirname, 'netlify-forms'),
   ]
 };

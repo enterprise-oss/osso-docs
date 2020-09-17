@@ -15,7 +15,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 For the past few months we've been hard at work building **Osso**, a free, open-source service for adding SAML-based Single Sign-On (SSO) to your application. It will allow your company to enable SSO integration in *hours* instead of *days*, freeing your team up to build the innovative features your customers really want. 
 
-<img class="blog-image" alt="Customers" src={useBaseUrl('img/customer-crud.png')} />
+<img className="blog-image" alt="Customers" src={useBaseUrl('img/customer-crud.png')} />
 
 
 ### What is Osso?
@@ -34,6 +34,8 @@ For every customer who demands SAML SSO, you’ll need to go through a multistep
 
 SAML is an open specification, but each Identity Provider uses specific terminology and offers their own workflows for adding a new application. Osso generates user-friendly, intuitive PDF documentation with the specific data each customer needs to configure your app in their provider, and provides thorough documentation for your team as they integrate and manage your Osso instance.
 
+We've deployed a demo instance that you can click around in - [demo.ossoapp.com](https://demo.ossoapp.com)
+
 ### Why Osso?
 
 Plenty of open source options already exist for adding SAML-based SSO to your application, so what additional value does Osso actually provide?
@@ -46,7 +48,7 @@ Osso provides two main areas of functionality to help close this gap and reduce 
 
 With Osso, our Identity Provider CRUD (create, read, update, destroy) helps you go from proof of concept to full-featured by allowing you to skip all of the boilerplate code needed to configure SAML identity providers for each enterprise customer. In a proof of concept, you might hard code some of the data needed to complete the authentication dance. As you start to scale the solution, you'll keep pulling on this thread, and soon realize that it's a bit bigger of a project involving some database tables, x509 certificate validation, and a UI to tie it all together. Start adding more identity providers and things get even more entangled.
 
-<img class="blog-image" alt="Docusaurus with Keytar" src={useBaseUrl('img/idp-crud.png')} />
+<img className="blog-image" alt="Docusaurus with Keytar" src={useBaseUrl('img/idp-crud.png')} />
 
 
 Instead, let Osso worry about the banal CRUD - deploy your Osso instance, authenticate your team, and you've got a full-featured Admin UI where your team can easily manage your customer's SAML Identity Providers.
@@ -59,7 +61,7 @@ Osso generates PDF documentation for each one of your customers, specific to the
 
 We've taken great care in crafting straightforward and accurate documention for each provider we support (Okta, Microsoft Azure ADFS, OneLogin and Google for now). When you onboard a new customer in Osso, we provide you the white-labeled documentation to send to your client in order to configure your app in their IDP.
 
-<img class="blog-image" alt="Azure ADFS Docs" src={useBaseUrl('img/adfs-docs.png')} />
+<img className="blog-image" alt="Azure ADFS Docs" src={useBaseUrl('img/adfs-docs.png')} />
 
 
 In some ways we see this as the biggest value add - our open source docs should cut down on time to onboard and troubleshoot customers, and non-engineers may benefit from this the most.

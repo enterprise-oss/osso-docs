@@ -11,6 +11,7 @@ import { useMediaQuery } from 'react-responsive'
 
 import screens from '../../utils/responsive';
 import styles from './styles.module.css';
+import { Form, Input, Button } from 'antd';
 
 function Footer() {
   const isLargeScreen = useMediaQuery({ query: screens.large })
@@ -23,6 +24,8 @@ function Footer() {
           {isLargeScreen && (
             <div className={styles.footerCol}>
               <a href="mailto:hello@enterpriseoss.dev">hello@enterpriseoss.dev</a>
+              <p>Osso by EnterpriseOSS, Inc.</p>
+              <p>Brooklyn, NY</p>
             </div>
           )}
           <div className={styles.footerCol}>
@@ -30,8 +33,21 @@ function Footer() {
           </div>
           {isLargeScreen && (
             <div className={styles.footerCol}>
-              <p>Osso by EnterpriseOSS, Inc.</p>
-              <p>Brooklyn, NY</p>
+             <Form
+              colon={false}
+              hideRequiredMark
+              name="email-list"
+              method="post"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+             >
+              <input type="hidden" name="form-name" value="email-list" />
+              <Input.Group compact>
+                <label>Enter your email to receive updates from Osso</label>
+                <Input name="email" type="email" style={{ width: '220px' }} />
+                <Button htmlType="submit">Submit</Button>
+              </Input.Group>
+             </Form>
             </div>
           )}
         </div>
