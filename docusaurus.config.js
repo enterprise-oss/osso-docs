@@ -107,6 +107,6 @@ module.exports = {
       }
     },
     ],
-    path.resolve(__dirname, 'netlify-forms'),
+    // path.resolve(__dirname, 'netlify-forms'),
   ]
 };

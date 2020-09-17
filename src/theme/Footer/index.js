@@ -33,9 +33,7 @@ function Footer() {
           </div>
           {isLargeScreen && (
             <div className={styles.footerCol}>
-             <Form
-              colon={false}
-              hideRequiredMark
+             <form
               name="email-list"
               method="post"
               data-netlify="true"
@@ -47,7 +45,7 @@ function Footer() {
                 <Input name="email" type="email" style={{ width: '220px' }} />
                 <Button htmlType="submit">Submit</Button>
               </Input.Group>
-             </Form>
+             </form>
             </div>
           )}
         </div>
