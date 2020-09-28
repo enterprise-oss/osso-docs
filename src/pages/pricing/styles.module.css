@@ -1,0 +1,98 @@
+.titleMarker {
+  display: inline-block;
+  width: 8px;
+  height: 47px;
+  background-color: #FFCD83;
+  margin-right: 16px;
+  margin-left: -24px;
+  vertical-align: top;
+  border-radius: 2px;
+}
+
+.features > h3{
+  font-size: 36px;
+  color: var(--ifm-landing-page-font-color);
+  margin-bottom: 16px;
+}
+
+.features p{
+  font-size: 20px;
+  color: var(--ifm-landing-page-font-color)
+}
+
+.planCard {
+  height: 100%;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.planHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px 0;
+  font-size: 24px;
+}
+
+.planFeature {
+  color: #595959;
+}
+
+.enterpriseCard .planFeature {
+  font-size: 16px;
+  color: white;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    height: 320px;
+    margin-bottom: 56px;
+  }
+
+  .heroCopy {
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 24px;
+  }
+
+  .imageContainer {
+    margin-bottom: 32px;
+  }
+
+  .row {
+    flex-direction: column-reverse;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-bottom: 0;
+  }
+
+  .row:before {
+    content: "";
+    display: block;
+    border-bottom: 1px solid #FFCD83;
+    margin: 56px 0;
+    width: 100%;
+  }
+
+  .row:last-of-type {
+    margin-bottom: 56px;
+  }
+
+  .row:last-of-type:before {
+    display: none;
+  }
+
+
+  .features h3{
+    font-size: 24px;
+  }
+  
+  .features p{
+    font-size: 20px;
+  }
+}
