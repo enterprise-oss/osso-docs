@@ -11,7 +11,7 @@
   "dependencies": {
     "@docusaurus/core": "^2.0.0-alpha.63",
     "@docusaurus/preset-classic": "^2.0.0-alpha.63",
-    "@enterprise-oss/ant-theme": "^1.0.1",
+    "@enterprise-oss/ant-theme": "^1.0.5",
     "add": "^2.0.6",
     "antd": "^4.6.3",
     "classnames": "^2.2.6",

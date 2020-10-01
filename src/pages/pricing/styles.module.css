@@ -36,14 +36,37 @@
   font-size: 24px;
 }
 
+.enterpriseCard .planHeader {
+  color: white;
+}
+
+.featureList {
+  margin-bottom: 32px;
+}
+
 .planFeature {
+  font-size: 16px;
   color: #595959;
 }
 
+.businessCard .planFeature:first-of-type,
+.enterpriseCard .planFeature:first-of-type {
+  font-weight: 700;
+}
+
 .enterpriseCard .planFeature {
-  font-size: 16px;
   color: white;
 }
+
+.planFeatureMarker {
+  margin-right: 4px;
+  color: #4E61A5;
+}
+
+.enterpriseCard .planFeatureMarker {
+  color: white;
+}
+
 
 @media screen and (max-width: 996px) {
   .heroBanner {
