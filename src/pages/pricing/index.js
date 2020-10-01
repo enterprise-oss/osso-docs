@@ -20,6 +20,12 @@ import { useMediaQuery } from "react-responsive";
 import screens from "../../utils/responsive";
 import styles from "./styles.module.css";
 
+function encode(data) {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
+}
+
 const plans = [
   {
     name: "Community",
@@ -212,17 +218,20 @@ function Home() {
               .validateFields()
               .then((values) => {
                 const url = domForm.current.action;
-                return fetch(url, {
+                return fetch("/", {
                   method: "POST",
-                  body: JSON.stringify({
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                  body: encode({
                     ...values,
                     "form-name": "plan-interest",
                     chosenPlan,
                   }),
                 });
               })
-              .then(() => {
-                console.log("success");
+              .then((response) => {
+                console.log(response);
               })
               .catch((info) => {
                 console.log("Validate Failed:", info);
