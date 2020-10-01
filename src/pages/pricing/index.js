@@ -177,7 +177,16 @@ function Home() {
                 <Button
                   onClick={
                     plan.name !== "Community" &&
-                    (() => setChosenPlan(plan.name))
+                    (() => {
+                      window.ga &&
+                        window.ga("send", {
+                          hitType: "event",
+                          eventCategory: "Conversion",
+                          eventAction: "ClickedPlan",
+                          eventValue: plan.name,
+                        });
+                      setChosenPlan(plan.name);
+                    })
                   }
                   href={
                     plan.name === "Community"
