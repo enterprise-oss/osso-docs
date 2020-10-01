@@ -29,7 +29,7 @@ module.exports = {
       isCloseable: false, // Defaults to `true`.
     },
     gtag: {
-      trackingID: "UA-177630158-1",
+      trackingID: "GTM-WFXQZ8J",
     },
     googleAnalytics: {
       trackingID: "UA-177630158-1",
