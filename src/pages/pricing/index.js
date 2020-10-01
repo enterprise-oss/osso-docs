@@ -211,7 +211,6 @@ function Home() {
             form
               .validateFields()
               .then((values) => {
-                form.resetFields();
                 form.submit();
               })
               .catch((info) => {
