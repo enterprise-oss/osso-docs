@@ -20,6 +20,12 @@ import { useMediaQuery } from "react-responsive";
 import screens from "../../utils/responsive";
 import styles from "./styles.module.css";
 
+function encode(data) {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
+}
+
 const plans = [
   {
     name: "Community",
@@ -211,7 +217,21 @@ function Home() {
             form
               .validateFields()
               .then((values) => {
-                console.log(domForm);
+                const url = domForm.current.action;
+                return fetch("/", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                  body: encode({
+                    ...values,
+                    "form-name": "plan-interest",
+                    chosenPlan,
+                  }),
+                });
+              })
+              .then((response) => {
+                console.log(response);
               })
               .catch((info) => {
                 console.log("Validate Failed:", info);
@@ -235,7 +255,7 @@ function Home() {
             <form
               ref={domForm}
               name="plan-interest"
-              method="post"
+              method="POST"
               data-netlify="true"
               data-netlify-honeypot="bot-field"
             >
@@ -253,8 +273,8 @@ function Home() {
               >
                 <Input />
               </Form.Item>
-              <input type="hidden" name="form-name" value="plan-interest" />
-              <input type="hidden" name="plan" value={chosenPlan} />
+
+              <input name="form-name" type="hidden" value="plan-interest" />
 
               <Divider />
               <p>
@@ -262,7 +282,7 @@ function Home() {
                 bit more about your company, your tech stack, and where SSO fits
                 into your roadmap and we’ll be in touch. (Optional)
               </p>
-              <Form.Item>
+              <Form.Item name="about">
                 <Input.TextArea placeholder="My company is..." />
               </Form.Item>
             </form>
