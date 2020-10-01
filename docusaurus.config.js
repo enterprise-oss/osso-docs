@@ -31,6 +31,9 @@ module.exports = {
     gtag: {
       trackingID: "UA-177630158-1",
     },
+    googleAnalytics: {
+      trackingID: "UA-177630158-1",
+    },
     navbar: {
       title: "Osso",
       items: [
@@ -99,7 +102,6 @@ module.exports = {
     ],
   ],
   plugins: [
-    "@docusaurus/plugin-google-gtag",
     [
       require.resolve("docusaurus-plugin-less"),
       {
