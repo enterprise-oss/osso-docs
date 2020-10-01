@@ -211,7 +211,14 @@ function Home() {
             form
               .validateFields()
               .then((values) => {
-                console.log(domForm);
+                const url = domForm.current.action;
+                return fetch(url, {
+                  method: "POST",
+                  body: JSON.stringify(values),
+                });
+              })
+              .then(() => {
+                console.log("success");
               })
               .catch((info) => {
                 console.log("Validate Failed:", info);
@@ -233,6 +240,7 @@ function Home() {
             validateTrigger="submit"
           >
             <form
+              action="https://example.com"
               ref={domForm}
               name="plan-interest"
               method="post"
