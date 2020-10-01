@@ -246,7 +246,7 @@ function Home() {
             <form
               ref={domForm}
               name="plan-interest"
-              method="post"
+              method="POST"
               data-netlify="true"
               data-netlify-honeypot="bot-field"
             >
