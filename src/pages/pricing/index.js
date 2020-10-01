@@ -204,8 +204,11 @@ function Home() {
               type="email"
               rules={[{ type: 'email', required: true, message: 'Please add your work email' }]}
             >
-                <Input />
+              <Input />
             </Form.Item>
+            <input type="hidden" name="form-name" value="plan-interest" />
+            <input type="hidden" name="plan" value={chosenPlan} />
+
             <Divider />
             <p>
             If you’d like to be considered for our beta cohort, tell us a bit more about your company, your tech stack, and where SSO fits into your roadmap and we’ll be in touch. (Optional)
