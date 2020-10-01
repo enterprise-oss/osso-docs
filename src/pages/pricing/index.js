@@ -208,6 +208,25 @@ function Home() {
               your email address and we’ll keep you in the loop; no SPAM and no
               sharing of your information with any other entity.
             </p>
+            <form
+              name="email-list"
+              method="post"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+            >
+              <input type="hidden" name="form-name" value="email-list" />
+              <Input.Group>
+                <Input
+                  placeholder="Your email address"
+                  name="email"
+                  type="email"
+                  style={{ width: "282px" }}
+                />
+                <Button type="primary" htmlType="submit">
+                  Sign up for updates
+                </Button>
+              </Input.Group>
+            </form>
           </Col>
         </Row>
         <Modal
