@@ -178,12 +178,10 @@ function Home() {
                   onClick={
                     plan.name !== "Community" &&
                     (() => {
-                      window.ga &&
-                        window.ga("send", {
-                          hitType: "event",
-                          eventCategory: "Conversion",
-                          eventAction: "ClickedPlan",
-                          eventValue: plan.name,
+                      window.gtag &&
+                        window.gtag("event", "ClickedPlan", {
+                          event_category: "Conversion",
+                          value: plan.name,
                         });
                       setChosenPlan(plan.name);
                     })
