@@ -4,19 +4,20 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import '@enterprise-oss/ant-theme';
-import React from 'react';
-import Head from '@docusaurus/Head';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import useBaseUrl from '@docusaurus/useBaseUrl';
-import ThemeProvider from '@theme/ThemeProvider';
-import UserPreferencesProvider from '@theme/UserPreferencesProvider';
-import AnnouncementBar from '@theme/AnnouncementBar';
-import Navbar from '@theme/Navbar';
-import Footer from '@theme/Footer';
-import './styles.css';
+import "@enterprise-oss/ant-theme";
+import "./styles.css";
 
-function Providers({children}) {
+import Head from "@docusaurus/Head";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import AnnouncementBar from "@theme/AnnouncementBar";
+import Footer from "@theme/Footer";
+import Navbar from "@theme/Navbar";
+import ThemeProvider from "@theme/ThemeProvider";
+import UserPreferencesProvider from "@theme/UserPreferencesProvider";
+import React from "react";
+
+function Providers({ children }) {
   return (
     <ThemeProvider>
       <UserPreferencesProvider>{children}</UserPreferencesProvider>
@@ -25,11 +26,11 @@ function Providers({children}) {
 }
 
 function Layout(props) {
-  const {siteConfig = {}} = useDocusaurusContext();
+  const { siteConfig = {} } = useDocusaurusContext();
   const {
     favicon,
     title: siteTitle,
-    themeConfig: {image: defaultImage},
+    themeConfig: { image: defaultImage },
     url: siteUrl,
   } = siteConfig;
   const {
@@ -61,7 +62,7 @@ function Layout(props) {
           <meta property="og:description" content={description} />
         )}
         {keywords && keywords.length && (
-          <meta name="keywords" content={keywords.join(',')} />
+          <meta name="keywords" content={keywords.join(",")} />
         )}
         {metaImage && <meta property="og:image" content={metaImageUrl} />}
         {metaImage && <meta property="twitter:image" content={metaImageUrl} />}
