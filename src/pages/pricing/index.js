@@ -232,6 +232,7 @@ function Home() {
             layout="vertical"
             validateTrigger="submit"
             name="plan-interest"
+            htmlName="plan-interest"
             method="post"
             data-netlify="true"
             data-netlify-honeypot="bot-field"
