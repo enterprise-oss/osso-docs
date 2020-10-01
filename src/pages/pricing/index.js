@@ -211,7 +211,7 @@ function Home() {
             form
               .validateFields()
               .then((values) => {
-                form.submit();
+                console.log(domForm);
               })
               .catch((info) => {
                 console.log("Validate Failed:", info);
@@ -226,43 +226,46 @@ function Home() {
             know when it’s available.
           </p>
           <Form
-            ref={domForm}
+            component="div"
             hideRequiredMark
             form={form}
             layout="vertical"
             validateTrigger="submit"
-            name="plan-interest"
-            htmlName="plan-interest"
-            method="post"
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
           >
-            <Form.Item
-              label="Email"
-              name="email"
-              type="email"
-              rules={[
-                {
-                  type: "email",
-                  required: true,
-                  message: "Please add your work email",
-                },
-              ]}
+            <form
+              ref={domForm}
+              name="plan-interest"
+              method="post"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
             >
-              <Input />
-            </Form.Item>
-            <input type="hidden" name="form-name" value="plan-interest" />
-            <input type="hidden" name="plan" value={chosenPlan} />
+              <Form.Item
+                label="Email"
+                name="email"
+                type="email"
+                rules={[
+                  {
+                    type: "email",
+                    required: true,
+                    message: "Please add your work email",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <input type="hidden" name="form-name" value="plan-interest" />
+              <input type="hidden" name="plan" value={chosenPlan} />
 
-            <Divider />
-            <p>
-              If you’d like to be considered for our beta cohort, tell us a bit
-              more about your company, your tech stack, and where SSO fits into
-              your roadmap and we’ll be in touch. (Optional)
-            </p>
-            <Form.Item>
-              <Input.TextArea placeholder="My company is..." />
-            </Form.Item>
+              <Divider />
+              <p>
+                If you’d like to be considered for our beta cohort, tell us a
+                bit more about your company, your tech stack, and where SSO fits
+                into your roadmap and we’ll be in touch. (Optional)
+              </p>
+              <Form.Item>
+                <Input.TextArea placeholder="My company is..." />
+              </Form.Item>
+            </form>
           </Form>
         </Modal>
       </AntLayout.Content>
