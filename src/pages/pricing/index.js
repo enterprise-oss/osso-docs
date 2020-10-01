@@ -265,7 +265,7 @@ function Home() {
                 <Input />
               </Form.Item>
 
-              <input type="hidden" value="plan-interest" />
+              <input name="form-name" type="hidden" value="plan-interest" />
 
               <Divider />
               <p>
