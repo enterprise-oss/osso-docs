@@ -212,8 +212,7 @@ function Home() {
               .validateFields()
               .then((values) => {
                 form.resetFields();
-                console.log(domForm.current);
-                // onCreate(values);
+                form.submit();
               })
               .catch((info) => {
                 console.log("Validate Failed:", info);
