@@ -214,7 +214,11 @@ function Home() {
                 const url = domForm.current.action;
                 return fetch(url, {
                   method: "POST",
-                  body: JSON.stringify(values),
+                  body: JSON.stringify({
+                    ...values,
+                    "form-name": "plan-interest",
+                    chosenPlan,
+                  }),
                 });
               })
               .then(() => {
@@ -240,7 +244,6 @@ function Home() {
             validateTrigger="submit"
           >
             <form
-              action="https://example.com"
               ref={domForm}
               name="plan-interest"
               method="post"
@@ -261,8 +264,8 @@ function Home() {
               >
                 <Input />
               </Form.Item>
-              <Form.Item type="hidden" name="form-name" value="plan-interest" />
-              <Form.Item type="hidden" name="plan" value={chosenPlan} />
+
+              <input type="hidden" value="plan-interest" />
 
               <Divider />
               <p>
@@ -270,7 +273,7 @@ function Home() {
                 bit more about your company, your tech stack, and where SSO fits
                 into your roadmap and we’ll be in touch. (Optional)
               </p>
-              <Form.Item>
+              <Form.Item name="about">
                 <Input.TextArea placeholder="My company is..." />
               </Form.Item>
             </form>
