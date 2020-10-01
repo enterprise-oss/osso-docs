@@ -25,7 +25,7 @@ function Footer() {
               <a href="mailto:hello@enterpriseoss.dev">
                 hello@enterpriseoss.dev
               </a>
-              <p>Osso by EnterpriseOSS, Inc.</p>
+              <p>Osso © EnterpriseOSS, Inc.</p>
               <p>Brooklyn, NY</p>
             </div>
           )}

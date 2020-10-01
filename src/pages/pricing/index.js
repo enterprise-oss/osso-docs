@@ -1,4 +1,5 @@
-import { CheckCircleFilled } from "@ant-design/icons";
+import { blue } from "@ant-design/colors";
+import { CheckCircleFilled, CheckCircleTwoTone } from "@ant-design/icons";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
@@ -103,6 +104,7 @@ function Home() {
   const { siteConfig = {} } = context;
   const isLargeScreen = useMediaQuery({ query: screens.large });
   const [chosenPlan, setChosenPlan] = useState("");
+  const [submitted, setSubmitted] = useState(false);
   const [form] = Form.useForm();
   const domForm = useRef();
 
@@ -175,7 +177,16 @@ function Home() {
                 <Button
                   onClick={
                     plan.name !== "Community" &&
-                    (() => setChosenPlan(plan.name))
+                    (() => {
+                      window.ga &&
+                        window.ga("send", {
+                          hitType: "event",
+                          eventCategory: "Conversion",
+                          eventAction: "ClickedPlan",
+                          eventValue: plan.name,
+                        });
+                      setChosenPlan(plan.name);
+                    })
                   }
                   href={
                     plan.name === "Community"
@@ -206,14 +217,38 @@ function Home() {
               your email address and we’ll keep you in the loop; no SPAM and no
               sharing of your information with any other entity.
             </p>
+            <form
+              name="email-list"
+              method="post"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+            >
+              <input type="hidden" name="form-name" value="email-list" />
+              <Input.Group>
+                <Input
+                  placeholder="Your email address"
+                  name="email"
+                  type="email"
+                  style={{ width: "282px" }}
+                />
+                <Button type="primary" htmlType="submit">
+                  Sign up for updates
+                </Button>
+              </Input.Group>
+            </form>
           </Col>
         </Row>
         <Modal
           visible={Boolean(chosenPlan)}
-          title="Coming Soon"
+          title={submitted ? "Success!" : "Coming Soon"}
           width={640}
           onCancel={() => setChosenPlan("")}
+          okText={submitted ? "Close" : "Submit"}
           onOk={() => {
+            if (submitted) {
+              return setChosenPlan("");
+            }
+
             form
               .validateFields()
               .then((values) => {
@@ -231,62 +266,77 @@ function Home() {
                 });
               })
               .then((response) => {
-                console.log(response);
+                if (response.ok) {
+                  setSubmitted(true);
+                }
               })
               .catch((info) => {
                 console.log("Validate Failed:", info);
               });
           }}
         >
-          <h3>Thanks for your interest in our {chosenPlan} plan! </h3>
-          <p>
-            We’re hard at work building out our self-service offering and will
-            keep you in the loop as soon as it’s ready. Give us your email (we
-            won’t share it with anybody else, ever) and you’ll be the first to
-            know when it’s available.
-          </p>
-          <Form
-            component="div"
-            hideRequiredMark
-            form={form}
-            layout="vertical"
-            validateTrigger="submit"
-          >
-            <form
-              ref={domForm}
-              name="plan-interest"
-              method="POST"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-            >
-              <Form.Item
-                label="Email"
-                name="email"
-                type="email"
-                rules={[
-                  {
-                    type: "email",
-                    required: true,
-                    message: "Please add your work email",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-
-              <input name="form-name" type="hidden" value="plan-interest" />
-
-              <Divider />
+          {submitted ? (
+            <div className={styles.success}>
+              <CheckCircleTwoTone
+                twoToneColor="#4E61A5"
+                style={{ fontSize: 96, marginBottom: 22 }}
+              />
+              <h3>We’ve received your info</h3>
+              <p>Thanks for your interest in Osso, we’ll be in touch soon.</p>
+            </div>
+          ) : (
+            <>
+              <h3>Thanks for your interest in our {chosenPlan} plan! </h3>
               <p>
-                If you’d like to be considered for our beta cohort, tell us a
-                bit more about your company, your tech stack, and where SSO fits
-                into your roadmap and we’ll be in touch. (Optional)
+                We’re hard at work building out our self-service offering and
+                will keep you in the loop as soon as it’s ready. Give us your
+                email (we won’t share it with anybody else, ever) and you’ll be
+                the first to know when it’s available.
               </p>
-              <Form.Item name="about">
-                <Input.TextArea placeholder="My company is..." />
-              </Form.Item>
-            </form>
-          </Form>
+              <Form
+                component="div"
+                hideRequiredMark
+                form={form}
+                layout="vertical"
+                validateTrigger="submit"
+              >
+                <form
+                  ref={domForm}
+                  name="plan-interest"
+                  method="POST"
+                  data-netlify="true"
+                  data-netlify-honeypot="bot-field"
+                >
+                  <Form.Item
+                    label="Email"
+                    name="email"
+                    type="email"
+                    rules={[
+                      {
+                        type: "email",
+                        required: true,
+                        message: "Please add your work email",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <input name="form-name" type="hidden" value="plan-interest" />
+
+                  <Divider />
+                  <p>
+                    If you’d like to be considered for our beta cohort, tell us
+                    a bit more about your company, your tech stack, and where
+                    SSO fits into your roadmap and we’ll be in touch. (Optional)
+                  </p>
+                  <Form.Item name="about">
+                    <Input.TextArea placeholder="My company is..." />
+                  </Form.Item>
+                </form>
+              </Form>
+            </>
+          )}
         </Modal>
       </AntLayout.Content>
     </Layout>
