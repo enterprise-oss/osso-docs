@@ -3,10 +3,6 @@ Onboarding your first Enterprise Customer in Osso is a quick and painless proces
 
 
 1. Login to Osso
-
-\\\ Not sure how users get to Osso
-
-
 ![](https://paper-attachments.dropbox.com/s_1514B3D062649ECBD4D45245FC5325C74539430A348D0C5906B5EA4832610ED8_1601925564886_Screen+Shot+2020-09-25+at+9.43.51+AM.png)
 
 2. Click **+ Add New Customer** on the top right
