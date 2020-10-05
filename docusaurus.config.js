@@ -93,7 +93,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.com/enterprise-oss/osso-docs/edit/master/",
+          editUrl: "https://github.com/enterprise-oss/osso-docs/edit/main/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
