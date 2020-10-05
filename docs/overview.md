@@ -15,7 +15,7 @@ Osso is a complete solution for authenticating users via SAML. It's offered as a
 
 The simplest way to deploy Osso is with Heroku.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/enterprise-oss/osso)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/enterprise-oss/osso/tree/main)
 
 Heroku will run convenient setup scripts and set required environment variables to get you up and running quickly.
 
