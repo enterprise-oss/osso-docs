@@ -1,4 +1,7 @@
-# Azure Active Directory (website)
+---
+id: azure-active-directory
+title: Azure Active Directory
+---
 This guide is for an end user to connect to a Service Provider via Azure Active Directory. If you’re looking to add a new connection for an Enterprise Customer, please read our guide on Adding your first Enterprise Customer.
 
 To configure SSO to log in to the Service Provider’s application, you will need to create a **Non-gallery Enterprise Application** inside your Azure Active Directory portal. This is typically performed by someone in IT or InfoSec who has administrative privileges to the Azure ADFS portal.
