@@ -1,3 +1,11 @@
+---
+id: okta
+title: Okta
+---
+
+Okta is a publicly traded identity and access management company based in San Francisco. It provides cloud software that helps companies manage and secure user authentication into modern applications, and for developers to build identity controls into applications, website web services and devices.
+
+
 # Okta (website)
 This guide is for an end user to connect to a Service Provider via Okta. If you’re looking to add a new connection for an Enterprise Customer, please read our guide on Adding your first Enterprise Customer.
 
