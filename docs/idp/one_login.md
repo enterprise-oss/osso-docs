@@ -1,7 +1,10 @@
-# OneLogin (website)
+---
+id: one-login
+title: OneLogin
+---
 This guide is for an end user to connect to a Service Provider via OneLogin. If you’re looking to add a new connection for an Enterprise Customer, please read our guide on Adding your first Enterprise Customer.
 
-To configure SSO to log in to a Service Provider’s application, you will need to add a **SAML Test Connector** application ****inside your OneLogin Administration dashboard. This is typically performed by someone in IT or InfoSec who has administrative privileges to the OneLogin account. When finished be sure to return the OneLogin Metadata to your contact at the Service Provider you’re setting up in order for them to complete configuration. 
+To configure SSO to log in to a Service Provider’s application, you will need to add a **SAML Test Connector** application inside your OneLogin Administration dashboard. This is typically performed by someone in IT or InfoSec who has administrative privileges to the OneLogin account. When finished be sure to return the **OneLogin Metadata** to your contact at the Service Provider you’re setting up in order for them to complete configuration. 
 
 ## Access OneLogin Administration Portal
 1. Log in to your OneLogin user account at your-domain.onelogin.com - you will need an account with administrator access to complete this process.
@@ -12,7 +15,7 @@ To configure SSO to log in to a Service Provider’s application, you will need 
 ![](https://paper-attachments.dropbox.com/s_A55FC0BB3CD2D5C754377F7C17F95879C302974294BDDAEEE55F28E27A3FBD1E_1600100002091_Screen+Shot+2020-09-14+at+12.12.42+PM.png)
 
 ## Portal Configuration
-1. Insert the name of the Service Provider you’re setting up as the **Display name****.**
+1. Insert the name of the Service Provider you’re setting up as the <u>Display name</u>.
 2. It’s your decision whether to display the Service Provider’s application to users in the Portal - we recommend leaving this switch **turned on**.
 3. The Service provider will provide a logo for you to use
 4. Optionally enter a description for your colleagues describing what you plan on using the Service Provider’s application for. 
@@ -43,19 +46,19 @@ To configure SSO to log in to a Service Provider’s application, you will need 
 ## Parameters
 1. Once your app has been successfully updated, click on **Parameters** in the left navigation menu.
 2. Click the blue **(+)** icon on the right hand side of the table to add attributes.
-3. Under Field name enter `email` in the text field.
-4. Under the Flags section, check the box to the left of **Include in SAML assertion**.
+3. Under <u>Field name</u> enter `email` in the text field.
+4. Under the <u>Flags</u> section, check the box to the left of **Include in SAML assertion**.
 5. Click **Save** in the bottom right corner
 ![](https://paper-attachments.dropbox.com/s_9BF480D5EBAB6950B61107BE32D4AE0DF2AFBB973F00481A178A9FA8B91419FF_1600111364932_OneLoginNewAttributeScreen-pt1.png)
 
-6. After saving, you will be brought to another window from which you will need to select **Email** from the dropdown menu underneath Value
+6. After saving, you will be brought to another window from which you will need to select **Email** from the dropdown menu underneath <u>Value</u>
 7. Select **Save** on the bottom right corner
 ![](https://paper-attachments.dropbox.com/s_9BF480D5EBAB6950B61107BE32D4AE0DF2AFBB973F00481A178A9FA8B91419FF_1600111574114_OneLoginNewAttributeScreen-pt2.png)
 
 8. Repeat Steps 2 - 7, except this time enter the following data:
-    1. **Name**: `id`
-    2. Underneath Flags, check the box to the left of Include in SAML assertion
-    3. Select **OneLogin** **ID** from the dropdown menu underneath Value
+    1. <u>Name</u>: `id`
+    2. Underneath <u>Flags</u>, check the box to the left of Include in SAML assertion
+    3. Select **OneLogin** **ID** from the dropdown menu underneath <u>Value</u>
 9. When finished, the table of fields should look like this:
 ![](https://paper-attachments.dropbox.com/s_5B8999539163B19653FE1C2D5CD97D7611B397BED353C95493FEDA68CBAFCB54_1600285143939_image.png)
 
