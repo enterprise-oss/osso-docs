@@ -26,7 +26,7 @@ module.exports = {
         {
           type: 'category',
           label: 'Identity Providers',
-          items: ['idp/overview', 'idp/okta',]
+          items: ['idp/overview', 'idp/okta', 'idp/azure-active-directory']
         },
       ]
     },
