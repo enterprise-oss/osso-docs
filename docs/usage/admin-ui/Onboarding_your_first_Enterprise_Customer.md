@@ -1,7 +1,4 @@
----
-id: onboarding-your-first-enterprise-customer
-title: Onboarding your first Enterprise Customer
----
+# Onboarding your first Enterprise Customer
 Onboarding your first Enterprise Customer in Osso is a quick and painless process for both you and your customer. Below is a tutorial and explanation of the steps required to enable SAML SSO for your customer to connect to your team’s solution.
 
 
