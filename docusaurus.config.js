@@ -59,6 +59,11 @@ module.exports = {
         },
       ],
     },
+    posthog: {
+      apiKey: "vA_-INs6HpnuVrh6n-dLDMvZeuJoJf8LRtltVcuNRDc",
+      appUrl: "https://a.ossoapp.com",
+      enableInDevelopment: false,
+    },
     footer: {
       style: "dark",
       links: [
@@ -88,6 +93,7 @@ module.exports = {
     },
   },
   presets: [
+    "docusaurus2-dotenv",
     [
       "@docusaurus/preset-classic",
       {
@@ -111,5 +117,6 @@ module.exports = {
       },
     ],
     path.resolve(__dirname, "netlify-forms"),
+    "posthog-docusaurus",
   ],
 };
