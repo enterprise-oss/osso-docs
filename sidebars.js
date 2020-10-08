@@ -21,12 +21,12 @@ module.exports = {
         {
           type: 'category',
           label: 'Admin UI',
-          items: ['usage/admin-ui/overview', 'usage/admin-us/onboarding-your-first-enterprise-customer'],
+          items: ['usage/admin-ui/overview'],
         },
         {
           type: 'category',
           label: 'Identity Providers',
-          items: ['idp/overview', 'idp/azure-active-directory', 'idp/google-saml', 'idp/okta', 'idp/one-login']
+          items: ['idp/overview', 'idp/okta',]
         },
       ]
     },

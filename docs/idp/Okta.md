@@ -1,15 +1,9 @@
----
-id: okta
-title: Okta
----
-
-Okta is a publicly traded identity and access management company based in San Francisco. It provides cloud software that helps companies manage and secure user authentication into modern applications, and for developers to build identity controls into applications, website web services and devices.
-
+# Okta (website)
 This guide is for an end user to connect to a Service Provider via Okta. If you’re looking to add a new connection for an Enterprise Customer, please read our guide on Adding your first Enterprise Customer.
 
 To configure SSO to login to a Service Provider, you will need to create a **SAML 2.0 Integrated Application** inside your Okta Admin dashboard. This is typically performed by someone in IT or InfoSec who has administrative privileges to the Okta account.
 
-Once you configure the application in your Okta portal, you will need to return to the **Federation Metadata XML** to your contact at the Service Provider you’re setting up so that they can finalize configuration.
+Once you configure the application in your Okta portal, you will need to return to the **Federation Metadata XML** ****to your contact at the Service Provider you’re setting up so that they can finalize configuration.
 
 ## Access Classic UI in Admin Portal
 1. Login to your Okta user account at your-domain.okta.com - you will need an account with administrator access to complete this process.
@@ -18,28 +12,28 @@ Once you configure the application in your Okta portal, you will need to return 
 ![](https://paper-attachments.dropbox.com/s_29E48A2A16B9151D65C0D3F5A2A3AEBA2CC154801EC18822C23E362A84811C2C_1598372182731_Screen+Shot+2020-08-25+at+12.15.30+PM.png)
 
 ## Create a SAML 2.0 App
-1. Click **Applications** in the top navigation and then click **Add Application** on the top left of the Applications page:
+1. Click **Applications** in the top navigation and then click Add Application on the top left of the Applications page:
 ![](https://paper-attachments.dropbox.com/s_29E48A2A16B9151D65C0D3F5A2A3AEBA2CC154801EC18822C23E362A84811C2C_1598372307711_Screen+Shot+2020-08-25+at+12.18.11+PM.png)
 
 2. Click **Create New App** in the top right of the Applications directory page.
-3. Choose **Web** as the <u>Platform</u> and **SAML 2.0** as the <u>Sign on method</u> in the <u>Create a New Application Integration</u> modal, and click **Create**:
+3. Choose Web as the **Platform** and SAML 2.0 ****as the **Sign on method** in the Create a New Application Integration modal, and click Create:
 ![](https://paper-attachments.dropbox.com/s_29E48A2A16B9151D65C0D3F5A2A3AEBA2CC154801EC18822C23E362A84811C2C_1598372534368_Screen+Shot+2020-08-25+at+12.21.57+PM.png)
 
 ## General Settings
-1. Insert the name of the Service Provider you’re setting up as the <u>App name</u>
-2. The Service Provider should provide the <u>App logo</u>
+1. Insert the name of the Service Provider you’re setting up as the **App name**
+2. The Service Provider should provide the **App logo**
 3. It’s your decision whether to display the Service Provider’s application to users or in the Okta mobile app - we recommend leaving both boxes **unchecked**
 4. Click **Next**
 ## SAML Settings - General
-1. On the <u>Configure SAML</u> step, locate the fields under <u>(A) SAML Settings - General</u>
+1. On the Configure SAML step, locate the fields under (A) SAML Settings - General
 2. Enter or verify the following values for each of the inputs:
 | field                                              | value                                                  |
 | -------------------------------------------------- | ------------------------------------------------------ |
 | **Single sign on URL**                             | [This value will be provided by your Service Provider] |
-| **Use this for Recipient URL and Destination URL** | ✔️                                                      |
-| **Allow this app to request other SSO URLs**       | [leave unchecked]                                      |
+| **Use this for Recipient URL and Destination URL** | ✔️                                                     |
+| **Allow this app to request other SSO URLs**       | (leave unchecked)                                      |
 | **Audience URI (SP Entity ID)**                    | [This value will be provided by your Service Provider] |
-| **Default RelayState**                             | [leave blank]                                          |
+| **Default RelayState**                             | (leave blank)                                          |
 | **Name ID format**                                 | Unspecified                                            |
 | **Application username**                           | Okta username                                          |
 
@@ -54,13 +48,13 @@ Once you configure the application in your Okta portal, you will need to return 
 3. This section should look like this once you’re finished:
 ![](https://paper-attachments.dropbox.com/s_29E48A2A16B9151D65C0D3F5A2A3AEBA2CC154801EC18822C23E362A84811C2C_1598373396597_Screen+Shot+2020-08-25+at+12.34.52+PM.png)
 
-4. Click **Next** to complete the initial SAML setup
+4. Click Next to complete the initial SAML setup
 ## Feedback
 1. Okta dumps you on a “Feedback” page to better understand their users. We don’t need you to do anything here.
 2. None of the choices quite reflect what we are doing, but the quickest way to get through this form is to choose **I'm a software vendor. I'd like to integrate my app with Okta.**
-3. Click **Finish**
+3. Click Finish
 ## Download Identity Provider Metadata XML
-1. From the previous step, you’ll be taken to the <u>Sign On</u> tab for the Application we just created.
+1. From the previous step, you’ll be taken to the Sign On tab for the Application we just created.
 2. Find the notice in the middle of the page that tells us **SAML 2.0** is not configured until you complete the setup instructions:
 ![](https://paper-attachments.dropbox.com/s_29E48A2A16B9151D65C0D3F5A2A3AEBA2CC154801EC18822C23E362A84811C2C_1598373836653_Screen+Shot+2020-08-25+at+12.43.23+PM.png)
 
