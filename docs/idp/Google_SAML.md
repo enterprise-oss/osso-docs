@@ -34,8 +34,9 @@ Follow the steps below to create an application with information we’ve generat
 
 1. Fill in the boxes with the following information:
 
-| **ACS URL**         | [You should receive this from the Service Provider] |
+| Field               | Value                                               |
 | ------------------- | --------------------------------------------------- |
+| **ACS URL**         | [You should receive this from the Service Provider] |
 | **Entity ID**       | [You should receive this from the Service Provider] |
 | **Start URL**       | [leave blank]                                       |
 | **Signed Response** | [keep unchecked]                                    |

@@ -36,7 +36,8 @@ Once you configure the application in your portal, you will need to return the *
 ## Basic SAML Configuration
 1. Click **Edit** in the first card, **Basic SAML Configuration**
 2. A form will open - enter the following information into the relevant form fields:
-| field                                          | value                                                  |
+
+| Field                                          | Value                                                  |
 | ---------------------------------------------- | ------------------------------------------------------ |
 | **Identifier (Entity ID)**                     | [This value will be provided by your Service Provider] |
 | **Reply URL (Assertion Consumer Service URL)** | [This value will be provided by your Service Provider] |
@@ -47,10 +48,11 @@ Once you configure the application in your portal, you will need to return the *
 ## User Attributes & claims
 1. Click **Edit** in the second card, **User Attributes & claims**
 2. Add the following claims using the **+** **Claim** button
-| claim | value         |
-| ----- | ------------- |
-| email | user.mail     |
-| id    | user.objectid |
+
+    | Claim | Value         |
+    | ----- | ------------- |
+    | email | user.mail     |
+    | id    | user.objectid |
 
 3. Click **Save** to close the attributes page to return to your application Overview
 ## SAML Signing Certificate

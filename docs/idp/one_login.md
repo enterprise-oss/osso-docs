@@ -23,13 +23,14 @@ To configure SSO to log in to a Service Provider’s application, you will need 
 ## Application Details
 1. Once your new app has been successfully updated, click on **Configuration** in the left navigation menu.
 2. Fill in the Application details form fields so they match this information: 
+
 | Field                             | Value                                                  |
 | --------------------------------- | ------------------------------------------------------ |
 | **RelayState**                    | [ leave blank ]                                        |
 | **Audience (EntityID)**           | [This value will be provided by your Service Provider] |
 | **Recipient**                     | [This value will be provided by your Service Provider] |
-| **ACS (Consumer) URL Validator*** | [This value will be provided by your Service Provider] |
-| **ACS (Consumer) URL***           | [This value will be provided by your Service Provider] |
+| **ACS (Consumer) URL Validator**  | [This value will be provided by your Service Provider] |
+| **ACS (Consumer) URL**            | [This value will be provided by your Service Provider] |
 | **Single Logout URL**             | [leave blank]                                          |
 | **Login URL**                     | [leave blank]                                          |
 | **SAML not valid before**         | [keep 3]                                               |

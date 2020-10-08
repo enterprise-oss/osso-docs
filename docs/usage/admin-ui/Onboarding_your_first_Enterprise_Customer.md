@@ -9,7 +9,7 @@ Onboarding your first Enterprise Customer in Osso is a quick and painless proces
 ![](https://paper-attachments.dropbox.com/s_1514B3D062649ECBD4D45245FC5325C74539430A348D0C5906B5EA4832610ED8_1601925564886_Screen+Shot+2020-09-25+at+9.43.51+AM.png)
 
 2. Click **+ Add New Customer** on the top right
-3. Enter your Customer’s company name and domain into their respective fields. Under the OAuth client dropdown menu, select [whatever it will be]. Click **Done**
+3. Enter your Customer’s company name and domain into their respective fields. If you are an Osso Admin, you will be provided with an additional dropdown menu under <u>OAuth client</u>. Select the OAuth client associated with your production environment. Click **Done**
 4. Click on the name of your recently added customer 
 ![](https://paper-attachments.dropbox.com/s_1514B3D062649ECBD4D45245FC5325C74539430A348D0C5906B5EA4832610ED8_1601925649909_Screen+Shot+2020-10-05+at+12.20.28+PM.png)
 

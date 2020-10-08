@@ -33,23 +33,25 @@ Once you configure the application in your Okta portal, you will need to return 
 ## SAML Settings - General
 1. On the <u>Configure SAML</u> step, locate the fields under <u>(A) SAML Settings - General</u>
 2. Enter or verify the following values for each of the inputs:
-| field                                              | value                                                  |
-| -------------------------------------------------- | ------------------------------------------------------ |
-| **Single sign on URL**                             | [This value will be provided by your Service Provider] |
-| **Use this for Recipient URL and Destination URL** | ✔️                                                      |
-| **Allow this app to request other SSO URLs**       | [leave unchecked]                                      |
-| **Audience URI (SP Entity ID)**                    | [This value will be provided by your Service Provider] |
-| **Default RelayState**                             | [leave blank]                                          |
-| **Name ID format**                                 | Unspecified                                            |
-| **Application username**                           | Okta username                                          |
+
+| Field                                             | Value                                              |
+| ------------------------------------------------- | -------------------------------------------------- |
+| **Single sign on URL**                            | [You should receive this from the Service Provider]|
+| **Use this for Recipient URL and Destination URL**| [check]                                            |
+| **Allow this app to request other SSO URLs**      | [leave unchecked]                                  |
+| **Audience URI (SP Entity ID)**                   | [You should receive this from the Service Provider]|
+| **Default RelayState**                            | [leave blank]                                      |
+| **Name ID format**                                | Unspecified                                        |
+| **Application username**                          | Okta username                                      |
 
 ## Attribute Statements
 1. Okta’s UI suggests this is an optional step, but it is **required** for your users to be be able to login to the Service Provider via Okta
 2. Add the following attributes using the **Add Another** button:
-| Name  | Name format | Value      |
-| ----- | ----------- | ---------- |
-| email | Unspecified | user.email |
-| id    | Unspecified | user.id    |
+
+    | Name  | Name format | Value      |
+    | ----- | ----------- | ---------- |
+    | email | Unspecified | user.email |
+    | id    | Unspecified | user.id    |
 
 3. This section should look like this once you’re finished:
 ![](https://paper-attachments.dropbox.com/s_29E48A2A16B9151D65C0D3F5A2A3AEBA2CC154801EC18822C23E362A84811C2C_1598373396597_Screen+Shot+2020-08-25+at+12.34.52+PM.png)
