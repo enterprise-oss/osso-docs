@@ -1,4 +1,7 @@
-# Overview (Usage Guides > Identity Providers)
+---
+id: overview
+title: Overview
+---
 Identity Providers (IDPs) are a category of software applications responsible for managing employees’ access to the various third party applications (i.e. Service Providers) modern enterprise companies rely on. 
 
 ## Why do companies use Identity Providers?
@@ -16,12 +19,8 @@ When an employee attempts to login to an application used for their work, they h
 
 1.) Logging into an application through an Identity Provider-initiated workflow relies on the employee to login to their Identity Provider Portal—this is oftentimes the only username and password employees will be given. From the portal, they will select the application they want to login to, which they will then be redirected into a separate browser tab (or window) to their desired Service Provider. The Service Provider will be given a message from the Identity Provider to let it know that this person logging in has been authenticated and is in fact who they say they are. The Service Provider sees this and grants the employee access. 
 
-![](https://paper-attachments.dropbox.com/s_1C026FDCE648A63D75102577A290E8DC5412EE7A17B31425A020766B7FC97303_1602011658868_Screen+Shot+2020-10-06+at+12.08.15+PM.png)
-
 
 2.) Signing into applications via the IDP can sometimes feel inconvenient, as a result a Service Provider-initiated logon is preferred and is generally more popular. This method allows employees to login from the Service Provider’s website, just like they would normally if their employer wasn’t using an Identity Provider. As soon as the employee enters their email into the Service Provider’s website, the SP will send an authentication request to the IDP associated with the employee’s email address. If the employee is already logged into their employer’s IDP, and has access to the SP making the request, the IDP will return a message to the SP letting them know the employee’s identity has been authenticated and to allow them access. If the employee isn’t logged into their IDP, a separate tab (or window) will prompt the employee to login to the IDP in order for them to be authenticated and gain access to the SP.
-
-![](https://paper-attachments.dropbox.com/s_1C026FDCE648A63D75102577A290E8DC5412EE7A17B31425A020766B7FC97303_1602011653962_Screen+Shot+2020-10-06+at+12.13.56+PM.png)
 
 ## Challenges of Integrating Identity Providers
 
