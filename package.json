@@ -10,7 +10,7 @@
     "lint": "eslint src/"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-alpha.63",
+    "@docusaurus/core": "^2.0.0-alpha.65",
     "@docusaurus/plugin-google-gtag": "^2.0.0-alpha.37",
     "@docusaurus/preset-classic": "^2.0.0-alpha.63",
     "@enterprise-oss/ant-theme": "^1.0.5",
@@ -18,6 +18,8 @@
     "antd": "^4.6.3",
     "classnames": "^2.2.6",
     "docusaurus-plugin-less": "^1.0.3",
+    "docusaurus2-dotenv": "^1.4.0",
+    "posthog-docusaurus": "^1.0.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-intersection-observer": "^8.26.2",

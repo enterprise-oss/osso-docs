@@ -3,8 +3,6 @@ id: okta
 title: Okta
 ---
 
-Okta is a publicly traded identity and access management company based in San Francisco. It provides cloud software that helps companies manage and secure user authentication into modern applications, and for developers to build identity controls into applications, website web services and devices.
-
 This guide is for an end user to connect to a Service Provider via Okta. If you’re looking to add a new connection for an Enterprise Customer, please read our guide on Adding your first Enterprise Customer.
 
 To configure SSO to login to a Service Provider, you will need to create a **SAML 2.0 Integrated Application** inside your Okta Admin dashboard. This is typically performed by someone in IT or InfoSec who has administrative privileges to the Okta account.
