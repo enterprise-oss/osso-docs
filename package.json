@@ -10,7 +10,7 @@
     "lint": "eslint src/"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-alpha.63",
+    "@docusaurus/core": "^2.0.0-alpha.65",
     "@docusaurus/plugin-google-gtag": "^2.0.0-alpha.37",
     "@docusaurus/preset-classic": "^2.0.0-alpha.63",
     "@enterprise-oss/ant-theme": "^1.0.5",
