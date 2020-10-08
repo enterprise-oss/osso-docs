@@ -21,7 +21,7 @@ module.exports = {
         {
           type: 'category',
           label: 'Admin UI',
-          items: ['usage/admin-ui/overview', 'usage/admin-us/onboarding-your-first-enterprise-customer'],
+          items: ['usage/admin-ui/overview', 'usage/admin-ui/onboarding-your-first-enterprise-customer'],
         },
         {
           type: 'category',
