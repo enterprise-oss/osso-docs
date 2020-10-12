@@ -250,6 +250,7 @@ function Home() {
             form
               .validateFields()
               .then((values) => {
+                window.posthog.identify(values.email);
                 const url = domForm.current.action;
                 return fetch("/", {
                   method: "POST",
