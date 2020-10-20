@@ -73,9 +73,11 @@ html[data-theme='dark'] .header-github-link:before {
     no-repeat;
 }
 
-article > section.markdown > p {
+article > section.markdown > p,
+article > div.markdown > p {
   font-size: 16px;
 }
+
 
 .docusaurus-highlight-code-line {
   background-color: rgb(72, 77, 91);
