@@ -8,7 +8,6 @@ module.exports = {
       items: [
         "integration/overview",
         "integration/deployment",
-        "integration/jwt-authentication",
         "integration/oauth-consumption",
         "integration/test",
         "integration/self-serve-osso-react",
