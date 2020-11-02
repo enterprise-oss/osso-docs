@@ -23,7 +23,7 @@ Heroku will run convenient setup scripts and set required environment variables 
 
 ## Admin UI
 
-Once you deploy an instance of Osso, you'll use JSON Web Tokens (JWTs) to authenticate users to Osso's Admin UI. The Admin UI offers two main areas of functionality - managing OAuth Clients and managing customers' Identity Providers.
+ The Admin UI offers two main areas of functionality - managing OAuth Clients and managing customers' Identity Providers.
 
 Your app will consume Osso using an OAuth 2.0 Authorization flow, so your engineering team can manage OAuth Clients and their identifiers, secrets and redirect URIs via the Admin UI. 
 

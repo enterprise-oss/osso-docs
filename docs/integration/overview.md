@@ -20,16 +20,7 @@ Heroku is the easiest way to deploy Osso, and should remain relatively inexpensi
 
 Continue to our [Deployment docs](/docs/integration/deployment) when you're ready to deploy.
 
-### 2. Authenticate
-_1 hour_
-
-Once your instance is live, you need to authenticate your admin users in order for you and your colleagues to be able to start using Osso. 
-
-Osso uses JSON Web Tokens, or JWTs, to authenticate your colleagues. You'll need to implement an approach for crafting JWTs in your application or administrative application, and provide a link to your Osso instance that includes the JWT.
-
-Visit our [JWT Authentication](/docs/integration/jwt-authentication) docs once you've got an instance deployed.
-
-### 3. Consume
+### 2. Consume
 _30 minutes_
 
 The final step to complete a working SSO login through Osso is to start consuming Osso as an OAuth server.

@@ -16,10 +16,7 @@ complete this setup themselves.
 
 ## Authentication
 
-Osso uses JSON Web Tokens (JWTs) to authenticate users into the Admin UI. Users can be scoped with 
-admin privileges (your team members) to configure any enterprise account, or with enterprise specific 
-privileges (your customers) that allows the user to only configure an Identity Provider for their own account. 
-See our technical documentation on JWT Authentication to implement the authentication scheme.
+
 
 ## OAuth Client Configuration
 
@@ -28,8 +25,7 @@ available to your application via OAuth. You need to create an OAuth Client
 for each application that needs to consume these profiles.
 
 The Osso Admin UI makes it easy to create OAuth Clients. Navigate to your Osso instance, choose OAuth Clients 
-from the menu, and click the button to Create an OAuth Client. You must be authenticated into Osso with a JWT 
-with the `admin` scope.
+from the menu, and click the button to Create an OAuth Client.
 
 You'll be asked to enter a name to identify the OAuth Client, and to specify redirect URIs where the OAuth server 
 may send your users once they authenticate. Osso will generate a Client ID and Client Secret which you will 
@@ -42,7 +38,7 @@ SAML-based authentication.
 
 Osso Admin UI allows your team members to onboard an enterprise customer to use SAML-based authentication. 
 When you acquire a new customer who requires SAML, you'll navigate to your Osso instance's admin interface at
-`https://<YourOssoURL>/admin`. You must be authenticated into Osso with a JWT with the `admin` scope.
+`https://<YourOssoURL>/admin`.
 
 Click the Onboard Enterprise button to start configuring a new enterprise account for SAML. You'll need to know 
 the account's domain name and the Identity Provider they use (i.e. Okta, OneLogin, etc.). Enter these in the 
@@ -62,13 +58,7 @@ promoted to _live_ and users from that account are ready to start signing in.
 
 Osso Admin UI also allows your enterprise customers to configure their own SAML-based authentication. 
 When you acquire a new customer who requires SAML, send them to the Osso instance's admin interface for 
-their account at `https://<YourOssoURL>/admin/enterprise/:domain`. Your customer muse be authenticated 
-into Osso with a JWT with the the domain name as the scope.
-
-:::tip
-If you take this approach, have your enterprise customers first create accounts in your application 
-with email / password so that you can generate JWTs for the user who will be configuring their IDP in Osso.
-:::
+their account at `https://<YourOssoURL>/admin/enterprise/:domain`.
 
 The enterprise user will choose their IDP, and Osso will generate all of the configuration information 
 needed to configure your application on their IDP admin dashboard, as well as a PDF document to walk the enterprise 
