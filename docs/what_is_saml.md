@@ -3,12 +3,10 @@ id: what-is-saml
 title: What is SAML?
 ---
 
-## Background
-
 Security Assertion Markup Language (SAML) is an open specification that allows Identity Providers (IDPs) 
 to securely pass authorization credentials to a Service Provider (SP). SAML is conceptually very similar to 
 OAuth - instead of a user creating a password based account for every service they use, an IDP centralizes 
-identity for the user, and they use their IDP credentials to access the services they use. Where OAuth 
+identity for the user, and they use their IDP credentials to access services. Where OAuth 
 is generally used for consumer oriented apps, enterprise companies often require the services they purchase to 
 offer SAML based Single Sign On (SSO).
 
@@ -31,9 +29,7 @@ as one of your other customers.
 SAML itself is not a challenging protocol to adopt. There's tons of existing open-source software, often 
 provided by IDPs themselves, that can help you get a SAML proof of concept shipped in a couple of hours.
 
-The challenges are in turning this proof of concept into a production-ready set of features that engineering 
-knows how to debug, sales knows how to sell, and customer success knows how to onboard for your highest 
-value accounts.
+The challenges are in turning this proof of concept into a production-ready set of features that's scalable, sellable, and serviceable.
 
 ### Configure IDP Instances for Multi-tenancy
 
