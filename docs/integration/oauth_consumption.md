@@ -9,23 +9,124 @@ Digging deeper, Osso supports an OAuth 2.0 authorization code grant flow that al
 
 You can learn more about the OAuth 2.0 authorization code grant flow on [Okta's developer website](https://developer.okta.com/blog/2018/04/10/oauth-authorization-code-grant-type), as well as the [official OAuth 2.0 docs](https://oauth.net/2/grant-types/authorization-code/).
 
-### OAuth Clients
+## OAuth Clients
 
-Before you can consume the OAuth flow, you need to manage your OAuth Clients in the Configuration section of the Osso Admin UI. An OAuth Client respresents an application that is allowed and configured to integrate with Osso's OAuth endpoints. If you've ever registered an OAuth client on a popular service like Google or Facebook you may be familiar with this process.
+Before you can consume the OAuth flow, you need to manage your OAuth Clients in the Configuration section of the Osso Admin UI. An OAuth Client represents an application that is allowed and configured to integrate with Osso's OAuth endpoints. If you've ever registered an OAuth client on a popular service like Google or Facebook you may be familiar with this process.
 
-Osso will generate a Client ID and Client Secret for each OAuth Client. You'll need to use these in your application when interacting with Osso. These values should be considered secret (the Client Secret is **super secret**, the Client ID will appear in URLs but it's best to still treat it as _somewhat secret_) and should not be commited to version control. Osso allows you to regenerate credentials if you fear they have been compromised.
+Osso will generate a Client ID and Client Secret for each OAuth Client. You'll need to use these in your application when interacting with Osso. These values should be considered secret (the Client Secret is **super secret**, the Client ID will appear in URLs but it's best to still treat it as _somewhat secret_) and should not be committed to version control. Osso allows you to regenerate credentials if you fear they have been compromised.
 
-#### Redirect URIs
+### Redirect URIs
 
 You must add Redirect URIs to an allow-list of valid redirects for each OAuth Client. After a user successfully authorizes their Identity Provider, Osso will redirect the user back to your application with an authorization code in the URL. Because the URL will contain sensitive information, Osso will only redirect a user to a URL you've added to your allow list.
 
 You must also specify a Primary Redirect URI - users who access your app by choosing it from their Identity Provider (known as an Identity Provider initiated sign in) will be sent to this URL.
 
-### Consumption Libraries
+## OAuth 2.0 Authorization Code Flow
 
-Osso offers OAuth consumption libraries in a couple languages / frameworks, and plans on adding more as needed. Please let us know if you could use a library for consuming Osso oauth in your langauge: <a href="mailto:hello@enterpriseoss.dev" target="_blank">hello@enterpriseoss.dev</a>
+The OAuth 2.0 Authorization Code Grant is the most common OAuth 2.0 grant type - if you've implemented OAuth before with something like Google or Github, then you used this approach already. Osso's OAuth client libraries handle the intermediate requests, authorization code exchange, etc., but this describes the entire flow for consuming Osso.
 
-#### omniauth-osso (Ruby)
+### 1. Authorization
+
+To begin the OAuth flow, construct a URL like this and redirect the user there:
+
+```bash
+https://your-osso.com/oauth/authorize
+  ?response_type=code
+  &client_id=29352915982374239857
+  &redirect_uri=https%3A%2F%2Fexample-app.com%2Fcallback
+  &state=xcoiv98y2kd22vusuye3kch
+  &domain=foo.com
+  &email=user@foo.com
+```
+
+Here’s each query parameter explained:
+
+- response_type=code - This allows Osso to initiate the authorization code flow. While that's the only supported flow now, we may add other types in the future, so this is required.
+
+- client_id - The Client Identifier for the OAuth Client registered on the Osso Admin UI.
+
+- redirect_uri - Tells Osso where to send the user back to after they've successfully logged in. Must be included in the allow list for the OAuth Client registered on the Osso Admin UI.
+
+- state - Generate a random string and includes it in the request. Osso returns the user back to your application with the same state param - check that is matches in order to prevent CSRF attacks.
+
+- domain OR email - One of domain or email is required. Osso uses the value to look up the configured IDP for the user or domain in order to know where to redirect the user. If you pass domain and multiple IDPs are configured for the domain, the user will always be shown a selector. If you pass email, the user will be shown a selector once, and then automatically sent to the chosen IDP in the future.
+
+### 2. Code Exchange
+
+Once the user successfully signs in to their IDP, the user is redirected back to the `redirect_uri` you specified in the authorization URL query param. The redirect URL will include `code` and `state` parameters:
+
+```bash
+https://example-app.com/2Fcallback
+  ?code=g0ZGZmNjVmOWIjNTk2NTk4ZTYyZGI3
+  &state=xcoiv98y2kd22vusuye3kch
+```
+
+Ensure that the state param matches the value you previously generated to prevent CSRF attacks.
+
+Then, exchange the `code` for an access token by making a POST request:
+
+```bash
+curl --request POST \
+  --url 'https://your-osso.com/oauth/token' \
+  --header 'content-type: application/x-www-form-urlencoded' \
+  --data grant_type=authorization_code \
+  --data 'client_id=YOUR_CLIENT_ID' \
+  --data client_secret=YOUR_CLIENT_SECRET \
+  --data 'redirect_uri=https://example.com/callback' \
+  --data code=YOUR_AUTHORIZATION_CODE
+```
+
+Here’s each query parameter explained:
+
+- grant_type=authorization_code - Keeps Osso in the authorization code flow.
+
+- client_id - The Client Identifier for the OAuth Client registered on the Osso Admin UI.
+
+- client_secret - The Client Secret for the OAuth Client registered on the Osso Admin UI.
+
+- redirect_uri - Same URI as the previous request, must be included in the allow list for the OAuth Client registered on the Osso Admin UI.
+
+- code - The authorization code you received as a URL query param when the user was redirected back to your application.
+
+Assuming your request is successful, you'll receive a JSON body that includes an `access_token`.
+
+```javascript
+{
+  "access_token": "3633395cffe739bb87089235c152155ae73b6794f7af353b2aa189aeeacee1ec",
+  "token_type": "bearer",
+  "expires_in": 600
+}
+```
+
+### 3. Request profile
+
+Osso access tokens are short-lived and are only useful for requesting a normalized profile for the associated user.
+
+```bash
+curl --request GET \
+  --url https://myapi.com/api \
+  --header 'authorization: Bearer 3633395cffe739bb87089235c152155ae73b6794f7af353b2aa189aeeacee1ec' \
+  --header 'content-type: application/json'
+```
+
+```javascript
+{
+  "email": "user@foo.com",
+  "id": "f23611a5-2817-43e2-94b7-99b25235ad2d",
+  "idp": "Okta",
+  "requested": {
+    "email": null,
+    "domain": "foo.com"
+  }
+}
+```
+
+
+## Consumption Libraries
+
+Osso offers OAuth consumption libraries in a couple languages / frameworks, and plans on adding more as needed. Please let us know if you could use a library for consuming Osso oauth in your language: <a href="mailto:hello@enterpriseoss.dev" target="_blank">hello@enterpriseoss.dev</a>
+
+### omniauth-osso (Ruby)
 
 <a href="https://github.com/enterprise-oss/omniauth-osso" target="_blank">Source on GitHub</a>
 
@@ -58,12 +159,12 @@ end
 
 ```
 
-Finally, you'll need to send your users to `/auth/osso?domain=USER_DOMAIN` in order to kick off the authentication. SSO login experience is a bit different than any login experience you've used before. We've got a guide for SSO UX, and our React library offers an SSOLogin component to help you offer a strong UX.
+Finally, you'll need to send your users to `/auth/osso?domain=USER_DOMAIN` or `/auth/osso?email=USER_EMAIL` in order to kick off the authentication. SSO login experience is a bit different than any login experience you've used before. We've got a guide for SSO UX, and our React library offers an SSOLogin component to help you offer a strong UX.
 
-#### passport-osso
+### passport-osso
 
 👷🏽‍♀️ Under Construction 🏗
 
-#### Others
+### Others
 
 We intend to build other consumption libraries as we grow, and welcome contributions from the developer community. If there's a specific language or OAuth framework you need a client library for, let us know: <a href="mailto:hello@enterpriseoss.dev" target="_blank">hello@enterpriseoss.dev</a>.
