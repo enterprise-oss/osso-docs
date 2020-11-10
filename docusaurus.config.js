@@ -28,9 +28,6 @@ module.exports = {
       textColor: "#091E42", // Defaults to `#000`.
       isCloseable: false, // Defaults to `true`.
     },
-    gtag: {
-      trackingID: "UA-177630158-1",
-    },
     googleAnalytics: {
       trackingID: "UA-177630158-1",
     },
@@ -114,6 +111,12 @@ module.exports = {
         lessOptions: {
           javascriptEnabled: true,
         },
+      },
+    ],
+    [
+      require.resolve("docusaurus-gtm-plugin"),
+      {
+        id: "GTM-WN9GGTG", // GTM Container ID
       },
     ],
     path.resolve(__dirname, "netlify-forms"),
