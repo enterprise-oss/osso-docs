@@ -121,6 +121,15 @@ curl --request GET \
 }
 ```
 
+Here’s each query parameter explained:
+
+- email - The email address provided by the IDP for the user.
+
+- id - Osso's internal unique and permanent ID for the user.
+
+- idp - The name of the Identity Provider the user authenticated against.
+
+- requested - The value you passed to the authorization URL. IDPs do allow for users with different email domains. For instance, the primary domain might be `acme.com`, but the user's email address in their IDP is `user@acme.co.uk`. Osso includes the requested email or domain such that you can properly associate the user with their team.
 
 ## Consumption Libraries
 
