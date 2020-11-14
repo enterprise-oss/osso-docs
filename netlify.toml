@@ -1,3 +1,7 @@
+[build]
+  command = "cd functions && npm i && cd .."
+  publish = "public"
+  functions = "functions"
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
   for = "/Mono.ttf"

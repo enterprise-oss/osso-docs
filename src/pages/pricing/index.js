@@ -108,6 +108,25 @@ function Home() {
   const [form] = Form.useForm();
   const domForm = useRef();
 
+  const onCheckout = async () => {
+    const response = await fetch("/.netlify/functions/create-checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // body: JSON.stringify(data),
+    }).then((res) => res.json());
+
+    const stripe = Stripe(response.publishableKey);
+    const { error } = await stripe.redirectToCheckout({
+      sessionId: response.sessionId,
+    });
+
+    if (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Layout
       title={siteConfig.title}
@@ -175,17 +194,23 @@ function Home() {
                 </div>
 
                 <Button
-                  onClick={
-                    plan.name !== "Community" &&
-                    (() => {
-                      window.gtag &&
-                        window.gtag("event", "ClickedPlan", {
-                          event_category: "Conversion",
-                          value: plan.name,
-                        });
-                      setChosenPlan(plan.name);
-                    })
-                  }
+                  onClick={() => {
+                    window.gtag &&
+                      window.gtag("event", "ClickedPlan", {
+                        event_category: "Conversion",
+                        value: plan.name,
+                      });
+
+                    switch (plan.name) {
+                      case "Business":
+                        return onCheckout();
+                        break;
+
+                      default:
+                        setChosenPlan(plan.name);
+                        break;
+                    }
+                  }}
                   href={
                     plan.name === "Community"
                       ? useBaseUrl("docs/what-is-saml")
