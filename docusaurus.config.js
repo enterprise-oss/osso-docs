@@ -121,6 +121,7 @@ module.exports = {
     ],
     path.resolve(__dirname, "netlify-forms"),
     path.resolve(__dirname, "stripe-js"),
+    path.resolve(__dirname, "chatwoot"),
     "posthog-docusaurus",
   ],
 };
