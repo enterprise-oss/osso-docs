@@ -2,7 +2,7 @@
 id: consuming-osso
 title: Consuming Osso
 ---
-## OAuth 2.0 Authorization Code Flow
+### OAuth 2.0 Authorization Code Flow
 
 The OAuth 2.0 Authorization Code Grant is the most common OAuth 2.0 grant type - if you've implemented OAuth before with something like Google or Github, then you used this approach already. Osso's OAuth client libraries handle the intermediate requests, authorization code exchange, etc., but this describes the entire flow for consuming Osso.
 
