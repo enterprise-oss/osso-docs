@@ -14,10 +14,11 @@ module.exports = {
     },
     {
       type: "category",
-      label: "How to configure Osso",
+      label: "How to consume Osso",
       items: [
-        "configure/overview",
-        "configure/adding-oauth-clients",
+        "consume/overview",
+        "consume/adding-oauth-clients",
+        "consume/consuming-osso",
         "configure/redirect-uris",
       ],
     },
