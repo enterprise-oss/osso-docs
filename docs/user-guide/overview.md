@@ -1,6 +1,7 @@
 ---
 id: overview
-title: Overview
+title: How to use Osso
+sidebar_label: Overview
 ---
 Osso provides an Admin interface for managing SAML Identity Providers and OAuth Clients.
 

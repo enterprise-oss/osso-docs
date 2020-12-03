@@ -19,7 +19,7 @@ module.exports = {
         "consume/overview",
         "consume/adding-oauth-clients",
         "consume/consuming-osso",
-        "configure/redirect-uris",
+        "consume/redirect-uris",
       ],
     },
     {

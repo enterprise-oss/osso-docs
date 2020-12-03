@@ -1,6 +1,7 @@
 ---
 id: overview
-title: Overview
+title: How to consume Osso
+sidebar_label: Overview
 ---
 Osso wraps a SAML auth flow inside an OAuth flow, handling all the ugly SAML bits while allowing your application to add Osso as an OAuth provider, a much simpler task for your engineering team, especially if you already support other OAuth providers, such as Google or GitHub.
 
