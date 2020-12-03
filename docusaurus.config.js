@@ -35,7 +35,7 @@ module.exports = {
       title: "Osso",
       items: [
         {
-          to: "docs/quick-start/overview",
+          to: "docs/quick-start",
           activeBasePath: "docs/quick-start",
           label: "Docs",
           position: "left",

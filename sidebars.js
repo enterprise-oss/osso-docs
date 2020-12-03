@@ -1,16 +1,6 @@
 module.exports = {
   someSidebar: [
-    {
-      type: "category",
-      label: "Quick start",
-      items: [
-        "quick-start/overview",
-        "quick-start/deploy",
-        "quick-start/consume",
-        "quick-start/sign-in",
-        "quick-start/handoff",
-      ],
-    },
+    "quick-start",
     {
       type: "category",
       label: "How to deploy Osso",
