@@ -28,4 +28,5 @@ _Example Value:_ `9c670917322529f383c1df29e861e2ea21c03d09e30ead661846fa87ebc5b3
 
 ### CYPRESS_INSTALL_BINARY
 Osso uses Cypress for e2e tests. This prevents yarn / npm from downloading the Cypress binary in your release environment. Not required but recommended.
+
 _Example Value:_ `0`
