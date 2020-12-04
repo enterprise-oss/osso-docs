@@ -3,4 +3,4 @@ id: with-docker
 title: Deploying with Docker
 ---
 
-TKTKTK
+We're currently working on a Docker image, please sign up for our newsletter to stay updated. 
