@@ -65,8 +65,8 @@ function Home() {
               Authenticate Single Sign-On users with free, open source software
             </p>
             <div className={styles.buttons}>
-              <Button size="large" href={useBaseUrl("docs/what-is-saml")}>
-                Learn more
+              <Button size="large" href={useBaseUrl("docs/quick-start")}>
+                Get started
               </Button>
             </div>
           </div>

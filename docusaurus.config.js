@@ -35,15 +35,9 @@ module.exports = {
       title: "Osso",
       items: [
         {
-          to: "docs/integration/overview",
-          activeBasePath: "docs/integration",
+          to: "docs/quick-start",
+          activeBasePath: "docs/quick-start",
           label: "Docs",
-          position: "left",
-        },
-        {
-          to: "docs/what-is-saml",
-          activeBasePath: "guides",
-          label: "Guides",
           position: "left",
         },
         { to: "blog", label: "Blog", position: "left" },

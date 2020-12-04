@@ -1,41 +1,35 @@
 module.exports = {
   someSidebar: [
-    "what-is-saml",
-    "overview",
+    "quick-start",
     {
       type: "category",
-      label: "Integration Docs",
+      label: "How to deploy Osso",
       items: [
-        "integration/overview",
-        "integration/deployment",
-        "integration/oauth-consumption",
-        "integration/test",
-        "integration/self-serve-osso-react",
+        "deploy/overview",
+        "deploy/with-heroku",
+        "deploy/with-docker",
+        "deploy/env-variables",
+        "deploy/post-deployment",
       ],
     },
     {
       type: "category",
-      label: "Usage Guides",
+      label: "How to consume Osso",
       items: [
-        {
-          type: "category",
-          label: "Admin UI",
-          items: [
-            "usage/admin-ui/overview",
-            "usage/admin-ui/onboarding-your-first-enterprise-customer",
-          ],
-        },
-        {
-          type: "category",
-          label: "Identity Providers",
-          items: [
-            "idp/overview",
-            "idp/azure-active-directory",
-            "idp/google-saml",
-            "idp/okta",
-            "idp/one-login",
-          ],
-        },
+        "consume/overview",
+        "consume/adding-oauth-clients",
+        "consume/redirect-uris",
+        "consume/consuming-osso",
+      ],
+    },
+    {
+      type: "category",
+      label: "How to use Osso",
+      items: [
+        "user-guide/overview",
+        "user-guide/adding-customers",
+        "user-guide/onboarding-customers",
+        "user-guide/self-serve",
       ],
     },
   ],
