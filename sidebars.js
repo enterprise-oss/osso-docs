@@ -18,8 +18,8 @@ module.exports = {
       items: [
         "consume/overview",
         "consume/adding-oauth-clients",
-        "consume/consuming-osso",
         "consume/redirect-uris",
+        "consume/consuming-osso",
       ],
     },
     {
