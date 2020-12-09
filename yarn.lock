@@ -1451,13 +1451,8 @@
     url "^0.11.0"
     webpack-sources "^1.4.3"
 
-"@enterprise-oss/ant-theme@enterprise-oss/ant-theme#sbauch/pipeline":
-  version "1.0.6-alpha.1"
-  resolved "https://codeload.github.com/enterprise-oss/ant-theme/tar.gz/bb4f16fffb29777a7e2e17bb4d46bf47f62f7b0a"
-
 "@enterprise-oss/ant-theme@https://github.com/enterprise-oss/ant-theme#sbauch/pipeline":
   version "1.0.6-alpha.1"
-  uid bb4f16fffb29777a7e2e17bb4d46bf47f62f7b0a
   resolved "https://github.com/enterprise-oss/ant-theme#bb4f16fffb29777a7e2e17bb4d46bf47f62f7b0a"
 
 "@eslint/eslintrc@^0.1.3":

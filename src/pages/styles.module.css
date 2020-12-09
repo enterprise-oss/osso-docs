@@ -74,13 +74,12 @@
 
 .features h3{
   font-size: 30px;
-  color: var(--ifm-landing-page-font-color);
+  color: var(--ifm-landing-page-font-color); 
   margin-bottom: 16px;
 }
 
 .features p{
   font-size: 20px;
-  color: var(--ifm-landing-page-font-color)
 }
 
 @media screen and (max-width: 996px) {
