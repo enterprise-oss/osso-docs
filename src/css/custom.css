@@ -28,15 +28,6 @@ html[data-theme='dark']{
   --ifm-landing-page-font-color: var(--ifm-color-secondary-lightest);
 }
 
-html[data-theme='dark'] h1,h2,h3,h4,h5,h6{
-  color: var(--ifm-font-color-base) !important;
-}
-
-body, html {
-  font-family: 'DM Sans', sans-serif;
-  color: var(--ifm-font-color-base) !important;
-  background-color: var(--ifm-background-color) !important;
-}
 
 .navbar__title {
   margin-top: -11px;

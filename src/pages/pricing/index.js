@@ -188,7 +188,7 @@ function Home() {
                   }
                   href={
                     plan.name === "Community"
-                      ? useBaseUrl("docs/what-is-saml")
+                      ? useBaseUrl("docs/quick-start")
                       : undefined
                   }
                   style={{ marginTop: "auto", marginBottom: 12 }}
