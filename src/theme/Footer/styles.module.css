@@ -47,4 +47,5 @@
 
 .footer label {
   color: var(--ifm-color-secondary-lightest) !important;
+  line-height: 3em;
 }

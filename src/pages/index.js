@@ -60,7 +60,7 @@ function Home() {
             </p>
             <div className={styles.buttons}>
               <Button size="large" href={useBaseUrl("docs/quick-start")}>
-                Learn more
+                Get started
               </Button>
             </div>
           </div>
