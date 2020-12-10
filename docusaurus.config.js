@@ -87,16 +87,13 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Enterprise OSS - Built with Docusaurus.`,
     },
-    "colorMode": {
-      // "defaultMode": "light",
-      // "disableSwitch": false,
-      // "respectPrefersColorScheme": false,
-      "switchConfig": {
-        "darkIcon": "🌙",
-        "darkIconStyle": {},
-        "lightIcon": "🔆",
-        "lightIconStyle": {}
-      }
+    colorMode: {
+      switchConfig: {
+        darkIcon: "🌙",
+        darkIconStyle: {},
+        lightIcon: "🔆",
+        lightIconStyle: {},
+      },
     },
   },
   presets: [

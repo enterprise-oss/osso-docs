@@ -38,23 +38,11 @@
   display: flex;
 }
 
-/* .getStarted {
-  border: 1.5px solid #FFFFFF;
-  box-sizing: border-box;
-  border-radius: 3px;
-  background: transparent;
-}
-
-.getStarted:hover {
-color: var(--ifm-landing-page-font-color);
-} */
-
 .features {
   display: flex;
   align-items: center;
   width: 100%;
 }
-
 
 .row {
   align-items: center;

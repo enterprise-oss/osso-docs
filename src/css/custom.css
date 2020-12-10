@@ -38,6 +38,9 @@ html[data-theme='dark']{
   --ifm-landing-page-font-color: var(--ifm-color-secondary);
 }
 
+html[data-theme='dark'] article a {
+  color: var(--ifm-color-primary-lighter);
+}
 
 .navbar__title {
   margin-top: -11px;
