@@ -38,17 +38,16 @@
   display: flex;
 }
 
-.getStarted {
-  /* TODO: ghost button */
-  /* border: 1.5px solid #FFFFFF;
+/* .getStarted {
+  border: 1.5px solid #FFFFFF;
   box-sizing: border-box;
   border-radius: 3px;
-  background: transparent; */
+  background: transparent;
 }
 
 .getStarted:hover {
-  /* color: var(--ifm-landing-page-font-color); */
-}
+color: var(--ifm-landing-page-font-color);
+} */
 
 .features {
   display: flex;
