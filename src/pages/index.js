@@ -14,34 +14,28 @@ import styles from "./styles.module.css";
 
 const features = [
   {
-    title: <>Treat SAML as OAuth</>,
+    title: <>Sell to enterprise, fast</>,
     description: (
       <>
-        Osso authenticates users against SAML Identity Provider services,
-        normalizes user payloads, and provides an OAuth server to sign those
-        users into your application.
+        Want to sell to Enterprise customers? SAML-based SSO is a requirement. Osso integrates with all of the most popular Identity Providers so that you can check off another box on your sales pitch and start closing bigger deals.
       </>
     ),
     Component: SAMLSvg,
   },
   {
-    title: <>SAML Config Wherever You Want It</>,
+    title: <>Ship, faster</>,
     description: (
       <>
-        Get started quickly by configuring your customers&apos; SAML providers
-        in the Osso Admin UI, or allow your customers to perform configuration
-        themselves in your UI with hooks and components from our React library.
+        Osso's SAML-based solution lets your customers use their preferred Identity Providers to sign into your application. It's quick to integrate, too: what is typically a multi-week project can be deployed in just a few hours.
       </>
     ),
     Component: BoilerplateSvg,
   },
   {
-    title: <>Docs for Your Whole Team</>,
+    title: <>Free up your dev team</>,
     description: (
       <>
-        Beyond technical documentation, Osso provides guides and docs for your
-        sales and success teams and your enterprise customers to make onboarding
-        SAML accounts smooth sailing.
+        With its intuitive UI and custom docs, Osso will enable your customer success teams (or users!) to handle onboarding and support, freeing up your developers to focus on higher-priority work.
       </>
     ),
     Component: TeamDocsSvg,
@@ -62,11 +56,11 @@ function Home() {
         <header className={classnames("hero", styles.heroBanner)}>
           <div className={styles.heroCopy}>
             <p>
-              Authenticate Single Sign-On users with free, open source software
+            Add enterprise-grade SSO to your application today 
             </p>
             <div className={styles.buttons}>
-              <Button size="large" href={useBaseUrl("docs/what-is-saml")}>
-                Learn more
+              <Button size="large" href={useBaseUrl("docs/quick-start")}>
+                Get started
               </Button>
             </div>
           </div>

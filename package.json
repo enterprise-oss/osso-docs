@@ -13,7 +13,7 @@
     "@docusaurus/core": "^2.0.0-alpha.65",
     "@docusaurus/plugin-google-gtag": "^2.0.0-alpha.37",
     "@docusaurus/preset-classic": "^2.0.0-alpha.65",
-    "@enterprise-oss/ant-theme": "^1.0.5",
+    "@enterprise-oss/ant-theme": "^1.0.7",
     "add": "^2.0.6",
     "antd": "^4.6.3",
     "classnames": "^2.2.6",
