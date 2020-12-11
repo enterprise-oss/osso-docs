@@ -38,24 +38,11 @@
   display: flex;
 }
 
-.getStarted {
-  /* TODO: ghost button */
-  /* border: 1.5px solid #FFFFFF;
-  box-sizing: border-box;
-  border-radius: 3px;
-  background: transparent; */
-}
-
-.getStarted:hover {
-  /* color: var(--ifm-landing-page-font-color); */
-}
-
 .features {
   display: flex;
   align-items: center;
   width: 100%;
 }
-
 
 .row {
   align-items: center;
@@ -74,13 +61,12 @@
 
 .features h3{
   font-size: 30px;
-  color: var(--ifm-landing-page-font-color);
+  color: var(--ifm-landing-page-font-color); 
   margin-bottom: 16px;
 }
 
 .features p{
   font-size: 20px;
-  color: var(--ifm-landing-page-font-color)
 }
 
 @media screen and (max-width: 996px) {

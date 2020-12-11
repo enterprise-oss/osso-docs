@@ -48,6 +48,11 @@ module.exports = {
           className: "header-github-link",
           "aria-label": "GitHub repository",
         },
+        {
+          to: "https://demo.ossoapp.com",
+          label: "Demo",
+          position: "left",
+        },
       ],
     },
     posthog: {
@@ -81,6 +86,14 @@ module.exports = {
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Enterprise OSS - Built with Docusaurus.`,
+    },
+    colorMode: {
+      switchConfig: {
+        darkIcon: "🌙",
+        darkIconStyle: {},
+        lightIcon: "🔆",
+        lightIconStyle: {},
+      },
     },
   },
   presets: [

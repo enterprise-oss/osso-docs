@@ -12,7 +12,7 @@
 .footerRow{
   display: flex;
   justify-content: space-between;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 @media screen and (max-width: 996px) {
@@ -47,4 +47,5 @@
 
 .footer label {
   color: var(--ifm-color-secondary-lightest) !important;
+  line-height: 3em;
 }
