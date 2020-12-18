@@ -7,7 +7,7 @@ exports.handler = async (event, context, callback) => {
     payment_method_types: ["card"],
     billing_address_collection: "auto",
     success_url: `${process.env.DEPLOY_URL}/success`,
-    cancel_url: `${process.env.DEPLOY_URL}/pricing?plan=${plan.name}`,
+    cancel_url: `${process.env.DEPLOY_URL}/pricing?plan=${params.name}`,
     mode: "subscription",
     line_items: [
       {
