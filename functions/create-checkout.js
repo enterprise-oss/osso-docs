@@ -6,8 +6,8 @@ exports.handler = async (event, context, callback) => {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     billing_address_collection: "auto",
-    success_url: `${process.env.DEPLOY_URL}/success`,
-    cancel_url: `${process.env.DEPLOY_URL}/pricing?plan=${params.name}`,
+    success_url: `${process.env.DEPLOY_URL}/success?plan=${params.name}`,
+    cancel_url: `${process.env.DEPLOY_URL}/pricing`,
     mode: "subscription",
     line_items: [
       {
