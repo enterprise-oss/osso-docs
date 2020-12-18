@@ -44,7 +44,7 @@ export const plans = [
   },
   {
     name: "Series A",
-    price: "$149/mo",
+    price: "$199/mo",
     priceId: "osso_pmf", // TODO
     cta: "Get started",
     copy:
