@@ -1,6 +1,4 @@
-import { blue } from "@ant-design/colors";
 import { CheckCircleTwoTone } from "@ant-design/icons";
-import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import {

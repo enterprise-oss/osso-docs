@@ -6,3 +6,5 @@
   for = "/Mono.ttf"
     [headers.values]
     Access-Control-Allow-Origin = "*"
+[[plugins]]
+  package = "netlify-plugin-inline-functions-env"
