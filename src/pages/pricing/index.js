@@ -78,7 +78,7 @@ const plans = [
   },
   {
     name: "Enterprise",
-    price: "from $10k/year",
+    price: "$10k+/year",
     priceId: "osso_pmf", // TODO
     cta: "Contact us",
     copy:
