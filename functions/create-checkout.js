@@ -15,9 +15,6 @@ exports.handler = async (event, context, callback) => {
         quantity: 1,
       },
     ],
-    subscription_data: {
-      trial_period_days: 21,
-    },
   });
 
   return {
