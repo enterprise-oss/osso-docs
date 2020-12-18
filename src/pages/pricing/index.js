@@ -282,10 +282,11 @@ function Home() {
             <>
               <h3>Thanks for your interest in our {chosenPlan} plan! </h3>
               <p>
-                We’re hard at work building out our self-service offering and
-                will keep you in the loop as soon as it’s ready. Give us your
-                email (we won’t share it with anybody else, ever) and you’ll be
-                the first to know when it’s available.
+                We recognize that not every firm can just buy software off the
+                shelf and we&apos;re excited to work with larger organizations
+                in a more consultative manner. We can help you plan and execute
+                a SAML SSO rollout across your entire company, tailoring Osso to
+                your specific needs.
               </p>
               <Form
                 component="div"
@@ -320,9 +321,9 @@ function Home() {
 
                   <Divider />
                   <p>
-                    If you’d like to be considered for our beta cohort, tell us
-                    a bit more about your company, your tech stack, and where
-                    SSO fits into your roadmap and we’ll be in touch. (Optional)
+                    Feel free to tell us a bit more about your company, your
+                    tech stack, and where SSO fits into your roadmap and we’ll
+                    be in touch. (Optional)
                   </p>
                   <Form.Item name="about">
                     <Input.TextArea placeholder="My company is..." />
