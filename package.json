@@ -25,6 +25,7 @@
     "react-dom": "^16.8.4",
     "react-intersection-observer": "^8.26.2",
     "react-responsive": "^8.0.3",
+    "url-search-params-polyfill": "^8.1.0",
     "yarn": "^1.22.4"
   },
   "browserslist": {

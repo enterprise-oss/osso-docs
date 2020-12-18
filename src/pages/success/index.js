@@ -1,3 +1,5 @@
+import "url-search-params-polyfill";
+
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import { Col, Layout as AntLayout, Row } from "antd";
