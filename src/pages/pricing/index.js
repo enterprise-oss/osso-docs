@@ -145,6 +145,8 @@ function Home() {
             <Col key={plan.name} sm={24} md={12} lg={6}>
               <Card
                 className={styles.planCard}
+                hoverable
+                onClick={() => onCheckout(plan)}
                 title={
                   <div className={styles.planHeader}>
                     <span>{plan.name}</span>
