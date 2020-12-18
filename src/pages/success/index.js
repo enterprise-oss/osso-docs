@@ -24,7 +24,6 @@ function Success() {
   const isLargeScreen = useMediaQuery({ query: screens.large });
   let query = useQuery();
   const planNames = plans.map((plan) => plan.name);
-  console.log(query.plan);
   const plan = planNames.some((plan) => plan === query.get("plan"))
     ? "the " + query.get("plan")
     : "a ";
