@@ -28,7 +28,7 @@ function encode(data) {
 export const plans = [
   {
     name: "PMF",
-    price: "$49/mo",
+    price: "$99/mo",
     priceId: "osso_pmf",
     cta: "Start for free",
     copy:
