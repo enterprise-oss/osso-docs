@@ -4,15 +4,28 @@ import { Col, Layout as AntLayout, Row } from "antd";
 import classnames from "classnames";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
+import { useLocation } from "react-router-dom";
 
 import SAMLSvg from "../../components/svg/saml";
 import screens from "../../utils/responsive";
+import { plans } from "../pricing";
 import styles from "./styles.module.css";
+
+function useQuery() {
+  console.log(useLocation().search);
+  return new URLSearchParams(useLocation().search);
+}
 
 function Success() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   const isLargeScreen = useMediaQuery({ query: screens.large });
+  let query = useQuery();
+  const planNames = plans.map((plan) => plan.name);
+  console.log(query.plan);
+  const plan = planNames.some((plan) => plan === query.get("plan"))
+    ? "the " + query.get("plan")
+    : "a ";
 
   return (
     <Layout
@@ -28,7 +41,7 @@ function Success() {
               </Col>
               <Col span={16}>
                 <div>
-                  <h2>You’ve signed up for the Bootstrap plan</h2>
+                  <h2>You’ve signed up for {plan} plan</h2>
                   <p>Welcome to Osso! We’re so excited that you chose us.</p>
                   <p>
                     You’ll receive an email from welcome@ossoapp.com with

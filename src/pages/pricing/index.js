@@ -25,7 +25,7 @@ function encode(data) {
     .join("&");
 }
 
-const plans = [
+export const plans = [
   {
     name: "PMF",
     price: "$49/mo",
