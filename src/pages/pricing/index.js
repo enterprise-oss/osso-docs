@@ -1,5 +1,5 @@
 import { blue } from "@ant-design/colors";
-import { CheckCircleFilled, CheckCircleTwoTone } from "@ant-design/icons";
+import { CheckCircleTwoTone } from "@ant-design/icons";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
@@ -29,76 +29,74 @@ function encode(data) {
 
 const plans = [
   {
-    name: "Community",
-    price: "$0",
-    className: "",
+    name: "PMF",
+    price: "$49/mo",
+    priceId: "osso_pmf",
     cta: "Start for free",
+    copy:
+      "If one of your customers is asking for SAML, this is your best option. Osso is a snap to integrate, and our monthly agreements give you the flexibility you need to scale up easily when business takes off. ",
     features: [
-      "Deploy on your own infrastructure",
-      "Community support via community.ossoapp.com",
-      "Customized onboarding docs for new customers",
-      "Admin UI to manage Enterprise SSO users",
+      <span key="0">
+        Enables SAML SSO for <strong>up to 5 customers</strong>
+      </span>,
+      <span key="0">
+        Pick this if: you’re just starting to sell to Enterprise
+      </span>,
     ],
-    styles: {
-      borderRadius: 4,
-    },
-    titleStyles: {
-      borderRadius: "4px 4px 0 0 ",
-    },
-    markerColor: "#4E61A5",
   },
   {
-    name: "Business",
-    price: "$249/mo",
-    className: "businessCard",
+    name: "Series A",
+    price: "$149/mo",
+    priceId: "osso_pmf", // TODO
     cta: "Get started",
+    copy:
+      "Multiple requests for SAML SSO? This is the plan for you. Once you’ve integrated Osso, onboarding a dozen customers is easy, and with our Admin UI your Sales team can handle it themselves.",
     features: [
-      "Everything in the Community plan",
-      "Quick start: deploy on our infrastructure",
-      "Email support",
-      "Regular updates",
-      "Up to 5 Enterprise accounts",
-      "Custom sub-domain: YOURCO.ossoapp.io",
+      <span key="0">
+        Enables SAML SSO for <strong>up to 25 customers</strong>
+      </span>,
+      <span key="0">
+        Pick this if: you’ve got customer demand and have had SAML in your
+        backlog for too long
+      </span>,
     ],
-    styles: {
-      borderColor: "#4E61A5",
-      boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
-      borderRadius: 4,
-    },
-    titleStyles: {
-      borderRadius: "4px 4px 0 0 ",
-    },
-    markerColor: "#4E61A5",
+  },
+  {
+    name: "Unicorn",
+    price: "$499/mo",
+    priceId: "osso_pmf", // TODO
+    cta: "Contact us",
+    copy:
+      "You might have patched together SAML yourself, but by now the overhead and onboarding are becoming a pain. Let our expertise and intuitive documentation help you close more deals with less fuss.",
+    features: [
+      <span key="0">
+        Enables SAML SSO for <strong>up to 100 customers</strong>
+      </span>,
+      <span key="0">
+        Pick this if: your current solution costs too much – in dollars,
+        developer time, or support burden
+      </span>,
+    ],
   },
   {
     name: "Enterprise",
-    price: "Custom",
-    className: "enterpriseCard",
+    price: "from $10k/year",
+    priceId: "osso_pmf", // TODO
     cta: "Contact us",
+    copy:
+      "These days a lot of companies want to self-host certain critical services for a range of reasons. We’re here to help: we’ll work side by side with your dev team to design, build, and integrate the perfect Osso instance for your needs. ",
     features: [
-      "Everything in the Business plan",
-      "Video & phone support",
-      "Unlimited Enterprise accounts",
-      "Bespoke middleware for all necessary integrations",
-      "Custom domain",
-      "Hands-on training sessions for your sales & success teams",
-      "White label customer onboarding & support",
-      "Ops integrations",
-      "Service level agreements",
+      <span key="0">
+        Enables SAML SSO for <strong>ALL of your customers</strong>
+      </span>,
+      <span key="0">
+        Pick this if: you want a bespoke solution that’s hosted on your own
+        infrastructure
+      </span>,
     ],
-    styles: {
-      backgroundColor: "#4E61A5",
-      color: "white",
-      boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
-      borderRadius: 4,
-    },
-    titleStyles: {
-      color: "white",
-      borderRadius: "4px 4px 0 0 ",
-    },
-    markerColor: "white",
   },
 ];
+
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
@@ -108,13 +106,17 @@ function Home() {
   const [form] = Form.useForm();
   const domForm = useRef();
 
-  const onCheckout = async () => {
+  const onCheckout = async (plan) => {
+    if (plan.name === "Enterprise") {
+      return setChosenPlan(plan.name);
+    }
+
     const response = await fetch("/.netlify/functions/create-checkout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      // body: JSON.stringify(data),
+      body: JSON.stringify(plan),
     }).then((res) => res.json());
 
     const stripe = Stripe(response.publishableKey);
@@ -132,90 +134,45 @@ function Home() {
       title={siteConfig.title}
       description="Free, open-source software for adding SAML based SSO to your application"
     >
-      <AntLayout.Content className="container margin-vert--xl ">
-        <Row gutter={[16, 72]}>
-          <Col sm={24} md={{ span: 20, offset: 2 }} className={styles.features}>
-            <h3>
-              {isLargeScreen && <span className={styles.titleMarker} />}
-              Osso is for everybody
-            </h3>
-            <p>
-              Osso is and will remain free, open source software that anyone can
-              use to authenticate users to their app with SSO.
-              <br />
-              <br />
-              If you want to reduce the integration load for your engineering
-              team, or appreciate the peace of mind that comes with personalized
-              support, we&apos;re happy to offer private managed instances on a
-              subscription basis. We can also consult with your engineering team
-              and help train your sales and customer success teams. If that
-              sounds interesting, read on.
-            </p>
-          </Col>
-        </Row>
+      <AntLayout.Content
+        className={classnames("container margin-vert--xl", styles.container)}
+      >
         <Row gutter={[16, 48]}>
-          <Col sm={24} md={{ span: 20, offset: 2 }} className={styles.features}>
-            <h3>
-              {isLargeScreen && <span className={styles.titleMarker} />}
-              Our plans
-            </h3>
+          <Col span={24} className={styles.plansTitle}>
+            <h3>Our plans</h3>
           </Col>
         </Row>
-        <Row gutter={[24, 72]}>
+        <Row gutter={[8, 72]} width="1440px">
           {plans.map((plan) => (
-            <Col key={plan.name} sm={24} lg={8}>
+            <Col key={plan.name} sm={24} md={12} lg={6}>
               <Card
-                className={[styles.planCard, styles[plan.className]]}
+                className={styles.planCard}
                 title={
                   <div className={styles.planHeader}>
                     <span>{plan.name}</span>
-                    <span>{plan.price}</span>
+                    <span className={styles.price}>{plan.price}</span>
                   </div>
                 }
-                style={plan.styles}
-                headStyle={plan.titleStyles}
+                headStyle={{}}
                 bodyStyle={{
                   display: "flex",
                   flexGrow: "1",
                   flexDirection: "column",
-                  ...plan.bodyStyles,
                 }}
               >
+                <p className={styles.planCopy}>{plan.copy}</p>
                 <div className={styles.featureList}>
-                  {plan.features.map((feature, index) => (
-                    <p className={styles.planFeature} key={index}>
-                      <CheckCircleFilled
-                        className={styles.planFeatureMarker}
-                        style={{ color: plan.markerColor }}
-                      />
-                      {feature}
-                    </p>
-                  ))}
+                  <ul>
+                    {plan.features.map((feature, index) => (
+                      <li className={styles.planFeature} key={index}>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
                 <Button
-                  onClick={() => {
-                    window.gtag &&
-                      window.gtag("event", "ClickedPlan", {
-                        event_category: "Conversion",
-                        value: plan.name,
-                      });
-
-                    switch (plan.name) {
-                      case "Business":
-                        return onCheckout();
-                        break;
-
-                      default:
-                        setChosenPlan(plan.name);
-                        break;
-                    }
-                  }}
-                  href={
-                    plan.name === "Community"
-                      ? useBaseUrl("docs/quick-start")
-                      : undefined
-                  }
+                  type="primary"
+                  onClick={() => onCheckout(plan)}
                   style={{ marginTop: "auto", marginBottom: 12 }}
                 >
                   {plan.cta}
@@ -228,8 +185,21 @@ function Home() {
           <Col sm={24} md={{ span: 20, offset: 2 }} className={styles.features}>
             <h3>
               {isLargeScreen && <span className={styles.titleMarker} />}
-              Not ready to commit?
+              Osso is for everybody
             </h3>
+            <p>
+              Still not seeing a plan that’s perfect for you? Osso is and will
+              remain a free, open source piece of software that anyone can use
+              by deploying to their own infrastructure. Check out our{" "}
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://github.com/enterprise-oss/osso"
+              >
+                Github
+              </a>{" "}
+              for more info (and star it to keep up with updates).
+            </p>
             <p>
               If we’re missing something that could be a big help to you or your
               organization, get in touch and let us know. We’re scrappy and we
