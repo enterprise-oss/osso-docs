@@ -101,6 +101,7 @@ function Home() {
   const isLargeScreen = useMediaQuery({ query: screens.large });
   const [chosenPlan, setChosenPlan] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const domForm = useRef();
 
@@ -108,6 +109,8 @@ function Home() {
     if (plan.name === "Enterprise") {
       return setChosenPlan(plan.name);
     }
+
+    setLoading(true);
 
     const response = await fetch("/.netlify/functions/create-checkout", {
       method: "POST",
@@ -124,6 +127,8 @@ function Home() {
 
     if (error) {
       console.error(error);
+      setLoading(false);
+      alert(error);
     }
   };
 
