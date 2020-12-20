@@ -110,7 +110,7 @@ function Home() {
       return setChosenPlan(plan.name);
     }
 
-    setLoading(true);
+    setLoading(plan.name);
 
     const response = await fetch("/.netlify/functions/create-checkout", {
       method: "POST",
@@ -118,7 +118,12 @@ function Home() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(plan),
-    }).then((res) => res.json());
+    })
+      .then((res) => res.json())
+      .catch((err) => {
+        setLoading(false);
+        alert(err);
+      });
 
     const stripe = Stripe(response.publishableKey);
     const { error } = await stripe.redirectToCheckout({
@@ -176,6 +181,7 @@ function Home() {
                   </ul>
                 </div>
                 <Button
+                  loading={loading === plan.name}
                   type="primary"
                   onClick={() => onCheckout(plan)}
                   style={{ marginTop: "auto", marginBottom: 12 }}
