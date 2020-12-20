@@ -1,9 +1,9 @@
 ---
 id: consuming-osso
-title: Consuming Osso
+title: Detailed Flow
 ---
 
-The OAuth 2.0 Authorization Code Grant is the most common OAuth 2.0 grant type - if you've implemented OAuth before with something like Google or Github, then you used this approach already. Osso's OAuth client libraries handle the intermediate requests, authorization code exchange, etc., but this describes the entire flow for consuming Osso.
+For languages that don't have an Osso library, you'll need to implement the OAuth 2.0 authorization code grant flow yourself. It's a multi-step exchange .
 
 ### 1. Authorization
 
@@ -19,11 +19,11 @@ https://your-osso.com/oauth/authorize
   &email=user@foo.com
 ```
 
-Here’s each query parameter explained:
+These are the query parameters you must include:
 
 - response_type=code - This allows Osso to initiate the authorization code flow. While that's the only supported flow now, we may add other types in the future, so this is required.
 
-- client_id - The Client Identifier for the OAuth Client registered on the Osso Admin UI.
+- client_id - The Client Identifier for the corresponding OAuth Client registered on the Osso Admin UI. This typically comes from your environment.
 
 - redirect_uri - Tells Osso where to send the user back to after they've successfully logged in. Must be included in the allow list for the OAuth Client registered on the Osso Admin UI.
 
@@ -33,7 +33,7 @@ Here’s each query parameter explained:
 
 ### 2. Code Exchange
 
-Once the user successfully signs in to their IDP, the user is redirected back to the `redirect_uri` you specified in the authorization URL query param. The redirect URL will include `code` and `state` parameters:
+Once the user successfully signs in to their IDP, the user is redirected back to the `redirect_uri` you specified in the authorization URL query param. This URI must also have been registered for the OAuth client in your Osso Admin UI. The redirect URL will include `code` and `state` parameters:
 
 ```bash
 https://example-app.com/2Fcallback
@@ -56,7 +56,7 @@ curl --request POST \
   --data code=YOUR_AUTHORIZATION_CODE
 ```
 
-Here’s each query parameter explained:
+These are the form encoded parameters you must include:
 
 - grant_type=authorization_code - Keeps Osso in the authorization code flow.
 
@@ -70,7 +70,7 @@ Here’s each query parameter explained:
 
 Assuming your request is successful, you'll receive a JSON body that includes an `access_token`.
 
-```javascript
+```json
 {
   "access_token": "3633395cffe739bb87089235c152155ae73b6794f7af353b2aa189aeeacee1ec",
   "token_type": "bearer",
@@ -82,14 +82,16 @@ Assuming your request is successful, you'll receive a JSON body that includes an
 
 Osso access tokens are short-lived and are only useful for requesting a normalized profile for the associated user.
 
+Make a request to the `/oauth/me` endpoint with the access token as an authorization header:
+
 ```bash
 curl --request GET \
-  --url https://myapi.com/api \
+  --url https://your-osso.com.com/oauth/me \
   --header 'authorization: Bearer 3633395cffe739bb87089235c152155ae73b6794f7af353b2aa189aeeacee1ec' \
   --header 'content-type: application/json'
 ```
 
-```javascript
+```json
 {
   "email": "user@foo.com",
   "id": "f23611a5-2817-43e2-94b7-99b25235ad2d",
@@ -101,7 +103,7 @@ curl --request GET \
 }
 ```
 
-Here’s each query parameter explained:
+These are the returned keys for the profile:
 
 - email - The email address provided by the IDP for the user.
 

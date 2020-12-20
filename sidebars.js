@@ -7,10 +7,18 @@ module.exports = {
       label: "How to deploy Osso",
       items: [
         "deploy/overview",
-        "deploy/with-heroku",
-        "deploy/with-docker",
         "deploy/env-variables",
+        "deploy/build-steps",
         "deploy/post-deployment",
+      ],
+    },
+    {
+      type: "category",
+      label: "How to configure Osso",
+      items: [
+        "configure/overview",
+        "configure/adding-oauth-clients",
+        "configure/redirect-uris",
       ],
     },
     {
@@ -18,9 +26,9 @@ module.exports = {
       label: "How to consume Osso",
       items: [
         "consume/overview",
-        "consume/adding-oauth-clients",
-        "consume/redirect-uris",
         "consume/consuming-osso",
+        "consume/passport-osso",
+        "consume/omniauth-osso",
       ],
     },
     {
