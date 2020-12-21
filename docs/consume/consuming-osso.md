@@ -1,6 +1,6 @@
 ---
 id: consuming-osso
-title: Detailed Flow
+title: OAuth 2.0 Flow
 ---
 
 For languages that don't have an Osso library, you'll need to implement the OAuth 2.0 authorization code grant flow yourself. It's a multi-step exchange .

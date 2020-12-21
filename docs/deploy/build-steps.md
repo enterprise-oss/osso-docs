@@ -1,4 +1,4 @@
 ---
 id: build-steps
-title: Build steps
+title: Deployment steps
 ---
