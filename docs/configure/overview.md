@@ -23,3 +23,5 @@ Review our [Redirect URI guide](/docs/configure/redirect-uris).
 ### 3. Test SAML accounts
 
 The SAML specification requires a multi-step configuration between Osso and each of your enterprise customer's Identity Provider. You'll want to be able to test your integration before releasing SAML SSO to your customers. Test your integration with the Osso IDP, with your company's Google account or with a developer account from Okta or OneLogin.
+
+Review our [Testing & QA guide](/docs/configure/test-qa).
