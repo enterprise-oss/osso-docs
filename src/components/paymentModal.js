@@ -120,10 +120,8 @@ export default function paymentModal({ open, onClose, plan }) {
       <Spin spinning={loading}>
         {customerId ? (
           <>
-            <Elements stripe={stripePromise}>
-              <CardElement options={CARD_ELEMENT_OPTIONS} />
-              {error}
-            </Elements>
+            <CardElement options={CARD_ELEMENT_OPTIONS} />
+            {error}
           </>
         ) : (
           <>
