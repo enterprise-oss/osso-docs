@@ -13,6 +13,8 @@ import { plans } from "../../utils/plans";
 import screens from "../../utils/responsive";
 import styles from "./styles.module.css";
 
+const stripePromise = loadStripe("pk_test_8VH9wndIf965pwn0l6Iz9MVV00AX0HJIEx");
+
 function Pricing() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
@@ -129,9 +131,7 @@ function Pricing() {
           open={currentPlan.name === "Enterprise"}
           onClose={() => setPlan("")}
         />
-        <Elements
-          stripe={loadStripe("pk_test_8VH9wndIf965pwn0l6Iz9MVV00AX0HJIEx")}
-        >
+        <Elements stripe={stripePromise}>
           <PaymentModal
             plan={currentPlan}
             open={currentPlan.name && currentPlan.name !== "Enterprise"}

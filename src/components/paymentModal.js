@@ -1,9 +1,6 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import { Form, Input, Modal, Spin } from "antd";
 import React, { useState } from "react";
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
