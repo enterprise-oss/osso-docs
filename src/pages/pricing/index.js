@@ -13,11 +13,7 @@ import { plans } from "../../utils/plans";
 import screens from "../../utils/responsive";
 import styles from "./styles.module.css";
 
-function Home() {
-  const stripePromise = loadStripe(
-    "pk_test_8VH9wndIf965pwn0l6Iz9MVV00AX0HJIEx"
-  );
-
+function Pricing() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   const isLargeScreen = useMediaQuery({ query: screens.large });
@@ -133,7 +129,9 @@ function Home() {
           open={currentPlan.name === "Enterprise"}
           onClose={() => setPlan("")}
         />
-        <Elements stripe={stripePromise}>
+        <Elements
+          stripe={loadStripe("pk_test_8VH9wndIf965pwn0l6Iz9MVV00AX0HJIEx")}
+        >
           <PaymentModal
             plan={currentPlan}
             open={currentPlan.name && currentPlan.name !== "Enterprise"}
@@ -145,4 +143,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Pricing;
