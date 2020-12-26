@@ -13,9 +13,11 @@ import { plans } from "../../utils/plans";
 import screens from "../../utils/responsive";
 import styles from "./styles.module.css";
 
-const stripePromise = loadStripe("pk_test_8VH9wndIf965pwn0l6Iz9MVV00AX0HJIEx");
-
 function Home() {
+  const stripePromise = loadStripe(
+    "pk_test_8VH9wndIf965pwn0l6Iz9MVV00AX0HJIEx"
+  );
+
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   const isLargeScreen = useMediaQuery({ query: screens.large });
