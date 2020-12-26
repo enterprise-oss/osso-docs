@@ -9,8 +9,8 @@ import { useMediaQuery } from "react-responsive";
 import { useLocation } from "react-router-dom";
 
 import SAMLSvg from "../../components/svg/saml";
+import { plans } from "../../utils/plans";
 import screens from "../../utils/responsive";
-import { plans } from "../pricing/plans";
 import styles from "./styles.module.css";
 
 function useQuery() {

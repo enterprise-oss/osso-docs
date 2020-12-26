@@ -7,13 +7,13 @@ import classnames from "classnames";
 import React, { useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
+import EnterpriseModal from "../../components/enterpriseModal";
+import PaymentModal from "../../components/paymentModal";
+import { plans } from "../../utils/plans";
 import screens from "../../utils/responsive";
-import EnterpriseModal from "./enterpriseModal";
-import PaymentModal from "./paymentModal";
-import { plans } from "./plans";
 import styles from "./styles.module.css";
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe("pk_test_8VH9wndIf965pwn0l6Iz9MVV00AX0HJIEx");
 
 function Home() {
   const context = useDocusaurusContext();

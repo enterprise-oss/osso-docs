@@ -1,23 +1,15 @@
 import { CheckCircleTwoTone } from "@ant-design/icons";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import Layout from "@theme/Layout";
-import {
-  Button,
-  Card,
-  Col,
-  Divider,
-  Form,
-  Input,
-  Layout as AntLayout,
-  Modal,
-  Row,
-} from "antd";
-import classnames from "classnames";
+import { Divider, Form, Input, Modal } from "antd";
 import React, { useRef, useState } from "react";
-import { useMediaQuery } from "react-responsive";
 
-import screens from "../../utils/responsive";
-import styles from "./styles.module.css";
+const styles = {
+  success: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+};
 
 export default function enterpriseModal({ open, onClose }) {
   const [submitted, setSubmitted] = useState(false);
@@ -64,7 +56,7 @@ export default function enterpriseModal({ open, onClose }) {
       }}
     >
       {submitted ? (
-        <div className={styles.success}>
+        <div style={styles.success}>
           <CheckCircleTwoTone
             twoToneColor="#4E61A5"
             style={{ fontSize: 96, marginBottom: 22 }}

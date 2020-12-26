@@ -1,6 +1,9 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { Form, Input, Modal, Spin } from "antd";
 import React, { useState } from "react";
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -20,11 +23,7 @@ const CARD_ELEMENT_OPTIONS = {
   },
 };
 
-export default function paymentModal({
-  open,
-  onClose,
-  plan: { name, priceId },
-}) {
+export default function paymentModal({ open, onClose, plan }) {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
@@ -32,6 +31,7 @@ export default function paymentModal({
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [form] = Form.useForm();
+  const { name, priceId } = plan || {};
 
   const onSubmitForm = async () => {
     if (customerId) {
@@ -120,8 +120,10 @@ export default function paymentModal({
       <Spin spinning={loading}>
         {customerId ? (
           <>
-            <CardElement options={CARD_ELEMENT_OPTIONS} />
-            {error}
+            <Elements stripe={stripePromise}>
+              <CardElement options={CARD_ELEMENT_OPTIONS} />
+              {error}
+            </Elements>
           </>
         ) : (
           <>
