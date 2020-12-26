@@ -1,5 +1,7 @@
 import { CheckCircleTwoTone } from "@ant-design/icons";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import Layout from "@theme/Layout";
 import {
   Button,
@@ -17,125 +19,19 @@ import React, { useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
 import screens from "../../utils/responsive";
+import EnterpriseModal from "./enterpriseModal";
+import PaymentModal from "./paymentModal";
+import { plans } from "./plans";
 import styles from "./styles.module.css";
 
-function encode(data) {
-  return Object.keys(data)
-    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&");
-}
-
-export const plans = [
-  {
-    name: "PMF",
-    price: "$99/mo",
-    priceId: "price_1HzqrZG25oQYthlcPgwp81JB",
-    cta: "Choose PMF",
-    copy:
-      "If one of your customers is asking for SAML, this is your best option. Osso is a snap to integrate, and our monthly agreements give you the flexibility you need to scale up easily when business takes off. ",
-    features: [
-      <span key="0">
-        Enables SAML SSO for <strong>up to 5 customers</strong>
-      </span>,
-      <span key="0">
-        Pick this if: you’re just starting to sell to Enterprise
-      </span>,
-    ],
-  },
-  {
-    name: "Series A",
-    price: "$199/mo",
-    priceId: "price_1HzqunG25oQYthlcEv25U7OB",
-    cta: "Choose Series A",
-    copy:
-      "Multiple requests for SAML SSO? This is the plan for you. Once you’ve integrated Osso, onboarding a dozen customers is easy, and with our Admin UI your Sales team can handle it themselves.",
-    features: [
-      <span key="0">
-        Enables SAML SSO for <strong>up to 25 customers</strong>
-      </span>,
-      <span key="0">
-        Pick this if: you’ve got customer demand and have had SAML in your
-        backlog for too long
-      </span>,
-    ],
-  },
-  {
-    name: "Unicorn",
-    price: "$499/mo",
-    priceId: "price_1Hzqv3G25oQYthlcnLuHacWO",
-    cta: "Choose Unicorn",
-    copy:
-      "You might have patched together SAML yourself, but by now the overhead and onboarding are becoming a pain. Let our expertise and intuitive documentation help you close more deals with less fuss.",
-    features: [
-      <span key="0">
-        Enables SAML SSO for <strong>up to 100 customers</strong>
-      </span>,
-      <span key="0">
-        Pick this if: your current solution costs too much – in dollars,
-        developer time, or support burden
-      </span>,
-    ],
-  },
-  {
-    name: "Enterprise",
-    price: "$10k+/year",
-    priceId: "osso_pmf", // TODO
-    cta: "Get in touch",
-    copy:
-      "These days a lot of companies want to self-host certain critical services for a range of reasons. We’re here to help: we’ll work side by side with your dev team to design, build, and integrate the perfect Osso instance for your needs. ",
-    features: [
-      <span key="0">
-        Enables SAML SSO for <strong>ALL of your customers</strong>
-      </span>,
-      <span key="0">
-        Pick this if: you want a bespoke solution that’s hosted on your own
-        infrastructure
-      </span>,
-    ],
-  },
-];
+const stripePromise = loadStripe("pk_test_8VH9wndIf965pwn0l6Iz9MVV00AX0HJIEx");
 
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   const isLargeScreen = useMediaQuery({ query: screens.large });
-  const [chosenPlan, setChosenPlan] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [currentPlan, setPlan] = useState({});
   const [loading, setLoading] = useState(false);
-  const [form] = Form.useForm();
-  const domForm = useRef();
-
-  const onCheckout = async (plan) => {
-    if (plan.name === "Enterprise") {
-      return setChosenPlan(plan.name);
-    }
-
-    setLoading(plan.name);
-
-    const response = await fetch("/.netlify/functions/create-checkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(plan),
-    })
-      .then((res) => res.json())
-      .catch((err) => {
-        setLoading(false);
-        alert(err);
-      });
-
-    const stripe = Stripe(response.publishableKey);
-    const { error } = await stripe.redirectToCheckout({
-      sessionId: response.sessionId,
-    });
-
-    if (error) {
-      console.error(error);
-      setLoading(false);
-      alert(error);
-    }
-  };
 
   return (
     <Layout
@@ -156,7 +52,7 @@ function Home() {
               <Card
                 className={styles.planCard}
                 hoverable
-                onClick={() => onCheckout(plan)}
+                onClick={() => setPlan(plan)}
                 title={
                   <div className={styles.planHeader}>
                     <span>{plan.name}</span>
@@ -181,9 +77,9 @@ function Home() {
                   </ul>
                 </div>
                 <Button
-                  loading={loading === plan.name}
+                  loading={loading.name === plan.name}
                   type="primary"
-                  onClick={() => onCheckout(plan)}
+                  onClick={() => setPlan(plan)}
                   style={{ marginTop: "auto", marginBottom: 12 }}
                 >
                   {plan.cta}
@@ -242,108 +138,17 @@ function Home() {
             </form>
           </Col>
         </Row>
-        <Modal
-          visible={Boolean(chosenPlan)}
-          title={submitted ? "Success!" : "Coming Soon"}
-          width={640}
-          onCancel={() => setChosenPlan("")}
-          okText={submitted ? "Close" : "Submit"}
-          onOk={() => {
-            if (submitted) {
-              return setChosenPlan("");
-            }
-
-            form
-              .validateFields()
-              .then((values) => {
-                window.posthog.identify(values.email);
-                const url = domForm.current.action;
-                return fetch("/", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                  },
-                  body: encode({
-                    ...values,
-                    "form-name": "plan-interest",
-                    chosenPlan,
-                  }),
-                });
-              })
-              .then((response) => {
-                if (response.ok) {
-                  setSubmitted(true);
-                }
-              })
-              .catch((info) => {
-                console.log("Validate Failed:", info);
-              });
-          }}
-        >
-          {submitted ? (
-            <div className={styles.success}>
-              <CheckCircleTwoTone
-                twoToneColor="#4E61A5"
-                style={{ fontSize: 96, marginBottom: 22 }}
-              />
-              <h3>We’ve received your info</h3>
-              <p>Thanks for your interest in Osso, we’ll be in touch soon.</p>
-            </div>
-          ) : (
-            <>
-              <h3>Thanks for your interest in our {chosenPlan} plan! </h3>
-              <p>
-                We recognize that not every firm can just buy software off the
-                shelf and we&apos;re excited to work with larger organizations
-                in a more consultative manner. We can help you plan and execute
-                a SAML SSO rollout across your entire company, tailoring Osso to
-                your specific needs.
-              </p>
-              <Form
-                component="div"
-                hideRequiredMark
-                form={form}
-                layout="vertical"
-                validateTrigger="submit"
-              >
-                <form
-                  ref={domForm}
-                  name="plan-interest"
-                  method="POST"
-                  data-netlify="true"
-                  data-netlify-honeypot="bot-field"
-                >
-                  <Form.Item
-                    label="Email"
-                    name="email"
-                    type="email"
-                    rules={[
-                      {
-                        type: "email",
-                        required: true,
-                        message: "Please add your work email",
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-
-                  <input name="form-name" type="hidden" value="plan-interest" />
-
-                  <Divider />
-                  <p>
-                    Feel free to tell us a bit more about your company, your
-                    tech stack, and where SSO fits into your roadmap and we’ll
-                    be in touch. (Optional)
-                  </p>
-                  <Form.Item name="about">
-                    <Input.TextArea placeholder="My company is..." />
-                  </Form.Item>
-                </form>
-              </Form>
-            </>
-          )}
-        </Modal>
+        <EnterpriseModal
+          open={currentPlan.name === "Enterprise"}
+          onClose={() => setPlan("")}
+        />
+        <Elements stripe={stripePromise}>
+          <PaymentModal
+            plan={currentPlan}
+            open={currentPlan.name && currentPlan.name !== "Enterprise"}
+            onClose={() => setPlan("")}
+          />
+        </Elements>
       </AntLayout.Content>
     </Layout>
   );

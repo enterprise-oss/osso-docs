@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 
 import SAMLSvg from "../../components/svg/saml";
 import screens from "../../utils/responsive";
-import { plans } from "../pricing";
+import { plans } from "../pricing/plans";
 import styles from "./styles.module.css";
 
 function useQuery() {
