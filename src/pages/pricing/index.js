@@ -1,19 +1,8 @@
-import { CheckCircleTwoTone } from "@ant-design/icons";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Layout from "@theme/Layout";
-import {
-  Button,
-  Card,
-  Col,
-  Divider,
-  Form,
-  Input,
-  Layout as AntLayout,
-  Modal,
-  Row,
-} from "antd";
+import { Button, Card, Col, Input, Layout as AntLayout, Row } from "antd";
 import classnames from "classnames";
 import React, { useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -24,7 +13,7 @@ import PaymentModal from "./paymentModal";
 import { plans } from "./plans";
 import styles from "./styles.module.css";
 
-const stripePromise = loadStripe("pk_test_8VH9wndIf965pwn0l6Iz9MVV00AX0HJIEx");
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 
 function Home() {
   const context = useDocusaurusContext();

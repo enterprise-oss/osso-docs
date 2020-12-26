@@ -1,23 +1,6 @@
-import {
-  CardElement,
-  Elements,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import {
-  Button,
-  Form,
-  Input,
-  Layout as AntLayout,
-  Modal,
-  Row,
-  Spin,
-} from "antd";
-import React, { useEffect, useRef, useState } from "react";
-
-import screens from "../../utils/responsive";
-import styles from "./styles.module.css";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { Form, Input, Modal, Spin } from "antd";
+import React, { useState } from "react";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
