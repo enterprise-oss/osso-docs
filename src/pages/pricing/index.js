@@ -1,6 +1,5 @@
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+import { Elements, StripeProvider } from "@stripe/react-stripe-js";
 import Layout from "@theme/Layout";
 import { Button, Card, Col, Input, Layout as AntLayout, Row } from "antd";
 import classnames from "classnames";
@@ -129,15 +128,15 @@ function Pricing() {
           open={currentPlan.name === "Enterprise"}
           onClose={() => setPlan("")}
         />
-        <Elements
-          stripe={loadStripe("pk_test_8VH9wndIf965pwn0l6Iz9MVV00AX0HJIEx")}
-        >
-          <PaymentModal
-            plan={currentPlan}
-            open={currentPlan.name && currentPlan.name !== "Enterprise"}
-            onClose={() => setPlan("")}
-          />
-        </Elements>
+        <StripeProvider apiKey="pk_test_8VH9wndIf965pwn0l6Iz9MVV00AX0HJIEx">
+          <Elements>
+            <PaymentModal
+              plan={currentPlan}
+              open={currentPlan.name && currentPlan.name !== "Enterprise"}
+              onClose={() => setPlan("")}
+            />
+          </Elements>
+        </StripeProvider>
       </AntLayout.Content>
     </Layout>
   );
