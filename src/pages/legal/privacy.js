@@ -2,7 +2,6 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import { Layout as AntLayout } from "antd";
 import React, { useEffect, useState } from "react";
-import Iubenda from "react-iubenda-policy";
 
 export default function privacy() {
   useEffect(() => {
