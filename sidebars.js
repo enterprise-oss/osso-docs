@@ -19,6 +19,7 @@ module.exports = {
         "configure/overview",
         "configure/adding-oauth-clients",
         "configure/redirect-uris",
+        "configure/test-qa",
       ],
     },
     {

@@ -3,6 +3,10 @@ id: post-deployment
 title: Post deployment
 ---
 
+## Setup scripts
+
+## Updates
+
 We recommend maintaining a GitHub repository for your Osso instance. This will let you implement GitHub based deploys on Heroku, utilize Dependabot for package updates, and manage any updates made to the main Osso project using Git.
 
 You'll want to treat the main Osso repository as an **upstream** remote. Note that Osso uses **main** as the default branch.
