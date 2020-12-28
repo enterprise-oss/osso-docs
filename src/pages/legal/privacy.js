@@ -2,27 +2,21 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import { Layout as AntLayout } from "antd";
 import React, { useEffect, useState } from "react";
+import Iubenda from "react-iubenda-policy";
 
 export default function privacy() {
+  useEffect(() => {
+    const script = document.createElement("script");
+
+    script.type = "text/javascript";
+    script.innerHTML =
+      '(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);';
+    script.async = true;
+
+    if (document.body != null) document.body.appendChild(script);
+  }, []);
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
-  const [content, setContent] = useState("");
-
-  const loadTerms = async () => {
-    fetch("https://www.iubenda.com/api/privacy-policy/28156222/no-markup", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then(({ success, content }) => {
-        setContent(content);
-      });
-  };
-
-  useEffect(() => {
-    loadTerms();
-  }, []);
 
   return (
     <Layout
@@ -30,7 +24,13 @@ export default function privacy() {
       description="Free, open-source software for adding SAML based SSO to your application"
     >
       <AntLayout.Content className="container margin-vert--xl ">
-        <div dangerouslySetInnerHTML={{ __html: content }} />;
+        <a
+          href="https://www.iubenda.com/privacy-policy/28156222"
+          className="iubenda-white no-brand iubenda-embed iub-legal-only iub-body-embed"
+          title="Privacy Policy"
+        >
+          Privacy Policy
+        </a>
       </AntLayout.Content>
     </Layout>
   );
