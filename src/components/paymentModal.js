@@ -6,8 +6,8 @@ const CARD_ELEMENT_OPTIONS = {
   style: {
     base: {
       iconColor: "#4E61A5",
-      color: "#bfbfbf",
-      fontWeight: 600,
+      color: "#595959",
+      fontWeight: 400,
       fontFamily: "DM Sans, Helvetica, sans-serif",
       fontSize: "16px",
       fontSmoothing: "antialiased",
