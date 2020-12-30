@@ -1,5 +1,5 @@
 [build]
-  command = "cd functions && npm i && cd .. && yarn build"
+  command = "cd functions && npm i && cd .. && env"
   functions = "functions"
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
