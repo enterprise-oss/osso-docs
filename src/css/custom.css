@@ -95,3 +95,7 @@ article > div.markdown > p {
   margin-bottom: 12px;
 }
 
+.ant-modal-footer {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,5 +1,4 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const querystring = require("querystring");
 
 exports.handler = async (event, context, callback) => {
   const params = JSON.parse(event.body);
@@ -18,6 +17,8 @@ exports.handler = async (event, context, callback) => {
     invoice_settings: {
       default_payment_method: params.paymentMethodId,
     },
+    name: params.company,
+    metadata: params,
   });
 
   // Create the subscription

@@ -5,7 +5,9 @@ exports.handler = async (event, context, callback) => {
   const params = JSON.parse(event.body);
 
   const customer = await stripe.customers.create({
-    email: params.email,
+    email: params.billingEmail || params.email,
+    name: params.name,
+    metadata: params,
   });
 
   return {

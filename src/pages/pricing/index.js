@@ -8,7 +8,7 @@ import React, { useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
 import EnterpriseModal from "../../components/enterpriseModal";
-import PaymentModal from "../../components/paymentModal";
+import PaymentModal from "../../components/paymentModal/index";
 import { plans } from "../../utils/plans";
 import screens from "../../utils/responsive";
 import styles from "./styles.module.css";

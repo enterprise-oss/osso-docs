@@ -1,6 +1,10 @@
+import { ShoppingCartOutlined } from "@ant-design/icons";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { Checkbox, Form, Input, Modal, Spin } from "antd";
+import classNames from "classnames";
 import React, { useState } from "react";
+
+import styles from "./styles.module.less";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -28,6 +32,7 @@ const CARD_ELEMENT_OPTIONS = {
 export default function paymentModal({ open, onClose, plan }) {
   const stripe = useStripe();
   const elements = useElements();
+  const [focused, setFocus] = useState(false);
   const [loading, setLoading] = useState(false);
   const [customerId, setCustomerId] = useState("");
   const [separateBilling, setSeparateBilling] = useState(false);
@@ -48,7 +53,7 @@ export default function paymentModal({ open, onClose, plan }) {
           if (error) {
             throw error;
           }
-          return createSubscription(paymentMethod.id);
+          return createSubscription(paymentMethod.id, form.values);
         })
         .then((data) => {
           window.location = "/success?plan=" + encodeURIComponent(name);
@@ -58,14 +63,14 @@ export default function paymentModal({ open, onClose, plan }) {
           setError(err.message);
           setLoading(false);
         });
+    } else {
+      form
+        .validateFields()
+        .then(createCustomer)
+        .catch((info) => {
+          console.log("Validate Failed:", info);
+        });
     }
-
-    form
-      .validateFields()
-      .then(createCustomer)
-      .catch((info) => {
-        console.log("Validate Failed:", info);
-      });
   };
 
   const createCustomer = async (values) => {
@@ -88,13 +93,14 @@ export default function paymentModal({ open, onClose, plan }) {
       });
   };
 
-  const createSubscription = async (paymentMethodId) => {
+  const createSubscription = async (paymentMethodId, params) => {
+    const values = await form.validateFields();
     fetch("/.netlify/functions/create-subscription", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ customerId, priceId, paymentMethodId }),
+      body: JSON.stringify({ customerId, priceId, paymentMethodId, ...values }),
     })
       .then((res) => {
         console.warn("create sub success", res);
@@ -104,6 +110,9 @@ export default function paymentModal({ open, onClose, plan }) {
       });
   };
 
+  console.warn(
+    form.getFieldValue("email")?.match(/([(@)])(?<hostname>.*)[(\.)]/)
+  );
   return (
     <Modal
       visible={open}
@@ -111,7 +120,6 @@ export default function paymentModal({ open, onClose, plan }) {
       width={640}
       onCancel={onClose}
       okText="Submit"
-      onOk={onSubmitForm}
       confirmLoading={loading}
       okButtonProps={{
         form: "payment-form",
@@ -120,7 +128,12 @@ export default function paymentModal({ open, onClose, plan }) {
       }}
     >
       <Spin spinning={loading}>
-        {!customerId ? (
+        <div className={styles.productCallout}>
+          <ShoppingCartOutlined />
+          <span>Subscription: {plan.name}</span>
+          <span>{plan.price}</span>
+        </div>
+        {customerId ? (
           <Form
             error={error}
             id="payment-form"
@@ -131,7 +144,9 @@ export default function paymentModal({ open, onClose, plan }) {
             layout="vertical"
             validateTrigger="submit"
             initialValues={{
-              subdomain: "foo",
+              subdomain: form
+                .getFieldValue("email")
+                ?.match(/([(@)])(?<hostname>.*)[(\.)]/)?.groups?.hostname,
             }}
           >
             <Form.Item
@@ -160,9 +175,20 @@ export default function paymentModal({ open, onClose, plan }) {
               <Input suffix=".ossoapp.io" />
             </Form.Item>
             <Form.Item label="Payment details">
-              <CardElement options={CARD_ELEMENT_OPTIONS} />
+              <div
+                className={classNames(styles.stripeContainer, {
+                  [styles.focused]: focused,
+                })}
+              >
+                <CardElement
+                  onFocus={() => setFocus(true)}
+                  onBlur={() => setFocus(false)}
+                  options={CARD_ELEMENT_OPTIONS}
+                />
+              </div>
             </Form.Item>
             <Form.Item
+              valuePropName="checked"
               name="terms"
               rules={[
                 {
@@ -219,7 +245,7 @@ export default function paymentModal({ open, onClose, plan }) {
               >
                 <Input />
               </Form.Item>
-              <Form.Item>
+              <Form.Item valuePropName="checked">
                 <Checkbox
                   checked={separateBilling}
                   onChange={(event) =>
