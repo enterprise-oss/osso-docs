@@ -101,18 +101,11 @@ export default function paymentModal({ open, onClose, plan }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ customerId, priceId, paymentMethodId, ...values }),
-    })
-      .then((res) => {
-        console.warn("create sub success", res);
-      })
-      .catch((err) => {
-        console.warn("create sub error", err);
-      });
+    }).catch((err) => {
+      console.warn("create sub error", err);
+    });
   };
 
-  console.warn(
-    form.getFieldValue("email")?.match(/([(@)])(?<hostname>.*)[(\.)]/)
-  );
   return (
     <Modal
       visible={open}

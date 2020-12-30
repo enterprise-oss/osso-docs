@@ -112,6 +112,7 @@ module.exports = {
     ],
   ],
   plugins: [
+    "docusaurus2-dotenv",
     [
       require.resolve("docusaurus-plugin-less"),
       {
