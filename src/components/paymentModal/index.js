@@ -111,8 +111,9 @@ export default function paymentModal({ open, onClose, plan }) {
       visible={open}
       title={`Checkout - Step ${customerId ? 2 : 1} of 2`}
       width={640}
-      onCancel={onClose}
-      okText="Submit"
+      onCancel={() => (customerId ? onClose() : setCustomerId(""))}
+      okText={customerId ? "Complete payment" : "Next"}
+      cancelText={customerId ? "Back" : "Cancel"}
       confirmLoading={loading}
       okButtonProps={{
         form: "payment-form",
