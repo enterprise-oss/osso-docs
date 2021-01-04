@@ -1,196 +1,74 @@
-import { blue } from "@ant-design/colors";
-import { CheckCircleFilled, CheckCircleTwoTone } from "@ant-design/icons";
-import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import Layout from "@theme/Layout";
-import {
-  Button,
-  Card,
-  Col,
-  Divider,
-  Form,
-  Input,
-  Layout as AntLayout,
-  Modal,
-  Row,
-} from "antd";
+import { Button, Card, Col, Input, Layout as AntLayout, Row } from "antd";
 import classnames from "classnames";
 import React, { useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
+import EnterpriseModal from "../../components/enterpriseModal";
+import PaymentModal from "../../components/paymentModal/index";
+import { plans } from "../../utils/plans";
 import screens from "../../utils/responsive";
 import styles from "./styles.module.css";
 
-function encode(data) {
-  return Object.keys(data)
-    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&");
-}
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 
-const plans = [
-  {
-    name: "Community",
-    price: "$0",
-    className: "",
-    cta: "Start for free",
-    features: [
-      "Deploy on your own infrastructure",
-      "Community support via community.ossoapp.com",
-      "Customized onboarding docs for new customers",
-      "Admin UI to manage Enterprise SSO users",
-    ],
-    styles: {
-      borderRadius: 4,
-    },
-    titleStyles: {
-      borderRadius: "4px 4px 0 0 ",
-    },
-    markerColor: "#4E61A5",
-  },
-  {
-    name: "Business",
-    price: "$249/mo",
-    className: "businessCard",
-    cta: "Get started",
-    features: [
-      "Everything in the Community plan",
-      "Quick start: deploy on our infrastructure",
-      "Email support",
-      "Regular updates",
-      "Up to 5 Enterprise accounts",
-      "Custom sub-domain: YOURCO.ossoapp.io",
-    ],
-    styles: {
-      borderColor: "#4E61A5",
-      boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
-      borderRadius: 4,
-    },
-    titleStyles: {
-      borderRadius: "4px 4px 0 0 ",
-    },
-    markerColor: "#4E61A5",
-  },
-  {
-    name: "Enterprise",
-    price: "Custom",
-    className: "enterpriseCard",
-    cta: "Contact us",
-    features: [
-      "Everything in the Business plan",
-      "Video & phone support",
-      "Unlimited Enterprise accounts",
-      "Bespoke middleware for all necessary integrations",
-      "Custom domain",
-      "Hands-on training sessions for your sales & success teams",
-      "White label customer onboarding & support",
-      "Ops integrations",
-      "Service level agreements",
-    ],
-    styles: {
-      backgroundColor: "#4E61A5",
-      color: "white",
-      boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
-      borderRadius: 4,
-    },
-    titleStyles: {
-      color: "white",
-      borderRadius: "4px 4px 0 0 ",
-    },
-    markerColor: "white",
-  },
-];
-function Home() {
+function Pricing() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   const isLargeScreen = useMediaQuery({ query: screens.large });
-  const [chosenPlan, setChosenPlan] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [form] = Form.useForm();
-  const domForm = useRef();
+  const [currentPlan, setPlan] = useState({});
+  const [loading, setLoading] = useState(false);
 
   return (
     <Layout
       title={siteConfig.title}
       description="Free, open-source software for adding SAML based SSO to your application"
     >
-      <AntLayout.Content className="container margin-vert--xl ">
-        <Row gutter={[16, 72]}>
-          <Col sm={24} md={{ span: 20, offset: 2 }} className={styles.features}>
-            <h3>
-              {isLargeScreen && <span className={styles.titleMarker} />}
-              Osso is for everybody
-            </h3>
-            <p>
-              Osso is and will remain free, open source software that anyone can
-              use to authenticate users to their app with SSO.
-              <br />
-              <br />
-              If you want to reduce the integration load for your engineering
-              team, or appreciate the peace of mind that comes with personalized
-              support, we&apos;re happy to offer private managed instances on a
-              subscription basis. We can also consult with your engineering team
-              and help train your sales and customer success teams. If that
-              sounds interesting, read on.
-            </p>
-          </Col>
-        </Row>
+      <AntLayout.Content
+        className={classnames("container margin-vert--xl", styles.container)}
+      >
         <Row gutter={[16, 48]}>
-          <Col sm={24} md={{ span: 20, offset: 2 }} className={styles.features}>
-            <h3>
-              {isLargeScreen && <span className={styles.titleMarker} />}
-              Our plans
-            </h3>
+          <Col span={24} className={styles.plansTitle}>
+            <h3>Our plans</h3>
           </Col>
         </Row>
-        <Row gutter={[24, 72]}>
+        <Row gutter={[8, 72]} width="1440px">
           {plans.map((plan) => (
-            <Col key={plan.name} sm={24} lg={8}>
+            <Col key={plan.name} sm={24} md={12} lg={6}>
               <Card
-                className={[styles.planCard, styles[plan.className]]}
+                className={styles.planCard}
+                hoverable
+                onClick={() => setPlan(plan)}
                 title={
                   <div className={styles.planHeader}>
                     <span>{plan.name}</span>
-                    <span>{plan.price}</span>
+                    <span className={styles.price}>{plan.price}</span>
                   </div>
                 }
-                style={plan.styles}
-                headStyle={plan.titleStyles}
+                headStyle={{}}
                 bodyStyle={{
                   display: "flex",
                   flexGrow: "1",
                   flexDirection: "column",
-                  ...plan.bodyStyles,
                 }}
               >
+                <p className={styles.planCopy}>{plan.copy}</p>
                 <div className={styles.featureList}>
-                  {plan.features.map((feature, index) => (
-                    <p className={styles.planFeature} key={index}>
-                      <CheckCircleFilled
-                        className={styles.planFeatureMarker}
-                        style={{ color: plan.markerColor }}
-                      />
-                      {feature}
-                    </p>
-                  ))}
+                  <ul>
+                    {plan.features.map((feature, index) => (
+                      <li className={styles.planFeature} key={index}>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
                 <Button
-                  onClick={
-                    plan.name !== "Community" &&
-                    (() => {
-                      window.gtag &&
-                        window.gtag("event", "ClickedPlan", {
-                          event_category: "Conversion",
-                          value: plan.name,
-                        });
-                      setChosenPlan(plan.name);
-                    })
-                  }
-                  href={
-                    plan.name === "Community"
-                      ? useBaseUrl("docs/quick-start")
-                      : undefined
-                  }
+                  loading={loading.name === plan.name}
+                  type="primary"
+                  onClick={() => setPlan(plan)}
                   style={{ marginTop: "auto", marginBottom: 12 }}
                 >
                   {plan.cta}
@@ -203,8 +81,21 @@ function Home() {
           <Col sm={24} md={{ span: 20, offset: 2 }} className={styles.features}>
             <h3>
               {isLargeScreen && <span className={styles.titleMarker} />}
-              Not ready to commit?
+              Osso is for everybody
             </h3>
+            <p>
+              Still not seeing a plan that’s perfect for you? Osso is and will
+              remain a free, open source piece of software that anyone can use
+              by deploying to their own infrastructure. Check out our{" "}
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://github.com/enterprise-oss/osso"
+              >
+                Github
+              </a>{" "}
+              for more info (and star it to keep up with updates).
+            </p>
             <p>
               If we’re missing something that could be a big help to you or your
               organization, get in touch and let us know. We’re scrappy and we
@@ -236,110 +127,20 @@ function Home() {
             </form>
           </Col>
         </Row>
-        <Modal
-          visible={Boolean(chosenPlan)}
-          title={submitted ? "Success!" : "Coming Soon"}
-          width={640}
-          onCancel={() => setChosenPlan("")}
-          okText={submitted ? "Close" : "Submit"}
-          onOk={() => {
-            if (submitted) {
-              return setChosenPlan("");
-            }
-
-            form
-              .validateFields()
-              .then((values) => {
-                window.posthog.identify(values.email);
-                const url = domForm.current.action;
-                return fetch("/", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                  },
-                  body: encode({
-                    ...values,
-                    "form-name": "plan-interest",
-                    chosenPlan,
-                  }),
-                });
-              })
-              .then((response) => {
-                if (response.ok) {
-                  setSubmitted(true);
-                }
-              })
-              .catch((info) => {
-                console.log("Validate Failed:", info);
-              });
-          }}
-        >
-          {submitted ? (
-            <div className={styles.success}>
-              <CheckCircleTwoTone
-                twoToneColor="#4E61A5"
-                style={{ fontSize: 96, marginBottom: 22 }}
-              />
-              <h3>We’ve received your info</h3>
-              <p>Thanks for your interest in Osso, we’ll be in touch soon.</p>
-            </div>
-          ) : (
-            <>
-              <h3>Thanks for your interest in our {chosenPlan} plan! </h3>
-              <p>
-                We’re hard at work building out our self-service offering and
-                will keep you in the loop as soon as it’s ready. Give us your
-                email (we won’t share it with anybody else, ever) and you’ll be
-                the first to know when it’s available.
-              </p>
-              <Form
-                component="div"
-                hideRequiredMark
-                form={form}
-                layout="vertical"
-                validateTrigger="submit"
-              >
-                <form
-                  ref={domForm}
-                  name="plan-interest"
-                  method="POST"
-                  data-netlify="true"
-                  data-netlify-honeypot="bot-field"
-                >
-                  <Form.Item
-                    label="Email"
-                    name="email"
-                    type="email"
-                    rules={[
-                      {
-                        type: "email",
-                        required: true,
-                        message: "Please add your work email",
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-
-                  <input name="form-name" type="hidden" value="plan-interest" />
-
-                  <Divider />
-                  <p>
-                    If you’d like to be considered for our beta cohort, tell us
-                    a bit more about your company, your tech stack, and where
-                    SSO fits into your roadmap and we’ll be in touch. (Optional)
-                  </p>
-                  <Form.Item name="about">
-                    <Input.TextArea placeholder="My company is..." />
-                  </Form.Item>
-                </form>
-              </Form>
-            </>
-          )}
-        </Modal>
+        <EnterpriseModal
+          open={currentPlan.name === "Enterprise"}
+          onClose={() => setPlan("")}
+        />
+        <Elements stripe={stripePromise}>
+          <PaymentModal
+            plan={currentPlan}
+            open={currentPlan.name && currentPlan.name !== "Enterprise"}
+            onClose={() => setPlan("")}
+          />
+        </Elements>
       </AntLayout.Content>
     </Layout>
   );
 }
 
-export default Home;
+export default Pricing;

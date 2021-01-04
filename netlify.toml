@@ -1,5 +1,12 @@
+[build]
+  command = "cd functions && npm i && cd .. && yarn build"
+  functions = "functions"
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
   for = "/Mono.ttf"
     [headers.values]
     Access-Control-Allow-Origin = "*"
+[[plugins]]
+package = "netlify-plugin-inline-functions-env"
+  [plugins.inputs]
+  buildEvent = "onBuild"

@@ -17,7 +17,10 @@ const features = [
     title: <>Sell to enterprise, fast</>,
     description: (
       <>
-        Want to sell to Enterprise customers? SAML-based SSO is a requirement. Osso integrates with all of the most popular Identity Providers so that you can check off another box on your sales pitch and start closing bigger deals.
+        Want to sell to Enterprise customers? SAML-based SSO is a requirement.
+        Osso integrates with all of the most popular Identity Providers so that
+        you can check off another box on your sales pitch and start closing
+        bigger deals.
       </>
     ),
     Component: SAMLSvg,
@@ -26,7 +29,10 @@ const features = [
     title: <>Ship, faster</>,
     description: (
       <>
-        Osso's SAML-based solution lets your customers use their preferred Identity Providers to sign into your application. It's quick to integrate, too: what is typically a multi-week project can be deployed in just a few hours.
+        Osso's SAML-based solution lets your customers use their preferred
+        Identity Providers to sign into your application. It's quick to
+        integrate, too: what is typically a multi-week project can be deployed
+        in just a few hours.
       </>
     ),
     Component: BoilerplateSvg,
@@ -35,7 +41,9 @@ const features = [
     title: <>Free up your dev team</>,
     description: (
       <>
-        With its intuitive UI and custom docs, Osso will enable your customer success teams (or users!) to handle onboarding and support, freeing up your developers to focus on higher-priority work.
+        With its intuitive UI and custom docs, Osso will enable your customer
+        success teams (or users!) to handle onboarding and support, freeing up
+        your developers to focus on higher-priority work.
       </>
     ),
     Component: TeamDocsSvg,
@@ -55,11 +63,14 @@ function Home() {
       <div className={styles.heroContainer}>
         <header className={classnames("hero", styles.heroBanner)}>
           <div className={styles.heroCopy}>
-            <p>
-            Add enterprise-grade SSO to your application today 
-            </p>
+            <p>Add enterprise-grade SSO to your application today</p>
             <div className={styles.buttons}>
-              <Button size="large" href={useBaseUrl("docs/quick-start")}>
+              <Button
+                ghost
+                size="large"
+                href={useBaseUrl("docs/quick-start")}
+                className={styles.heroBtn}
+              >
                 Get started
               </Button>
             </div>
