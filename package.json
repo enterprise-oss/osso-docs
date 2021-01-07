@@ -10,10 +10,13 @@
     "lint": "eslint src/"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.3.0",
     "@docusaurus/core": "^2.0.0-alpha.65",
     "@docusaurus/plugin-google-gtag": "^2.0.0-alpha.37",
     "@docusaurus/preset-classic": "^2.0.0-alpha.65",
     "@enterprise-oss/ant-theme": "^1.0.7",
+    "@stripe/react-stripe-js": "^1.1.2",
+    "@stripe/stripe-js": "^1.11.0",
     "add": "^2.0.6",
     "antd": "^4.6.3",
     "classnames": "^2.2.6",
@@ -25,6 +28,7 @@
     "react-dom": "^16.8.4",
     "react-intersection-observer": "^8.26.2",
     "react-responsive": "^8.0.3",
+    "url-search-params-polyfill": "^8.1.0",
     "yarn": "^1.22.4"
   },
   "browserslist": {

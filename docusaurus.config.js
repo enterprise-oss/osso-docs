@@ -108,10 +108,17 @@ module.exports = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
+        sitemap: {
+          cacheTime: 600 * 1000, // 600 sec - cache purge period
+          changefreq: "weekly",
+          priority: 0.5,
+          trailingSlash: false,
+        },
       },
     ],
   ],
   plugins: [
+    ["docusaurus2-dotenv", { systemvars: true }],
     [
       require.resolve("docusaurus-plugin-less"),
       {
@@ -127,6 +134,7 @@ module.exports = {
       },
     ],
     path.resolve(__dirname, "netlify-forms"),
+    path.resolve(__dirname, "stripe-js"),
     path.resolve(__dirname, "chatwoot"),
     path.resolve(__dirname, "cookie-consent"),
     "posthog-docusaurus",

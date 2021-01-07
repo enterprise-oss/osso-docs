@@ -1,0 +1,10 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@stripe/stripe-js": "^1.11.0",
+    "stripe": "^8.121.0"
+  }
+}
