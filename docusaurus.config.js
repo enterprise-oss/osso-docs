@@ -56,7 +56,7 @@ module.exports = {
       ],
     },
     posthog: {
-      apiKey: "vA_-INs6HpnuVrh6n-dLDMvZeuJoJf8LRtltVcuNRDc",
+      apiKey: process.env.POSTHOG_API_KEY,
       appUrl: "https://a.ossoapp.com",
       enableInDevelopment: false,
     },

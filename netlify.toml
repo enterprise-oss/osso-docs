@@ -10,3 +10,6 @@
 package = "netlify-plugin-inline-functions-env"
   [plugins.inputs]
   buildEvent = "onBuild"
+
+[context.deploy-preview]
+  POSTHOG_API_KEY = ''
