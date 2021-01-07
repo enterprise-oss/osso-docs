@@ -52,6 +52,7 @@ module.exports = {
           to: "https://demo.ossoapp.com",
           label: "Demo",
           position: "left",
+          rel: "noopener noreferrer nofollow",
         },
       ],
     },
