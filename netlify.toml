@@ -12,4 +12,4 @@ package = "netlify-plugin-inline-functions-env"
   buildEvent = "onBuild"
 
 [context.deploy-preview]
-  POSTHOG_API_KEY = foo
+  POSTHOG_API_KEY = 'foo'
