@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import Link from "@docusaurus/Link";
 import { Button, Form, Input } from "antd";
 import classnames from "classnames";
 import React from "react";
@@ -27,13 +28,6 @@ function Footer() {
               </a>
               <p>Osso © EnterpriseOSS, Inc.</p>
               <p>Brooklyn, NY</p>
-            </div>
-          )}
-          <div className={styles.footerCol}>
-            <img src={"/img/logo-alt.svg"} alt="osso logo" />
-          </div>
-          {isLargeScreen && (
-            <div className={styles.footerCol}>
               <form
                 name="email-list"
                 method="post"
@@ -47,6 +41,17 @@ function Footer() {
                   <Button htmlType="submit">Submit</Button>
                 </Input.Group>
               </form>
+            </div>
+          )}
+          <div className={styles.footerCol}>
+            <img src={"/img/logo-alt.svg"} alt="osso logo" />
+          </div>
+          {isLargeScreen && (
+            <div className={styles.footerCol}>
+              <Link to="/faq">F.A.Q.</Link>
+              <a href="/legal/cookie">Cookie Policy</a>
+              <a href="/legal/privacy">Privacy Policy</a>
+              <a href="/legal/terms-conditions">Legal Terms</a>
             </div>
           )}
         </div>

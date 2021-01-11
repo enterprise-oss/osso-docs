@@ -14,6 +14,7 @@ export default function privacy() {
 
     if (document.body != null) document.body.appendChild(script);
   }, []);
+
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
 

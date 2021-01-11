@@ -45,6 +45,10 @@
   color: var(--ifm-color-secondary-lightest);
 }
 
+.footer a, .footer a:hover {
+  text-decoration: underline;
+}
+
 .footer label {
   color: var(--ifm-color-secondary-lightest) !important;
   line-height: 3em;
