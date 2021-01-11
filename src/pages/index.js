@@ -1,3 +1,4 @@
+import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
@@ -65,14 +66,11 @@ function Home() {
           <div className={styles.heroCopy}>
             <p>Add enterprise-grade SSO to your application today</p>
             <div className={styles.buttons}>
-              <Button
-                ghost
-                size="large"
-                href={useBaseUrl("docs/quick-start")}
-                className={styles.heroBtn}
-              >
-                Get started
-              </Button>
+              <Link to={useBaseUrl("docs/quick-start")}>
+                <Button ghost size="large" className={styles.heroBtn}>
+                  Get started
+                </Button>
+              </Link>
             </div>
           </div>
           {isLargeScreen && (
