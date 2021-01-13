@@ -39,7 +39,6 @@
   border-radius: 4;
 }
 
-
 .planHeader {
   display: flex;
   flex-direction: row;
@@ -117,7 +116,6 @@
 }
 
 .panel {
-  background: #ffffff;
   font-size: 16px;
   color: var(---ifm-font-color-base);
 }
