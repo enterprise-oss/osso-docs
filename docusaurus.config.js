@@ -33,6 +33,11 @@ module.exports = {
     },
     navbar: {
       title: "Osso",
+      logo: {
+        alt: "Osso Logo",
+        src: "img/logo.svg",
+        srcDark: "img/logo-alt.svg", // Default to `logo.src`.
+      },
       items: [
         {
           to: "docs/quick-start",
@@ -57,7 +62,7 @@ module.exports = {
       ],
     },
     posthog: {
-      apiKey: process.env.POSTHOG_API_KEY,
+      apiKey: process.env.POSTHOG_API_KEY || "no",
       appUrl: "https://a.ossoapp.com",
       enableInDevelopment: false,
     },
