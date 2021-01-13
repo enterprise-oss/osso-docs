@@ -19,7 +19,7 @@ function Footer() {
 
   return (
     <footer className={classnames("footer", styles.footer)}>
-      <div className="container">
+      <div className={classnames("container", styles.container)}>
         <div className={styles.footerRow}>
           {isLargeScreen && (
             <div className={styles.footerCol}>
@@ -28,6 +28,10 @@ function Footer() {
               </a>
               <p>Osso © EnterpriseOSS, Inc.</p>
               <p>Brooklyn, NY</p>
+            </div>
+          )}
+          {isLargeScreen && (
+            <div className={styles.footerCol}>
               <form
                 name="email-list"
                 method="post"
@@ -35,8 +39,8 @@ function Footer() {
                 data-netlify-honeypot="bot-field"
               >
                 <input type="hidden" name="form-name" value="email-list" />
+                <label>Enter your email to receive updates from Osso</label>
                 <Input.Group>
-                  <label>Enter your email to receive updates from Osso</label>
                   <Input name="email" type="email" style={{ width: "220px" }} />
                   <Button htmlType="submit">Submit</Button>
                 </Input.Group>
@@ -44,16 +48,11 @@ function Footer() {
             </div>
           )}
           <div className={styles.footerCol}>
-            <img src={"/img/logo-alt.svg"} alt="osso logo" />
+            <Link to="/faq">F.A.Q.</Link>
+            <a href="/legal/cookie">Cookie Policy</a>
+            <a href="/legal/privacy">Privacy Policy</a>
+            <a href="/legal/terms-conditions">Legal Terms</a>
           </div>
-          {isLargeScreen && (
-            <div className={styles.footerCol}>
-              <Link to="/faq">F.A.Q.</Link>
-              <a href="/legal/cookie">Cookie Policy</a>
-              <a href="/legal/privacy">Privacy Policy</a>
-              <a href="/legal/terms-conditions">Legal Terms</a>
-            </div>
-          )}
         </div>
       </div>
     </footer>
