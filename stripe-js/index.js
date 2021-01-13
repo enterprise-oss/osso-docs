@@ -3,7 +3,7 @@ module.exports = function (context, options) {
     name: "stripe-js",
     injectHtmlTags() {
       return {
-        headTags: ['<script src="https://js.stripe.com/v3/"></script>'],
+        headTags: ['<script async src="https://js.stripe.com/v3/"></script>'],
         preBodyTags: [],
         postBodyTags: [],
       };

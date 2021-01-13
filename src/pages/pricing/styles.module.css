@@ -98,6 +98,29 @@
   color: #4E61A5;
 }
 
+.faq {
+  margin-bottom: 48px;
+}
+
+.faq > h3{
+  font-size: 36px;
+  color: var(--ifm-landing-page-font-color);
+  margin-bottom: 16px;
+}
+
+.panelTitle {
+  font-size: 20px;
+}
+
+.panelTitle {
+  font-size: 20px;
+}
+
+.panel {
+  background: #ffffff;
+  font-size: 16px;
+  color: var(---ifm-font-color-base);
+}
 
 @media screen and (max-width: 996px) {
   
@@ -125,12 +148,7 @@
     display: none;
   }
 
-
-  .features h3{
+  .features h3, .faq h3{
     font-size: 24px;
-  }
-  
-  .features p{
-    font-size: 20px;
   }
 }

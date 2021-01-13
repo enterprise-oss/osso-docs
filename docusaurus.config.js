@@ -52,11 +52,12 @@ module.exports = {
           to: "https://demo.ossoapp.com",
           label: "Demo",
           position: "left",
+          rel: "noopener noreferrer nofollow",
         },
       ],
     },
     posthog: {
-      apiKey: "vA_-INs6HpnuVrh6n-dLDMvZeuJoJf8LRtltVcuNRDc",
+      apiKey: process.env.POSTHOG_API_KEY,
       appUrl: "https://a.ossoapp.com",
       enableInDevelopment: false,
     },

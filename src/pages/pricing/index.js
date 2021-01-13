@@ -2,9 +2,9 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Layout from "@theme/Layout";
-import { Button, Card, Col, Input, Layout as AntLayout, Row } from "antd";
+import { Button, Card, Col, Collapse, Layout as AntLayout, Row } from "antd";
 import classnames from "classnames";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
 import EnterpriseModal from "../../components/enterpriseModal";
@@ -78,7 +78,109 @@ function Pricing() {
           ))}
         </Row>
         <Row>
-          <Col sm={24} md={{ span: 20, offset: 2 }} className={styles.features}>
+          <Col sm={24} md={{ span: 16, offset: 4 }} className={styles.faq}>
+            <h3>
+              {isLargeScreen && <span className={styles.titleMarker} />}
+              Frequently asked questions
+            </h3>
+            <Collapse accordion bordered={false} className={styles.panel}>
+              <Collapse.Panel
+                header={
+                  <span className={styles.panelTitle}>
+                    What qualifies as a Customer?
+                  </span>
+                }
+                key="1"
+                className={styles.panel}
+              >
+                <p>
+                  A customer is any single entity that uses Osso so that their
+                  users can log into your app with SAML. For a multi-tenant SAAS
+                  app, this will map directly to your notion of an account.
+                  Accounts that use your existing authentication flow do not
+                  count as customers for Osso.
+                </p>
+              </Collapse.Panel>
+              <Collapse.Panel
+                header={
+                  <span className={styles.panelTitle}>
+                    Do you charge for the number of users our Customers have?
+                  </span>
+                }
+                key="2"
+                className={styles.panel}
+              >
+                <p>
+                  No. Whether your customer has 10 or 10,000 users, they’ll
+                  still count as just one customer to us. We don’t want to
+                  charge you more because your software is a daily driver, and
+                  charging per customer provides a more predictable pricing for
+                  your subscription.
+                </p>
+              </Collapse.Panel>
+              <Collapse.Panel
+                header={
+                  <span className={styles.panelTitle}>
+                    What if my customer has multiple Identity Providers?
+                  </span>
+                }
+                key="3"
+                className={styles.panel}
+              >
+                <p>
+                  Multiple Identity Providers for a single customer are totally
+                  fine; they’ll all be folded into that single customer’s
+                  account and won’t count additionally against your quota.
+                </p>
+              </Collapse.Panel>
+              <Collapse.Panel
+                header={
+                  <span className={styles.panelTitle}>
+                    What happens when I reach the maximum number of customers in
+                    my chosen tier?
+                  </span>
+                }
+                key="4"
+                className={styles.panel}
+              >
+                <p>
+                  We understand you might have test accounts or proofs of
+                  concept running with certain customers, so we won’t cut you
+                  off if you surpass your limit. When that happens we’ll reach
+                  out and work with you to move you to the next tier.
+                </p>
+              </Collapse.Panel>
+              <Collapse.Panel
+                header={
+                  <span className={styles.panelTitle}>
+                    We want to implement SAML, but don't have any active
+                    customers who need it - do I still have to pay?
+                  </span>
+                }
+                key="5"
+                className={styles.panel}
+              >
+                <p>
+                  Osso provides a{" "}
+                  <a
+                    href="https://demo.ossoapp.com"
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                  >
+                    demo instance
+                  </a>{" "}
+                  that allows you to build and test your Osso integration
+                  without needing to purchase a subscription. Once you have a
+                  customer who needs SAML, you can purchase a subscription,
+                  change some ENV variables and immediately start onboarding
+                  customers.
+                </p>
+              </Collapse.Panel>
+            </Collapse>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={24} md={{ span: 16, offset: 4 }} className={styles.features}>
             <h3>
               {isLargeScreen && <span className={styles.titleMarker} />}
               Osso is for everybody
@@ -98,33 +200,12 @@ function Pricing() {
             </p>
             <p>
               If we’re missing something that could be a big help to you or your
-              organization, get in touch and let us know. We’re scrappy and we
-              want your business.
-              <br />
-              <br />
-              If you’d like to follow along as we release new features, give us
-              your email address and we’ll keep you in the loop; no SPAM and no
-              sharing of your information with any other entity.
+              organization,{" "}
+              <a href="mailto:hello@enterpriseoss.dev" target="_blank">
+                get in touch
+              </a>{" "}
+              and let us know. We’re scrappy and we want your business.
             </p>
-            <form
-              name="email-list"
-              method="post"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-            >
-              <input type="hidden" name="form-name" value="email-list" />
-              <Input.Group>
-                <Input
-                  placeholder="Your email address"
-                  name="email"
-                  type="email"
-                  style={{ width: "282px" }}
-                />
-                <Button type="primary" htmlType="submit">
-                  Sign up for updates
-                </Button>
-              </Input.Group>
-            </form>
           </Col>
         </Row>
         <EnterpriseModal

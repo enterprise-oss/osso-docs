@@ -4,7 +4,7 @@ module.exports = function (context, options) {
     injectHtmlTags() {
       return {
         headTags: [
-          `<script>
+          `<script async>
           (function(d,t) {
             var BASE_URL = "https://chatwoot-osso.herokuapp.com";
             var g=d.createElement(t),s=d.getElementsByTagName(t)[0];

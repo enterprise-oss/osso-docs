@@ -9,6 +9,11 @@
   background-color: var(--ifm-hero-background-color);
   color: var(--ifm-color-secondary-lightest);
 }
+
+.container {
+  max-width: 95%;
+}
+
 .footerRow{
   display: flex;
   justify-content: space-between;
@@ -45,7 +50,12 @@
   color: var(--ifm-color-secondary-lightest);
 }
 
+.footer a, .footer a:hover {
+  text-decoration: underline;
+}
+
 .footer label {
   color: var(--ifm-color-secondary-lightest) !important;
   line-height: 3em;
+  font-size: 14px;
 }
