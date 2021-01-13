@@ -6,7 +6,7 @@ import styles from "./styles.module.less";
 
 export default function paidCallout({ message }) {
   return (
-    <div className={styles.root}>
+    <div className={styles.paidRoot}>
       <div className={styles.icons}>
         <SmileTwoTone twoToneColor="#4E61A5" />
         <SoundTwoTone twoToneColor="#4E61A5" />
