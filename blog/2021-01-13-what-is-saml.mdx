@@ -10,8 +10,9 @@ tags: [Osso, SAML, SSO]
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
+### A common tale
 
-Let’s say you’ve started a SaaS company; you launched, iterated, proved product / market fit, wooed early customers and built up a strong funnel of new leads. Congrats! One day, one of your sales team members comes to you with a request from a new lead: _“They asked me if we support SAML SSO. Do we have that?”_ 
+Let’s say you’ve started a SaaS company; you launched, iterated, proved product / market fit, wooed early customers and built up a strong funnel of new leads. Congrats! One day, one of your sales team members comes to you with a request from a new lead: _**“They asked me if we support SAML SSO. Do we have that?”**_ 
 
 You might not, not yet. But you probably should if you want to move upmarket. 
 
@@ -27,11 +28,11 @@ SAML itself is not a challenging protocol to adopt. There’s tons of existing o
 
 Enabling SAML for a customer entails a multi-step configuration between a Service Provider (you) and a customer of an Identity Provider (your enterprise accounts): 
 
-##### 1. You provide SAML information to your enterprise customer
+#### 1. You provide SAML information to your enterprise customer
 This will typically be someone on their IT team who manages the IDP for the enterprise. You’ll provide them things like an Assertion Consumer Service URL and an SP Audience ID. They’ll use these values to create a SAML application in their IDP instance.
-##### 2. They provide SAML application information back to you
+#### 2. They provide SAML application information back to you
 Once the IT professional creates the SAML application in their IDP instance, they will need to return to you some other information, like an x509 certificate.
-##### 3. You finalize configuration
+#### 3. You finalize configuration
 The information the enterprise provides back to you must be used in the SAML authentication process to validate the SAML response and access the authorization credentials. To take your proof-of-concept to a production-ready system, you’ll need to first understand this process, and then build a lot of boilerplate to manage SAML configurations for multiple accounts.
 
 ### Supporting SAML internally
