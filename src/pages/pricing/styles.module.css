@@ -112,9 +112,13 @@
   font-size: 20px;
 }
 
+.panelTitle {
+  font-size: 20px;
+}
+
 .panel {
   background: #ffffff;
-  font-size: 20px;
+  font-size: 16px;
   color: var(---ifm-font-color-base);
 }
 

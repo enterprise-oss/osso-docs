@@ -83,7 +83,7 @@ function Pricing() {
               {isLargeScreen && <span className={styles.titleMarker} />}
               Frequently asked questions
             </h3>
-            <Collapse accordion bordered={false} className={styles.panel}>
+            <Collapse accordion bordered={false} className={styles.panelTitle}>
               <Collapse.Panel
                 header="What qualifies as a Customer?"
                 key="1"
