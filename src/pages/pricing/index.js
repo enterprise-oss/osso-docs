@@ -178,7 +178,7 @@ function Pricing() {
             </p>
             <p>
               If we’re missing something that could be a big help to you or your
-              organization, get in touch and let us know. We’re scrappy and we
+              organization, <a href="mailto:hello@enterpriseoss.dev" target="_blank">get in touch</a> and let us know. We’re scrappy and we
               want your business.
             </p>
           </Col>
