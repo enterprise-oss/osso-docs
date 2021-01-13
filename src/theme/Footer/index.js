@@ -48,7 +48,7 @@ function Footer() {
             </div>
           )}
           <div className={styles.footerCol}>
-            <Link to="/faq">F.A.Q.</Link>
+            {false && <Link to="/faq">F.A.Q.</Link>}
             <a href="/legal/cookie">Cookie Policy</a>
             <a href="/legal/privacy">Privacy Policy</a>
             <a href="/legal/terms-conditions">Legal Terms</a>
