@@ -83,9 +83,13 @@ function Pricing() {
               {isLargeScreen && <span className={styles.titleMarker} />}
               Frequently asked questions
             </h3>
-            <Collapse accordion bordered={false} className={styles.panelTitle}>
+            <Collapse accordion bordered={false} className={styles.panel}>
               <Collapse.Panel
-                header="What qualifies as a Customer?"
+                header={
+                  <span className={styles.panelTitle}>
+                    What qualifies as a Customer?
+                  </span>
+                }
                 key="1"
                 className={styles.panel}
               >
@@ -98,7 +102,11 @@ function Pricing() {
                 </p>
               </Collapse.Panel>
               <Collapse.Panel
-                header="Do you charge for the number of users our Customers have?"
+                header={
+                  <span className={styles.panelTitle}>
+                    Do you charge for the number of users our Customers have?
+                  </span>
+                }
                 key="2"
                 className={styles.panel}
               >
@@ -111,7 +119,11 @@ function Pricing() {
                 </p>
               </Collapse.Panel>
               <Collapse.Panel
-                header="What if my customer has multiple Identity Providers?"
+                header={
+                  <span className={styles.panelTitle}>
+                    What if my customer has multiple Identity Providers?
+                  </span>
+                }
                 key="3"
                 className={styles.panel}
               >
@@ -122,7 +134,12 @@ function Pricing() {
                 </p>
               </Collapse.Panel>
               <Collapse.Panel
-                header="What happens when I reach the maximum number of customers in my chosen tier?"
+                header={
+                  <span className={styles.panelTitle}>
+                    What happens when I reach the maximum number of customers in
+                    my chosen tier?
+                  </span>
+                }
                 key="4"
                 className={styles.panel}
               >
@@ -134,7 +151,12 @@ function Pricing() {
                 </p>
               </Collapse.Panel>
               <Collapse.Panel
-                header="We want to implement SAML, but don't have any active customers who need it - do I still have to pay?"
+                header={
+                  <span className={styles.panelTitle}>
+                    We want to implement SAML, but don't have any active
+                    customers who need it - do I still have to pay?
+                  </span>
+                }
                 key="5"
                 className={styles.panel}
               >
@@ -178,8 +200,11 @@ function Pricing() {
             </p>
             <p>
               If we’re missing something that could be a big help to you or your
-              organization, <a href="mailto:hello@enterpriseoss.dev" target="_blank">get in touch</a> and let us know. We’re scrappy and we
-              want your business.
+              organization,{" "}
+              <a href="mailto:hello@enterpriseoss.dev" target="_blank">
+                get in touch
+              </a>{" "}
+              and let us know. We’re scrappy and we want your business.
             </p>
           </Col>
         </Row>
