@@ -4,7 +4,7 @@ import React from "react";
 
 import styles from "./styles.module.less";
 
-export default function paidCallout() {
+export default function paidCallout({ message }) {
   return (
     <div className={styles.root}>
       <div className={styles.icons}>
@@ -12,10 +12,18 @@ export default function paidCallout() {
         <SoundTwoTone twoToneColor="#4E61A5" />
       </div>
       <span className={styles.message}>
-        The content of this article applies to the open source version of Osso
-        and is not relevant to our <Link to="/pricing">paid plans</Link>. If
-        you&apos;re already an Osso customer,{" "}
-        <Link to="/docs/configure/overview">skip ahead to Configuration</Link>.
+        {message || (
+          <span>
+            The content of this article applies to the open source version of
+            Osso and is not relevant to our{" "}
+            <Link to="/pricing">paid plans</Link>. If you&apos;re already an
+            Osso customer,{" "}
+            <Link to="/docs/configure/overview">
+              skip ahead to Configuration
+            </Link>
+            .
+          </span>
+        )}
       </span>
     </div>
   );

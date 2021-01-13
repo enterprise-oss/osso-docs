@@ -4,10 +4,16 @@ title: Quick start
 sidebar_label: Quick start
 ---
 
+import PaidCallout from '../src/components/paidCallout/index'
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link'
+
 Integrating Osso to your application is a 3-step process that typically takes a couple of hours. You will primarily need back-end engineering skills. A more complete integration should also involve your product and design teams in order to craft a strong sign in experience for SSO users.
 
 ### 1. Deploy
-_Should take about 30 minutes - Osso customers can skip this step_
+_Should take about 30 minutes_
+
+<PaidCallout message={<span>Osso customers can skip this step - see <Link to={useBaseUrl('pricing')}>Osso's pricing</Link>.</span>} />
 
 You'll need to deploy an instance of Osso in order to start using it. We suggest treating Osso as an external service, meaning you deploy a single instance in a production environment. We also offer paid Osso instances if you'd rather not think about it.
 
