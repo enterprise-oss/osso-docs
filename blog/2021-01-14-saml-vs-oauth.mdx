@@ -17,6 +17,8 @@ OAuth and SAML are both open specifications for exchanging access credentials fo
 
 If you’re approaching these technologies as an engineer, you can consider OAuth to be *class based* while SAML is *instance based*. With OAuth, you configure your application with a provider like GitHub, and any GitHub user can now sign in to your app. But with SAML, you must configure your application with an Identity Provider (IDP) *instance*. Each customer who wants to use SAML will have an instance with their IDP, and you and the customer must perform a configuration between your app and their IDP instance. 
 
+<!-- truncate -->
+
 While this might seem like a small distinction, as you pull on the instance thread, you begin to understand implementing SAML to be a much bigger project than implementing OAuth - it needs CRUD and persistence, a UI to configure instances, and documentation for your customers and teammates, and you’ll need to adjust how your sign in form works. These knock on effects are way more important to think about than the nitty gritty details of SAML - like most things in modern web dev, really strong libraries exist for the nitty gritty, but they only get you 90% of the way there when building a production ready integration.
 
 
