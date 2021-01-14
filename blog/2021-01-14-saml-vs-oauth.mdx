@@ -1,0 +1,75 @@
+---
+slug: saml-vs-oauth
+title: SAML vs. OAuth
+author: Sam Bauch
+author_title: Co-founder
+author_url: https://github.com/sbauch
+author_image_url: https://avatars1.githubusercontent.com/u/923033?s=460&u=db9bb41f9b279750c74afc1be0ab51db05539593&v=4
+tags: [Osso, SAML, SSO, OAuth]
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link'
+
+### An Engineer’s Guide to Enterprise-grade Single Sign-on
+
+OAuth and SAML are both open specifications for exchanging access credentials for a specific user between an identity provider and an application. When a user wants to sign in to an app using either SAML or OAuth, they are sent to a 3rd party where the user must already be registered. They sign in to this third party, and get sent back to the application. The mechanisms differ, but both SAML and OAuth involve using secrets to securely exchange information about the user in order for the application to begin an authenticated session for the user.
+
+If you’re approaching these technologies as an engineer, you can consider OAuth to be *class based* while SAML is *instance based*. With OAuth, you configure your application with a provider like GitHub, and any GitHub user can now sign in to your app. But with SAML, you must configure your application with an Identity Provider (IDP) *instance*. Each customer who wants to use SAML will have an instance with their IDP, and you and the customer must perform a configuration between your app and their IDP instance. 
+
+While this might seem like a small distinction, as you pull on the instance thread, you begin to understand implementing SAML to be a much bigger project than implementing OAuth - it needs CRUD and persistence, a UI to configure instances, and documentation for your customers and teammates, and you’ll need to adjust how your sign in form works. These knock on effects are way more important to think about than the nitty gritty details of SAML - like most things in modern web dev, really strong libraries exist for the nitty gritty, but they only get you 90% of the way there when building a production ready integration.
+
+
+### An abridged and personal history of OAuth
+
+I started programming for the web right in the midst of the “social web 2.0” era and OAuth was *everywhere*. It was the heyday of hackathons, a more fun and flippant wacky Internet, where OAuth both helped you get up and running quicker, bypassing password based auth, and also gave you a wealth of users’ data to mix and mash and create experiences with - Facebook friends, Foursquare checkins and Tweets…at least when the fail whale was kept at bay.
+
+OAuth was convenient for the average web user. It wasn’t necessarily designed as a way to authenticate your users, but folks started using it that way and never really looked back. Instead of remembering passwords for hundreds of websites, the average Internet user was happy to hand over keys to their Facebook account for the convenience of signing in with Facebook. Providers, consumer engineers and users eventually got smarter with scopes, limiting what an app could do on your behalf in the account you had OAuthed.
+
+OAuth remains a popular authentication mechanism today, for both consumer and business applications. It’s incredibly easy to implement - languages and frameworks often have standardized approaches or libraries that make this easier. In Ruby, there’s \[omniauth\](https://github.com/omniauth/omniauth), “a library that standardizes multi-provider authentication for web applications”. Any developer can create an omniauth “strategy” for a specific web service. Passport is a similar approach for NodeJS apps.
+
+You’ll typically register your application on the web service’s developer portal, where you’ll get a Client ID and Client Secret, specify redirect URIs and choose the scopes you want to use. Add these secrets to your application, drop in an OAuth library, and you’re done in less than an hour. OAuth is convenient for users and engineers, but for large or security-minded enterprises, SAML is the choice that best provides convenience for them and their employees, even if it’s a headache for you to implement.
+
+
+### Keeping CISOs up at night
+
+A Chief Information Security Officer is the person ultimately responsible for an organization's information and data security. A good way to shirk this responsibility would be to allow your employees to sign up for critical apps and services using a password or through OAuth against an identity provider that the enterprise doesn’t control. Consider an employee who is terminated, but signed in to all of their services using email and password or their personal Twitter account. 
+
+The IT department would need to ensure, right at the time of termination, that the employee’s access to services is cut off. They would need to go into the account settings for every service and remove that user. At enterprise scale, tens or hundreds of employees might leave in a given week. Managing account access would be a never-ending nightmare for the IT department.
+
+### SAML locks it down
+
+Once again the SAML part is not really what matters here. Many IDPs support other technologies for exchanging credentials, including OAuth. But SAML is the standard that enterprises have adopted and is supported by every enterprise-grade Identity Provider. 
+
+The important aspect of enterprise-grade Identity Providers is that they centralize user access to applications. When an employee is terminated, the IT department needs to only go to one place where they remove the user, and the user immediately loses access to all of the services they used at work. SAML stands for “Secure Assertion Markup Language”, but in common usage, SAML really means an authentication mechanism where an enterprise can shut off access. When an enterprise requires that you offer SAML authentication, it’s not because they love old clunky technologies or want to annoy you - they simply need to be able to manage employee access to services in a single place.
+
+
+### SAML slows you down
+
+If you need to add SAML, that’s a great problem for your company to have! It means you’re moving up market and selling to bigger companies with a larger deal size and who tend to be a little stickier. If you’re thinking about adding SAML, you probably have 1,000 other things on your plate, from scaling concerns to features you’ve wanted to add and tech debt to address. But adding SAML might be the biggest single thing you could do to increase your company’s revenue, unlocking deals with bigger companies.
+
+The problem is that it takes *a lot more work* to implement than OAuth. It’s not exactly difficult work - you won’t need to write any algorithms, and lots of open source libraries exist for dealing with the actual SAML responses you receive from an IDP. But returning to our *class* vs. *instance* based distinction, lets review some tasks you’ll need to complete in order to ship a production-ready SAML integration.
+
+
+#### 1. Configuration UI and CRUD
+
+Every SAML-needing customer will need to be onboarded, where a teammate will provide some information to your customer, like an Assertion Consumer Service URL and an Entity ID. These are part of the SAML spec, and going into detail about their functions is beyond the scope of this post, but know that your application will need to generate these values, unique to each customer. Once your customer configures your app in their IDP, they’ll return some data to you, often in the form of a metadata XML file. Will you parse this for the keys and SSO URL you need to persist? Or have your teammates open the XML and copy out the data? Either way you’ll need to persist it all in a database table, and have a reliable way to look it up when a user wants to log in.
+
+
+#### 2. Documentation
+
+You can’t assume that your customer will know how to set up a SAML app in their IDP instance, so you’ll need to provide some instructions. That typically means signing up for all of the common IDPs, working your way through their documentation and configuring a test app, QAing with your codebase, and ultimately creating some sort of documentation to help your customers. Skip this at your peril - this will be the first thing your valuable enterprise customer experiences after signing a deal. 
+
+
+#### 3. Sign-in UX
+
+Since SAML authentication is instance based, you need to route users to the right IDP via the SSO URL your customer returned to you. Unlike OAuth, you can’t just stick a Sign in With Okta button on your login page and be done. The two common ways of approaching this are to either split your login form into two steps, first ascertaining email and sending to the IDP if the user belongs to an enterprise SAML account, or to create a second SAML SSO login form that only collects email or company domain.
+
+That’s a lot of work! If you’re reading this, I think we can probably assume that your teammates in support don’t know what SAML is, so you’ll probably need some internal docs and training too. And we haven’t even gotten into the SAML spec itself! Attribute mapping, Single Log Out, there’s still more to think about here.
+
+### Osso lets you treat SAML as OAuth
+
+You’ve probably implemented OAuth at some point in your career, you may even have it in your current stack already for things like signing in with Google. It’s simple to set up - register your client, allow-list some redirect URIs and grab a Client ID and Secret. SAML on the other hand, while conceptually similar, requires configuration per customer instance, which makes a SAML integration a bit heavier of a lift. 
+
+Osso allows you to sign SAML users in using an OAuth flow. Osso handles everything SAML - our Admin UI is easy for non-technical teammates to use in order to onboard customers and generates custom documentation for your customer’s Identity Provider. When your customer returns an XML metadata file to you, your teammates can easily upload it, where the required values get parsed out and persisted. Osso provides libraries for omniauth and Passport, making your integration even easier. You can even keep your sign in UX the same - Osso offers a hosted login page so you can just add a “Sign in with SSO” button or link (though we do recommend eventually deepening your integration by sending a user to Osso with a domain or email for IDP routing). 
+
