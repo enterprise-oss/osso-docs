@@ -9,7 +9,7 @@ tags: [Osso, SAML, SSO]
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
-
+import Link from '@docusaurus/Link'
 
 ### 👋 Hi!
 
@@ -17,6 +17,7 @@ For the past few months we've been hard at work building **Osso**, a free, open-
 
 <img className="blog-image" alt="Customers" src={useBaseUrl('img/customer-crud.png')} />
 
+<!-- truncate -->
 
 ### What is Osso?
 
@@ -48,7 +49,7 @@ Osso provides two main areas of functionality to help close this gap and reduce 
 
 With Osso, our Identity Provider CRUD (create, read, update, destroy) helps you go from proof of concept to full-featured by allowing you to skip all of the boilerplate code needed to configure SAML identity providers for each enterprise customer. In a proof of concept, you might hard code some of the data needed to complete the authentication dance. As you start to scale the solution, you'll keep pulling on this thread, and soon realize that it's a bit bigger of a project involving some database tables, x509 certificate validation, and a UI to tie it all together. Start adding more identity providers and things get even more entangled.
 
-<img className="blog-image" alt="Docusaurus with Keytar" src={useBaseUrl('img/idp-crud.png')} />
+<img className="blog-image" alt="Osso Admin UI screenshot" src={useBaseUrl('img/idp-crud.png')} />
 
 
 Instead, let Osso worry about the banal CRUD - deploy your Osso instance, authenticate your team, and you've got a full-featured Admin UI where your team can easily manage your customer's SAML Identity Providers.
@@ -59,7 +60,7 @@ Since Osso requires that you send your users through an OAuth flow, Osso's Admin
 
 Osso generates PDF documentation for each one of your customers, specific to their provider. In a proof of concept, documentation might not be something you consider, but each Identity Provider has a very specific process for adding a SAML app for a enterprises's employees. These are also enterprise companies themselves, and the UIs are as obtuse as you would expect.
 
-We've taken great care in crafting straightforward and accurate documention for each provider we support (Okta, Microsoft Azure ADFS, OneLogin and Google for now). When you onboard a new customer in Osso, we provide you the white-labeled documentation to send to your client in order to configure your app in their IDP.
+We've taken great care in crafting straightforward and accurate documentation for each provider we support (Okta, Microsoft Azure ADFS, OneLogin and Google for now). When you onboard a new customer in Osso, we provide you the white-labeled documentation to send to your client in order to configure your app in their IDP.
 
 <img className="blog-image" alt="Azure ADFS Docs" src={useBaseUrl('img/adfs-docs.png')} />
 
@@ -87,6 +88,8 @@ We plan to keep adding providers, and the bulk of this work is in creating our i
 #### • Self-serve Paid Plans
 
 We'll always be free and open source, but we'll also sell paid hosted plans for companies that wish to decrease the integration workload on the development team or would like to have the peace of mind that the Osso team can provide support if anything comes up. Our hosted plans will be a deployment of an Osso instance, and your data will not be mixed with other Osso customers'.
+
+_UPDATE: You can now sign up for <Link to={useBaseUrl('/pricing')}>Osso hosted plans</Link>._
 
 #### • More OAuth Consumption Libraries
 
