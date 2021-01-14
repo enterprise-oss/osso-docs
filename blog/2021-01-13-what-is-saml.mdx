@@ -1,0 +1,55 @@
+---
+slug: what-is-saml
+title: What is SAML?
+author: Sam Carmichael
+author_title: Co-founder
+author_url: https://sam-carmichael.com
+author_image_url: https://avatars0.githubusercontent.com/u/5394293?s=460&u=03bbc0c5174d8341157e4cddb3252b74f33b2482&v=4
+description: Everything you wanted to know about SAML but were too afraid to ask
+tags: [Osso, SAML, SSO]
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
+
+### So, you’ve started a SaaS company...
+You launched, iterated, proved product / market fit, wooed early customers and built up a strong funnel of new leads. **Congrats!** 🥳
+
+Then one day, one of your sales team members comes to you with a request from a new lead: *“We're SO close to closing a huge enterprise customer, but... they just asked me if we support SAML SSO. Do we have that?”*  
+
+You might not, not yet. But you probably should if you want to move upmarket 📈.
+
+## SAML in a nutshell
+
+Security Assertion Markup Language (SAML) is an open specification that allows Identity Providers (IDPs) to securely pass authorization credentials to a Service Provider (SP). SAML authentication is conceptually very similar to OAuth - instead of a user creating a password based account for every service they use, an IDP centralizes identity for the user, and they use their IDP credentials to access services. Where OAuth is generally used for consumer oriented apps, enterprise companies often require the services they purchase to offer SAML-based Single Sign On (SSO).
+
+Another important distinction between OAuth and SAML SSO is that SAML IDPs require you to configure your application to receive authorization credentials per IDP instance rather than for the IDP as an entity. With OAuth, you integrate a provider like Twitter once, and all Twitter users can now sign in with their Twitter account. With SAML, any time an Okta (or OneLogin, or Microsoft Azure) customer wants to sign in to your application from their Okta instance, you need to configure your application to receive a SAML assertion from that instance. You’ll repeat this for every account that requires SAML-based authentication, even if they use the same IDP as one of your other customers.
+
+## Enabling SAML for your customers
+
+SAML itself is not a challenging protocol to adopt. There’s tons of existing open-source software, often provided by IDPs themselves, that can help you get a SAML proof of concept shipped quickly. The challenge lies in turning this proof of concept into a production-ready set of features that’s scalable, sellable, and serviceable. 
+
+Enabling SAML for a customer entails a multi-step configuration between a Service Provider (you) and a customer of an Identity Provider (your enterprise accounts): 
+
+#### 1. You provide SAML information to your enterprise customer
+This will typically be someone on their IT team who manages the IDP for the enterprise. You’ll provide them things like an Assertion Consumer Service URL and an SP Audience ID. They’ll use these values to create a SAML application in their IDP instance.
+#### 2. They provide SAML application information back to you
+Once the IT professional creates the SAML application in their IDP instance, they will need to return to you some other information, like an x509 certificate.
+#### 3. You finalize configuration
+The information the enterprise provides back to you must be used in the SAML authentication process to validate the SAML response and access the authorization credentials. To take your proof-of-concept to a production-ready system, you’ll need to first understand this process, and then build a lot of boilerplate to manage SAML configurations for multiple accounts.
+
+## Supporting SAML internally
+
+If you plan on enabling SAML for any more than one or two customers, docs and software become extremely valuable for the repeatability of the onboarding process. How will your team generate the information your customer needs to configure your application in their IDP? How will you instruct your customers to configure your app in their IDP? Finally, how will you receive and persist the information provided back to you that’s used for signing a user in?
+
+These steps above *can* be done without documenting the process or building interfaces to make it easier — but do you really want to involve an engineer to complete this process and ship hardcoded changes for every enterprise customer, or force your customer service team to walk your customers through a process in their IDP?  While SAML is an open specification, each IDP tends to name things a little differently, and has different processes for configuring a SAML app in a customer instance. 
+
+You can’t assume that your customer will know exactly how to configure your app in their instance, so your team will need to learn the nuances of each IDP, how to configure a SAML app in at least a handful of IDPs, and how to debug and support authentication issues that may arise. Because of the complexity and technical support needed for these tasks, an engineer often has to help out, reducing the amount of time they have for other tasks. 
+
+## SaaS for SAML
+
+Due to the challenges described above, many companies choose to buy a service from an authentication vendor such as AWS, Auth0, or Logon Labs. Some IDPs are getting in to this space as well, such as Okta. SAML usually comes bundled in with other features like user management and access control, which can be a good and a bad thing; *good* if you need all of it, but *bad* if you only want SAML support and would rather not pay for the other bloat. 
+
+Generally these services are expensive, not very well documented, and unintuitive. They’re also closed source, often venture-backed, and may not be able to guarantee the certifications or uptime that you need. Paid services typically don’t make it easy to migrate, so you’re getting locked in to a vendor.
+
+**[Osso](https://ossoapp.com)** solves these challenges by providing the foundation you need to manage multiple SAML tenants in your application, while also providing guides and documentation for your whole team, and even your enterprise customers. You’ll still need to educate your team, and you’ll still need to configure the IDP instance for each customer that requires it, but Osso’s intuitive [Admin UI](https://demo.ossoapp.com) makes that process more user-friendly, allowing **any member of your sales or support teams** to onboard customers. We’re excited to help businesses of all sizes support SAML, so if that sounds appealing please check out our <Link to={useBaseUrl('/pricing')}>plans</Link> to find an option that fits your needs. 🤙
