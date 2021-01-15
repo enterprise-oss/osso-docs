@@ -39,9 +39,16 @@ function Footer() {
                 data-netlify-honeypot="bot-field"
               >
                 <input type="hidden" name="form-name" value="email-list" />
-                <label>Enter your email to receive updates from Osso</label>
+                <label htmlFor="footer-email">
+                  Enter your email to receive updates from Osso
+                </label>
                 <Input.Group>
-                  <Input name="email" type="email" style={{ width: "220px" }} />
+                  <Input
+                    id="footer-email"
+                    name="email"
+                    type="email"
+                    style={{ width: "220px" }}
+                  />
                   <Button htmlType="submit">Submit</Button>
                 </Input.Group>
               </form>
