@@ -23,6 +23,14 @@
   --ifm-landing-page-font-color: var(--ifm-color-primary);
 }
 
+html[data-theme='light'] .DocSearch {
+  --docsearch-muted-color: #595959;
+}
+
+html[data-theme='dark'] .DocSearch {
+  --docsearch-muted-color: var(--ifm-color-secondary);
+}
+
 html[data-theme='dark'] h1,h2,h3,h4,h5,h6{
   color: var(--ifm-landing-page-font-color) !important;
 }
