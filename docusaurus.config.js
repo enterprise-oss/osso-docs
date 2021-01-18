@@ -117,8 +117,8 @@ module.exports = {
         sitemap: {
           cacheTime: 600 * 1000, // 600 sec - cache purge period
           changefreq: "weekly",
-          priority: 0.5,
-          trailingSlash: false,
+          priority: 1.0,
+          trailingSlash: true,
         },
       },
     ],
