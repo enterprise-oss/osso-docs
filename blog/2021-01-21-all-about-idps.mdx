@@ -1,6 +1,6 @@
 ---
 slug: all-about-idps
-title: IDPs — Everything you wanted to know but were too afraid to ask
+title: All about Identity Providers
 author: Sam Carmichael
 author_title: Co-founder
 author_url: https://sam-carmichael.com
@@ -11,9 +11,9 @@ tags: [Osso, IDP, Okta, Azure]
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Link from '@docusaurus/Link'
 
-### About Identity Providers
+### The ABCs of IDPs
 
-Identity Providers (IDPs) are a category of software applications responsible for managing employees’ access to the various third party applications (i.e. Service Providers) modern enterprise companies rely on.
+Identity Providers (IDPs) are a category of software applications responsible for **managing employee access** to the various third party applications (AKA Service Providers) that modern enterprise companies rely on.
 
 <!-- truncate -->
 
@@ -27,7 +27,7 @@ An Identity Provider enables companies to take control of this process and ensur
 
 An Identity Provider is basically just a list of employee names and their job titles, without the multitude of Service Providers they connect to. Service Providers can be anything from chat apps for internal communication where every employee requires access, to more specialized applications like that of payroll management where only a few employees are granted access.
 
-When an employee attempts to login to an application used for their work, they have two methods to do so, if their employer is using an Identity Provider:
+**An employee attempting to login to an application used for their work typically has one of two methods to do so via IDP:**
 
 #### 1. Identity Provider-initiated
 Logging into an application through an Identity Provider-initiated workflow relies on the employee to log in to their Identity Provider Portal; this is often the only username and password employees will need. From the portal, they select the application they’d like to access, and will then be redirected via a new browser window to their desired Service Provider. The Service Provider will get a message from the Identity Provider saying that the person logging in has been authenticated and is in fact who they say they are. The Service Provider sees this and grants the employee access.
