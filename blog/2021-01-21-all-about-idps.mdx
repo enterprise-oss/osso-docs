@@ -21,13 +21,13 @@ Identity Providers (IDPs) are a category of software applications responsible fo
 
 ### Why companies use Identity Providers
 
-On average, companies with fewer than 1,000 employees rely on *22 separate applications to run their business*. As a result, for each application an employee has access to, the employee will need to be onboarded with the proper privileges, a username and password created, and eventually offboarded upon their departure. Each point in this process gives rise to security risks.
+On average, companies with fewer than 1,000 employees rely on [22 separate applications to run their business](https://www.mcafee.com/blogs/enterprise/cloud-security/every-company-is-a-software-company-today). As a result, for each application an employee has access to, the employee will need to be onboarded with the proper privileges, a username and password created, and eventually offboarded upon their departure. Each point in this process gives rise to security risks.
 
 An Identity Provider enables companies to take control of this process and ensure the correct employee is receiving the proper access levels to applications necessary for them to do their job. Additionally, Identity Providers provide employees Single Sign-On (SSO) access to applications so they don’t have to remember multiple passwords or reuse the same passwords across many applications. Upon departure, an administrator of the Identity Provider can disable access to all applications for the exiting employee at the same time.
 
 ### How Identity Providers work
 
-An Identity Provider is basically just a list of employee names and their job titles, without the multitude of Service Providers they connect to. Service Providers can be anything from chat apps for internal communication where every employee requires access, to more specialized applications like that of payroll management where only a few employees are granted access.
+An Identity Provider is basically just a list of employee names and their job titles. A Service Provider can be anything from a chat app for internal communication where every employee requires access, to more specialized applications like that of payroll management where only a few employees are granted access.
 
 **An employee attempting to login to an application used for their work typically has one of two methods to do so via IDP:**
 
@@ -41,7 +41,7 @@ Signing into applications via the IDP can sometimes feel inconvenient to employe
 
 Although each Identity Provider relies on SAML as a common means to enable SSO across Service Providers, they each have a slightly different workflow for onboarding a new Service Provider. As a result, Service Providers have to familiarize themselves with the workflow of each Identity Provider they support.
 
-This isn’t too much of an issue when they’re supporting one or two Identity Providers, but as companies grow and mature they continue to acquire enterprise customers, and eventually they’ll be asked to support yet another new Identity Provider. Soon enough, one or two IDPs turns into five or ten, each with their own unique workflow that need to be learned and supported.
+This isn’t too much of an issue when they’re supporting one or two Identity Providers, but as companies grow and mature they continue to acquire enterprise customers, and eventually they’ll be asked to support yet another new Identity Provider. Soon enough, one or two IDPs turns into five or ten, each with their own unique workflow that needs to be learned and supported.
 
 ### Benefits of supporting Identity Providers within your Service
 
@@ -57,6 +57,6 @@ Since balancing resources when determining your feature roadmap is a constant co
 
 ### The easy way to enable IDP logins
 
-Given the challenges of supporting multiple IDPs, it won’t surprise you that we recommend giving &#8203;<Link to={useBaseUrl('/blog/1-0-0-release-candidate')}>Osso</Link> a try. We’ve built a one-stop solution to connect your Service to a number of Identity Providers (and we’re constantly adding more), in addition to providing an intuitive dashboard to help manage and onboard your enterprise customers. Each Identity Provider has been outfitted with customized &#8203;<Link to={useBaseUrl('/docs/user-guide/onboarding-customers')}>documentation</Link> so that your Customer Success and Sales teams can take the lead on seamlessly onboarding your next enterprise customer to their preferred Identity Provider. 
+Given the challenges of supporting multiple IDPs, it won’t surprise you that we recommend giving &#8203;<Link to={useBaseUrl('/blog/1-0-0-release-candidate')}>Osso</Link> a try. We’ve built a one-stop solution to connect your Service to a number of Identity Providers (and we’re constantly adding more), in addition to providing an intuitive dashboard to help manage and onboard your enterprise customers. Each Identity Provider has been outfitted with customized <Link to={useBaseUrl('/docs/user-guide/onboarding-customers')}>documentation</Link> so that your Customer Success and Sales teams can take the lead on seamlessly onboarding your next enterprise customer to their preferred Identity Provider. 
 
 We’re excited to help businesses of all sizes support SAML, so if that sounds appealing please check out our <Link to={useBaseUrl('/pricing')}>plans</Link> to find an option that fits your needs.
