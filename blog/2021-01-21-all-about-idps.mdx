@@ -1,0 +1,62 @@
+---
+slug: all-about-idps
+title: All about Identity Providers
+author: Sam Carmichael
+author_title: Co-founder
+author_url: https://sam-carmichael.com
+author_image_url: https://avatars0.githubusercontent.com/u/5394293?s=460&u=03bbc0c5174d8341157e4cddb3252b74f33b2482&v=4
+tags: [Osso, IDP, Okta, Azure]
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link'
+
+<img className="blog-image" alt="IDP" src={useBaseUrl('img/IDPs.jpg')} />
+
+### The ABCs of IDPs
+
+Identity Providers (IDPs) are a category of software applications responsible for **managing employee access** to the various third party applications (AKA Service Providers) that modern enterprise companies rely on.
+
+<!-- truncate -->
+
+### Why companies use Identity Providers
+
+On average, companies with fewer than 1,000 employees rely on [22 separate applications to run their business](https://www.mcafee.com/blogs/enterprise/cloud-security/every-company-is-a-software-company-today). As a result, for each application an employee has access to, the employee will need to be onboarded with the proper privileges, a username and password created, and eventually offboarded upon their departure. Each point in this process gives rise to security risks.
+
+An Identity Provider enables companies to take control of this process and ensure the correct employee is receiving the proper access levels to applications necessary for them to do their job. Additionally, Identity Providers provide employees Single Sign-On (SSO) access to applications so they don’t have to remember multiple passwords or reuse the same passwords across many applications. Upon departure, an administrator of the Identity Provider can disable access to all applications for the exiting employee at the same time.
+
+### How Identity Providers work
+
+An Identity Provider is basically just a list of employee names and their job titles. A Service Provider can be anything from a chat app for internal communication where every employee requires access, to more specialized applications like that of payroll management where only a few employees are granted access.
+
+**An employee attempting to login to an application used for their work typically has one of two methods to do so via IDP:**
+
+#### 1. Identity Provider-initiated
+Logging into an application through an Identity Provider-initiated workflow relies on the employee to log in to their Identity Provider Portal; this is often the only username and password employees will need. From the portal, they select the application they’d like to access, and will then be redirected via a new browser window to their desired Service Provider. The Service Provider will get a message from the Identity Provider saying that the person logging in has been authenticated and is in fact who they say they are. The Service Provider sees this and grants the employee access.
+
+#### 2. Service Provider-initiated
+Signing into applications via the IDP can sometimes feel inconvenient to employees. As a result, Service Provider-initiated login is a more popular alternative. This method allows employees to login via the Service Provider’s website, just like they would normally if their employer didn’t require the use of an Identity Provider. With this method, when the employee enters their email into the Service Provider’s website, the SP will send an authentication request to the IDP associated with the employee’s email address. If the employee is already logged into their employer’s IDP, and has access to the SP making the request, the IDP will return a message to the SP letting them know the employee’s identity has been authenticated, thereby granting them access. If the employee isn’t logged into their IDP, a separate screen will prompt the employee to log in to the IDP in order for them to be authenticated and gain access to the SP.
+
+### Challenges of Integrating Identity Providers
+
+Although each Identity Provider relies on SAML as a common means to enable SSO across Service Providers, they each have a slightly different workflow for onboarding a new Service Provider. As a result, Service Providers have to familiarize themselves with the workflow of each Identity Provider they support.
+
+This isn’t too much of an issue when they’re supporting one or two Identity Providers, but as companies grow and mature they continue to acquire enterprise customers, and eventually they’ll be asked to support yet another new Identity Provider. Soon enough, one or two IDPs turns into five or ten, each with their own unique workflow that needs to be learned and supported.
+
+### Benefits of supporting Identity Providers within your Service
+
+As B2B SaaS companies begin to sell upmarket into the enterprise space, certain security features are considered table stakes and are viewed as a prerequisite to even begin a sales conversation. SAML SSO falls into this category of features and is often viewed as a bare minimum requirement to begin selling into enterprise companies.
+
+Additionally, when a Service Provider supports an Identity Provider they are given the opportunity to be a part of that Identity Provider’s Marketplace. This is where enterprise companies can search for software solutions that already connect to their chosen IDP.
+
+Don’t let prospective customers disqualify themselves from your solution. Since SAML SSO is so often considered to be a prerequisite, when shopping for software many prospects will eliminate vendors based on this requirement when creating a shortlist. It is in your best interest, as a Service Provider, to support as many Identity Providers as possible to ensure this is not an objection for future prospects.
+
+### Which Identity Providers you should support first
+
+Since balancing resources when determining your feature roadmap is a constant concern, you’ll need to prioritize the Identity Provider with the greatest reach. [Okta](https://www.okta.com/) and Microsoft’s [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/) are the industry leaders, but still require scoping, coding, testing, documenting, and training in order to produce a working prototype.
+
+### The easy way to enable IDP logins
+
+Given the challenges of supporting multiple IDPs, it won’t surprise you that we recommend giving <Link to={useBaseUrl('/blog/1-0-0-release-candidate')}>Osso</Link> a try. We’ve built a one-stop solution to connect your Service to a number of Identity Providers (and we’re constantly adding more), in addition to providing an intuitive dashboard to help manage and onboard your enterprise customers. Each Identity Provider has been outfitted with customized <Link to={useBaseUrl('/docs/user-guide/onboarding-customers')}>documentation</Link> so that your Customer Success and Sales teams can take the lead on seamlessly onboarding your next enterprise customer to their preferred Identity Provider. 
+
+We’re excited to help businesses of all sizes support SAML, so if that sounds appealing please check out our <Link to={useBaseUrl('/pricing')}>plans</Link> to find an option that fits your needs.
