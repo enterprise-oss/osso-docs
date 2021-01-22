@@ -6,6 +6,9 @@ module.exports = {
   url: "https://ossoapp.com",
   baseUrl: "/",
   favicon: "img/favicon.ico",
+  image: 'img/OGImage.png',
+  metadatas: 
+    [{name: 'og:description', content: 'Add enterprise-grade SAML SSO to your app today.'}, {name: 'twitter:image', content: 'img/Logo_Card.png'}],
   organizationName: "enterprise-oss",
   projectName: "osso-docs",
   stylesheets: [
