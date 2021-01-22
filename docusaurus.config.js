@@ -7,8 +7,6 @@ module.exports = {
   baseUrl: "/",
   favicon: "img/favicon.ico",
   image: 'img/OGImage.png',
-  metadatas: 
-    [{name: 'og:description', content: 'Add enterprise-grade SAML SSO to your app today.'}, {name: 'twitter:image', content: 'img/Logo_Card.png'}],
   organizationName: "enterprise-oss",
   projectName: "osso-docs",
   stylesheets: [
@@ -34,6 +32,8 @@ module.exports = {
     googleAnalytics: {
       trackingID: "UA-177630158-1",
     },
+    metadatas: 
+      [{name: 'og:description', content: 'Add enterprise-grade SAML SSO to your app today.'}, {name: 'twitter:image', content: 'img/Logo_Card.png'}],
     navbar: {
       title: "Osso",
       logo: {
