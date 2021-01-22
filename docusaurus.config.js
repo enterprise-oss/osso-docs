@@ -31,6 +31,8 @@ module.exports = {
     googleAnalytics: {
       trackingID: "UA-177630158-1",
     },
+    image: 'img/OGImage.png',
+    metadatas: [{name: 'twitter:image', content: 'img/Logo_Card.png'},{name: 'og:title', content: 'Add enterprise-grade SAML SSO to your app today'}],
     navbar: {
       title: "Osso",
       logo: {
