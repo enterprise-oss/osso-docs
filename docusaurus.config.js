@@ -31,14 +31,16 @@ module.exports = {
     googleAnalytics: {
       trackingID: "UA-177630158-1",
     },
-    image: 'img/OGImage.png',
-    metadatas: 
-      [
-        {name: 'twitter:image', content: 'img/Logo_Card.png'},
-        {name: 'og:title', content: 'Osso'},
-        {name: 'og:description', content: 'Add enterprise-grade SAML SSO to your app today'},
-        {name: 'og:type', content: 'website'}
-      ],
+    image: "img/OGImage.png",
+    metadatas: [
+      { name: "twitter:image", content: "img/Logo_Card.png" },
+      { name: "og:title", content: "Osso" },
+      {
+        name: "og:description",
+        content: "Add enterprise-grade SAML SSO to your app today",
+      },
+      { name: "og:type", content: "website" },
+    ],
     navbar: {
       title: "Osso",
       logo: {
@@ -73,6 +75,9 @@ module.exports = {
       apiKey: process.env.POSTHOG_API_KEY || "no",
       appUrl: "https://a.ossoapp.com",
       enableInDevelopment: false,
+    },
+    prism: {
+      additionalLanguages: ["ruby"],
     },
     footer: {
       style: "dark",
