@@ -519,7 +519,7 @@ What about a second tenant? If you're following the guide and using the demo ins
 
 If you have a few SAML customers you might stop here - there's sure to be other things you need to work on that are more central to your product, and we are absolutely supporting multi-tenant SAML at this point. But what if we wanted to improve the sign in UX? The Osso hosted login page isn't branded, so it would be best if our users didn't have to hit that.
 
-In our previous section we integrated SAML login into our email / password flow. Some companies take this approach, while others provide an entirely separate login form for SAML SSO. Let's go with the latter for now, where we nonetheless ask the user to enter their email address.
+In our previous section we integrated SAML login into our email / password flow. Some companies take this approach, while others provide an entirely separate login form for SAML SSO. Let's go with the latter for now, where we nonetheless ask the user to enter their email address by adding an email input to our login form.
 
 ```ruby title="application/views/index.html.erb" {13-14}
   <div class="container">
@@ -537,9 +537,11 @@ In our previous section we integrated SAML login into our email / password flow.
         <%= form.email_field :email %>
         <button type='submit'>Login with SAML SSO</button>
       <% end %>
-    </div>  
+    </div>
   </div> 
 ```
+
+Now we can log in again using an `example.com` email address, and we'll skip over Osso's hosted login page. The downside of this approach is that Osso will display an error if there is not a SAML configured customer for the supplied domain. In an ideal world, we'd only send users who belong to an onboarded SAML customer to Osso. There's lots of ways to approach this - perhaps we can take the same approach to the multi-tenant login form from the previous section, and have our first login form submit return to the client a string representing the tenant's valid auth mechanisms.
 
 
 
