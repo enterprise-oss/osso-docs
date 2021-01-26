@@ -57,9 +57,7 @@ function Home() {
   const isLargeScreen = useMediaQuery({ query: screens.large });
 
   return (
-    <Layout
-      title="Home"
-    >
+    <Layout title="Home">
       <div className={styles.heroContainer}>
         <header className={classnames("hero", styles.heroBanner)}>
           <div className={styles.heroCopy}>

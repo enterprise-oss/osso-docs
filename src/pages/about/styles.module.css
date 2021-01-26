@@ -3,117 +3,36 @@
   margin-bottom: 56px;
 }
 
-.titleMarker {
-  display: inline-block;
-  width: 8px;
-  height: 47px;
-  background-color: #FFCD83;
-  margin-right: 16px;
-  margin-left: -24px;
-  vertical-align: top;
-  border-radius: 2px;
+.section {
+  margin-bottom: 80px;
 }
 
-.features > h3{
-  font-size: 36px;
-  color: var(--ifm-landing-page-font-color);
-  margin-bottom: 16px;
-}
-
-.features p{
+.section p{
   font-size: 20px;
 }
 
-.features p:last-of-type {
-  margin-bottom: 4em;
-}
-
-.plansTitle > h3 {
-  font-size: 38px;
-  font-weight: 600;
-  color: var(--ifm-landing-page-font-color);
-  margin-bottom: 0px;
-  text-align: center;
-}
-
-.planCard {
+.personCard {
   height: 100%;
-  font-size: 16px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #D9D9D9;
   border-radius: 4;
 }
 
-.planHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 0;
-  font-size: 24px;
+.personCard .prev {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  margin-top: 16px;
 }
 
-.price {
-  color: #4E61A5;
-}
-
-.planCopy {
-  min-height: 160px;
-  margin-bottom: 12px;
-  font-size: 16px;
-}
-
-.featureList {
-  margin-bottom: 32px;
-}
-
-.featureList > ul {
-  padding: 0;
-  padding-left: 6px;
-}
-
-.planFeature {
-  font-size: 16px;
-  color: #595959;
-  list-style-type: none;
-  padding-left: 32px;
+.social {
   margin-top: auto;
 }
 
-.planFeature:before {
-  content: '';
-  float: left;
-  display: list-item;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color:  #4E61A5;
-  margin-left: -26px;
-  margin-top: 8px;
-}
-
-.businessCard .planFeature:first-of-type,
-.enterpriseCard .planFeature:first-of-type {
-  font-weight: 700;
-}
-
-.planFeatureMarker {
-  margin-right: 4px;
-  color: #4E61A5;
-}
-
-.panelTitle {
-  font-size: 20px;
-}
-
-.panelTitle {
-  font-size: 20px;
-}
-
-.panel {
-  font-size: 16px;
-  color: var(---ifm-font-color-base);
+.social > a {
+  font-size: 24px;
+  color: #595959;
+  margin-right: 24px;
 }
 
 
