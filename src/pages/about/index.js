@@ -56,7 +56,7 @@ function Pricing() {
           </Col>
         </Row>
         <Row>
-          <Col sm={24} md={{ span: 16, offset: 4 }} className={styles.section}>
+          <Col sm={24} md={{ span: 20, offset: 4 }} className={styles.section}>
             <Row gutter={[16, 0]}>
               <Col xs={12} md={6}>
                 <Card
@@ -118,7 +118,7 @@ function Pricing() {
                   <Card.Meta title="Sam Carmichael" description="Design" />
                   <p className={styles.prev}>
                     Previously:
-                    <br /> Product design manager @ WeWork, Founder of The
+                    <br /> Product design @ WeWork, Founder @ The
                     UpStanding Desk
                   </p>
                   <div className={styles.social}>
