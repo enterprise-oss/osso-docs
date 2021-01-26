@@ -24,7 +24,7 @@ function Pricing() {
 
   return (
     <Layout
-      title={siteConfig.title}
+      title= "Plans"
     >
       <AntLayout.Content
         className={classnames("container margin-vert--xl", styles.container)}
