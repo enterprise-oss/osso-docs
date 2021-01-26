@@ -58,7 +58,7 @@ function Pricing() {
         <Row>
           <Col sm={24} md={{ span: 16, offset: 4 }} className={styles.section}>
             <Row gutter={[16, 0]}>
-              <Col sm={24} md={12} lg={6}>
+              <Col sm={12} md={6}>
                 <Card
                   cover={<img src={useBaseUrl("img/sam_bauch.png")} />}
                   className={styles.personCard}
@@ -102,7 +102,7 @@ function Pricing() {
                   </div>
                 </Card>
               </Col>
-              <Col sm={24} md={12} lg={6}>
+              <Col sm={12} md={6}>
                 <Card
                   cover={<img src={useBaseUrl("img/sam_carmichael.png")} />}
                   className={styles.personCard}
@@ -154,7 +154,7 @@ function Pricing() {
                   </div>
                 </Card>
               </Col>
-              <Col sm={24} md={12} lg={6}>
+              <Col sm={12} md={6}>
                 <Card
                   cover={<img src={useBaseUrl("img/michael_teevan.png")} />}
                   className={styles.personCard}
@@ -199,7 +199,7 @@ function Pricing() {
                 </Card>
               </Col>
               {false && (
-                <Col sm={24} md={12} lg={6}>
+                <Col sm={12} md={6}>
                   <Card
                     cover={<img src={useBaseUrl("img/sam_bauch.png")} />}
                     className={styles.personCard}
