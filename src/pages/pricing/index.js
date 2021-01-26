@@ -25,7 +25,6 @@ function Pricing() {
   return (
     <Layout
       title={siteConfig.title}
-      description="Free, open-source software for adding SAML based SSO to your application"
     >
       <AntLayout.Content
         className={classnames("container margin-vert--xl", styles.container)}

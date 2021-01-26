@@ -55,6 +55,7 @@ module.exports = {
         },
         { to: "blog", label: "Blog", position: "left" },
         { to: "pricing", label: "Pricing", position: "left" },
+        { to: "about", label: "About", position: "left" },
         {
           href: "https://github.com/enterprise-oss/osso",
           position: "right",

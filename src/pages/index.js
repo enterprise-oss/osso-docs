@@ -59,7 +59,6 @@ function Home() {
   return (
     <Layout
       title={siteConfig.title}
-      description="Free, open-source software for adding SAML based SSO to your application"
     >
       <div className={styles.heroContainer}>
         <header className={classnames("hero", styles.heroBanner)}>
