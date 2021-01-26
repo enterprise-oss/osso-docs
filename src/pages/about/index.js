@@ -125,14 +125,14 @@ function Pricing() {
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
-                      href="https://linkedin.com/in/sambauch"
+                      href="https://linkedin.com/in/samcarmichael"
                     >
                       <LinkedinFilled />
                     </a>
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
-                      href="https://linkedin.com/in/sambauch"
+                      href="https://github.com/sccarmichael"
                     >
                       <GithubFilled />
                     </a>
@@ -140,14 +140,14 @@ function Pricing() {
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
-                      href="https://linkedin.com/in/sambauch"
+                      href="https://twitter.com/sccarmichael"
                     >
                       <TwitterSquareFilled />
                     </a>
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
-                      href="https://linkedin.com/in/sambauch"
+                      href="https://sam-carmichael.com"
                     >
                       <HomeFilled />
                     </a>
