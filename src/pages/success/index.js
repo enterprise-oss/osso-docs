@@ -30,7 +30,8 @@ function Success() {
 
   return (
     <Layout
-      title={siteConfig.title}
+      title="Success"
+      description="Osso subscription confirmed"
     >
       <AntLayout.Content className={classnames("container", styles.container)}>
         <Row>
