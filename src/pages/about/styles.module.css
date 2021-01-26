@@ -37,13 +37,10 @@
 
 
 @media screen and (max-width: 996px) {
-  
-
   .row {
     flex-direction: column-reverse;
     padding-left: 24px;
     padding-right: 24px;
-    /* margin-bottom: 0; */
   }
 
   .row:before {
