@@ -31,7 +31,7 @@ function Success() {
   return (
     <Layout
       title="Success"
-      description="Osso subscription confirmed"
+      description="You've successfully subscribed to Osso!"
     >
       <AntLayout.Content className={classnames("container", styles.container)}>
         <Row>

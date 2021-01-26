@@ -24,7 +24,8 @@ function Pricing() {
 
   return (
     <Layout
-      title= "Plans"
+      title="Plans and pricing"
+      description="All of the choices available for implementing Osso, including Enterprise and open source options."
     >
       <AntLayout.Content
         className={classnames("container margin-vert--xl", styles.container)}

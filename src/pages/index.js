@@ -58,7 +58,7 @@ function Home() {
 
   return (
     <Layout
-      title={siteConfig.title}
+      title="Home"
     >
       <div className={styles.heroContainer}>
         <header className={classnames("hero", styles.heroBanner)}>
