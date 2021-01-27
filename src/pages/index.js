@@ -1,6 +1,5 @@
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import { Button } from "antd";
 import classnames from "classnames";
@@ -10,6 +9,7 @@ import { useMediaQuery } from "react-responsive";
 import BoilerplateSvg from "../components/svg/boilerplate";
 import SAMLSvg from "../components/svg/saml";
 import TeamDocsSvg from "../components/svg/team_docs";
+import TitleWithMarker from "../components/titleWithMarker/index";
 import screens from "../utils/responsive";
 import styles from "./styles.module.css";
 
@@ -52,15 +52,10 @@ const features = [
 ];
 
 function Home() {
-  const context = useDocusaurusContext();
-  const { siteConfig = {} } = context;
   const isLargeScreen = useMediaQuery({ query: screens.large });
 
   return (
-    <Layout
-      title={siteConfig.title}
-      description="Free, open-source software for adding SAML based SSO to your application"
-    >
+    <Layout title="Home">
       <div className={styles.heroContainer}>
         <header className={classnames("hero", styles.heroBanner)}>
           <div className={styles.heroCopy}>
@@ -88,10 +83,7 @@ function Home() {
             {features.map(({ title, description, Component }, idx) => (
               <div key={idx} className={classnames("row", styles.row)}>
                 <div className="col">
-                  <h3>
-                    {isLargeScreen && <span className={styles.titleMarker} />}
-                    {title}
-                  </h3>
+                  <TitleWithMarker title={title} />
                   <p>{description}</p>
                 </div>
                 <div className={classnames("col", styles.imageContainer)}>

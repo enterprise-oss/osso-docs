@@ -9,6 +9,7 @@ import { useMediaQuery } from "react-responsive";
 
 import EnterpriseModal from "../../components/enterpriseModal";
 import PaymentModal from "../../components/paymentModal/index";
+import TitleWithMarker from "../../components/titleWithMarker/index";
 import { plans } from "../../utils/plans";
 import screens from "../../utils/responsive";
 import styles from "./styles.module.css";
@@ -24,8 +25,8 @@ function Pricing() {
 
   return (
     <Layout
-      title={siteConfig.title}
-      description="Free, open-source software for adding SAML based SSO to your application"
+      title="Plans and pricing"
+      description="All of the choices available for implementing Osso, including Enterprise and open source options."
     >
       <AntLayout.Content
         className={classnames("container margin-vert--xl", styles.container)}
@@ -79,10 +80,7 @@ function Pricing() {
         </Row>
         <Row>
           <Col sm={24} md={{ span: 16, offset: 4 }} className={styles.faq}>
-            <h3>
-              {isLargeScreen && <span className={styles.titleMarker} />}
-              Frequently asked questions
-            </h3>
+            <TitleWithMarker title="Frequently asked questions" />
             <Collapse accordion bordered={false} className={styles.panel}>
               <Collapse.Panel
                 header={
@@ -181,10 +179,7 @@ function Pricing() {
         </Row>
         <Row>
           <Col sm={24} md={{ span: 16, offset: 4 }} className={styles.features}>
-            <h3>
-              {isLargeScreen && <span className={styles.titleMarker} />}
-              Osso is for everybody
-            </h3>
+            <TitleWithMarker title="Osso is for everybody" />
             <p>
               Still not seeing a plan that’s perfect for you? Osso is and will
               remain a free, open source piece of software that anyone can use
