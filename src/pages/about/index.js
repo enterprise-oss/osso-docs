@@ -168,24 +168,9 @@ function Pricing() {
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
-                      href="https://linkedin.com/in/sambauch"
+                      href="https://linkedin.com/in/michaelteevan"
                     >
                       <LinkedinFilled />
-                    </a>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://linkedin.com/in/sambauch"
-                    >
-                      <GithubFilled />
-                    </a>
-
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://linkedin.com/in/sambauch"
-                    >
-                      <TwitterSquareFilled />
                     </a>
                   </div>
                 </Card>
