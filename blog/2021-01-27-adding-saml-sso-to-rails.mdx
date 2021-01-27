@@ -548,7 +548,17 @@ In our previous section we integrated SAML login into our email / password flow.
   </div> 
 ```
 
-Now we can log in again using an `example.com` email address, and we'll skip over Osso's hosted login page. The downside of this approach is that Osso will display an error if there is not a SAML configured customer for the supplied domain. In an ideal world, we'd only send users who belong to an onboarded SAML customer to Osso, and we wouldn't require a user to remember that they use SAML SSO to sign in. We could take the same approach to the multi-tenant login form from the previous section, and have our first login form submit an email address, and return to the client a string representing the user's valid auth mechanisms, such that we could redirect to Osso. Since we already sort of covered that, let's take a look at Osso's React library, which includes a `<SamlLogin />` component.
+Now we can log in again using an `example.com` email address, and we'll skip over Osso's hosted login page. The downside of this approach is that Osso will display an error if there is not a SAML configured customer for the supplied domain. 
+
+To best serve our SAML SSO users, we'd only send users who belong to an onboarded SAML customer to Osso, and we wouldn't require a user to remember that they use SAML SSO to sign in. Frankly this issue has become _incredibly fraught_. Non-SAML users hate when you split a login form into two steps, and they usually have no idea why anyone would implement such a poor UX. But there's no perfect solution if we want to serve all of our users well, just the least bad solution, and we'll do our best to make our login flow frustrate the least number of users - engineering is, after all, about tradeoffs.  
+
+We should also aim to reduce the amount of code you need to write to integrate Osso - you shouldn't have to persist in your database whether one of your tenants uses SAML. A user should just be able to come to your login page and login, whatever mechanism their account is set up to use. Yes, we want to save you effort, but we also want to keep things simple, direct and easy to reason about.
+
+Osso also offers a [React library](https://github.com/enterprise-oss/osso-react) that provides components like a `<SAMLLogin />` form as well as lower level hooks for interacting with your Osso instance. Rather than you persisting data about which of your customers use SAML for auth, you can use the Osso React library to talk directly to Osso in order to build out your login form. Of course if you're not already using React on your front end it won't make a ton of sense to take this approach, but the Osso React source code should help you understand how you can implement such a form yourself.
+
+
+
+
 
 
 
