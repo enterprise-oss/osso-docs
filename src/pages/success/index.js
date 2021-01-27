@@ -30,8 +30,8 @@ function Success() {
 
   return (
     <Layout
-      title={siteConfig.title}
-      description="Free, open-source software for adding SAML based SSO to your application"
+      title="Success"
+      description="You've successfully subscribed to Osso!"
     >
       <AntLayout.Content className={classnames("container", styles.container)}>
         <Row>

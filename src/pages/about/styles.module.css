@@ -1,0 +1,66 @@
+.container {
+  max-width: 1440px;
+  margin-bottom: 56px;
+}
+
+.section {
+  margin-bottom: 80px;
+}
+
+.section p{
+  font-size: 20px;
+}
+
+.personCard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4;
+}
+
+.personCard .prev {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  margin-top: 16px;
+}
+
+.social {
+  margin-top: auto;
+  margin-bottom: 32px;
+}
+
+.social > a {
+  font-size: 24px;
+  color: #595959;
+  margin-right: 24px;
+}
+
+
+@media screen and (max-width: 996px) {
+  .row {
+    flex-direction: column-reverse;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .row:before {
+    content: "";
+    display: block;
+    border-bottom: 1px solid #FFCD83;
+    margin: 56px 0;
+    width: 100%;
+  }
+
+  .row:last-of-type {
+    margin-bottom: 56px;
+  }
+
+  .row:last-of-type:before {
+    display: none;
+  }
+
+  .features h3, .faq h3{
+    font-size: 24px;
+  }
+}

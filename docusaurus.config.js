@@ -34,7 +34,6 @@ module.exports = {
     image: "img/OGImage.png",
     metadatas: [
       { name: "twitter:image", content: "img/Logo_Card.png" },
-      { name: "og:title", content: "Osso" },
       {
         name: "og:description",
         content: "Add enterprise-grade SAML SSO to your app today",
@@ -57,6 +56,7 @@ module.exports = {
         },
         { to: "blog", label: "Blog", position: "left" },
         { to: "pricing", label: "Pricing", position: "left" },
+        { to: "about", label: "About", position: "right" },
         {
           href: "https://github.com/enterprise-oss/osso",
           position: "right",

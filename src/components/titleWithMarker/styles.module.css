@@ -1,0 +1,16 @@
+.title{
+  font-size: 36px;
+  color: var(--ifm-landing-page-font-color);
+  margin-bottom: 16px;
+}
+
+.titleMarker {
+  display: inline-block;
+  width: 8px;
+  height: 47px;
+  background-color: #FFCD83;
+  margin-right: 16px;
+  margin-left: -24px;
+  vertical-align: top;
+  border-radius: 2px;
+}
