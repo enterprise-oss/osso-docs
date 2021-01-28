@@ -1,0 +1,26 @@
+.container {
+  max-width: 400px;
+  margin: 40px auto;
+  justify-content: center;
+  height: auto
+}
+
+.container,.mainContent {
+  display: flex;
+  flex-direction: column
+}
+
+.mainContent {
+  align-items: flex-start;
+  background: #fff;
+  border-radius: 4px;
+  width: 400px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,.15));
+  padding: 32px
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%
+}

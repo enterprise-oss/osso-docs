@@ -9,6 +9,7 @@ tags: [Osso, SAML, SSO, Rails, Ruby]
 description: Learn 3 approaches to add SAML SSO to a Rails 6 application.
 ---
 
+import BlogLogin from '../src/components/blogLogin/index';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Link from '@docusaurus/Link';
 
@@ -581,12 +582,14 @@ document.addEventListener('DOMContentLoaded', () => {
 We can install Osso's React library from npm:
 
 ```bash
-$ yarn install @enterprise-oss/osso
+$ yarn add @enterprise-oss/osso
 ```
 
-And we need to wrap any of our Osso components in an `<OssoProvider />`, passing a `baseUrl` to the client options:
+And we need to wrap any of our Osso components in an `<OssoProvider />`, passing a `baseUrl` to the client options. We're still using the Osso Demo instance here, which is an anything goes environment. If you're using your own instance, you'll need to set the `CORS_ORIGINS` ENV var to the origin where you're using this form.
 
-```javascript title="javascripts/packs/index.jsx" {2-6,13}
+```javascript title="javascripts/packs/index.jsx" {1,3-7,14}
+import { OssoLogin, OssoProvider } from '@enterprise-oss/osso';
+
 const App = () => (
   <OssoProvider
     client={{
@@ -602,22 +605,22 @@ const App = () => (
 )
 ```
 
-Then we can add the `<OssoLogin />` component - we'll review the props afterwards:
+Then we can add the `<OssoLogin />` component - we'll review the props afterwards.
 
 ```javascript title="javascripts/packs/index.jsx" {10-16}
 const App = () => (
   <OssoProvider
     client={{
-      baseUrl: 'http://localhost:9292',
+      baseUrl: 'https://demo.ossoapp.com',
     }}
   >
     <div className="container">
       <div className="main-content login">
         <h1>Welcome!</h1>
         <OssoLogin
-          containerClass="login-form"
           ButtonComponent={Button}
           InputComponent={Input}
+          containerClass="login-form"
           onSamlFound={submitSaml}
           onSubmitPassword={onSubmitPassword}
         />
@@ -626,7 +629,67 @@ const App = () => (
   </OssoProvider>
 )
 ```
+The OssoLogin component displays an email input and submit button, and on submit, the component talks directly to your Osso instance to determine if that user can sign in using SAML via Osso. Osso's components are typically "headless" - they allow you to provide your own UI components to match the rest of your application, and surround them with some logic. We use Ant at Osso, and here's an example of a live Login component using Ant UI components, and the repo has an example for Material UI.
 
+<BlogLogin />
+
+For our purposes, let's create our own basic components to use here:
+
+```javascript title="javascripts/packs/index.jsx"
+  const Button = props => (
+    <button {...props} />
+  )
+
+  const Input = ({ onChange, ...props}) => (
+    <>
+      <label htmlFor={props.id}>{props.label}</label>
+      <input 
+        {...props}
+        // Osso expects a value in change handlers rather than events
+        onChange={(e) => onChange && onChange(e.target.value)} 
+      />
+    </>
+  )
+```
+
+The event handler props are what makes the form work with your back end authentication. When we do find that a user can log in with SAML via Osso, the login component calls the `onSamlFound` prop function. We don't want to send users to Osso right away - we need to send them through your back end to protect against CSRF attacks and to properly use our OmniAuth strategy. 
+
+So we'll use a similar function to what we've used previously for submitting the SAML sign in form. We need to again grab the authenticity token, and submit a POST request from the browser via a form submit, including the email address for the user:
+
+```javascript title="javascripts/packs/index.jsx"
+  const submitSaml = (email) => {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content
+    const form = document.createElement("form");
+    
+    const tokenInput = document.createElement("input"); 
+    tokenInput.value = csrfToken;
+    tokenInput.name = "authenticity_token"
+    
+    const emailInput = document.createElement("input"); 
+    emailInput.value = email;
+    emailInput.name = "email"
+    
+    form.action = `/users/auth/osso`;   
+    form.hidden = true
+    form.method = "POST";
+    
+    form.appendChild(tokenInput);  
+    form.appendChild(emailInput);  
+    document.body.appendChild(form);
+    
+    return form.submit();
+  }
+```
+
+A SAML user should at this point be able to sign in, but we also need to handle non-SAML users. The login component will display a password field, and on a form submit with an email and password, will call the `onSubmitPassword` function. Without knowing more about your authentication, we can't really say how to handle these - you may want to do something similar to the SAML handler if you use session based authentication, or post an ajax request if you use something like JWTs. We'll just show you the function signature and log the values:
+
+```javascript title="javascripts/packs/index.jsx"
+  const onSubmitPassword = (email, password) => {
+    console.warn(`Submit a request to sign the user in 
+      to your server. Email: ${email}, Password: ${password}`);
+    return Promise.resolve();
+  }
+```
 
 
 
