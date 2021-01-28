@@ -30,7 +30,7 @@ const BlogLogin = () => {
       {() => (
         <OssoProvider
           client={{
-            baseUrl: "http://localhost:9292",
+            baseUrl: "https://demo.ossoapp.com",
           }}
         >
           <Form layout="vertical" component="div">
