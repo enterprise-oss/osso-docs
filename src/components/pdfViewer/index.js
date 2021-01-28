@@ -4,7 +4,7 @@ import React, { useCallback, useState } from "react";
 
 import styles from "./styles.module.css";
 
-export default function App() {
+export default function PdfViewer({ documentId }) {
   const [instance, setInstance] = useState(null);
   const { isDarkTheme } = useThemeContext();
 
@@ -12,7 +12,7 @@ export default function App() {
     if (node !== null && !instance) {
       CloudPdfViewer(
         {
-          documentId: "eee2079d-b0b6-4267-9812-b6b9eadb9c60",
+          documentId: documentId,
           darkMode: isDarkTheme,
         },
         node
