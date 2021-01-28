@@ -1,5 +1,6 @@
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
 import { OssoLogin, OssoProvider } from "@enterprise-oss/osso";
-import { Button, Card, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import React from "react";
 
 import styles from "./styles.module.css";
@@ -49,30 +50,36 @@ const submitSaml = (email) => {
   return form.submit();
 };
 
-const BlogLogin = () => (
-  <OssoProvider
-    client={{
-      baseUrl: "http://localhost:9292",
-    }}
-  >
-    <Form layout="vertical" component="div">
-      <div className={styles.container}>
-        <div className={styles.mainContent}>
-          <h1>Please sign in</h1>
-          <p>
-            <small>You won&apos;t actually be able to sign in</small>
-          </p>
-          <OssoLogin
-            containerClass={styles.loginForm}
-            ButtonComponent={ButtonComponent}
-            InputComponent={InputComponent}
-            onSamlFound={submitSaml}
-            onSubmitPassword={onSubmitPassword}
-          />
+const BlogLogin = () => {
+  const client = ExecutionEnvironment.canUseDOM;
+
+  if (!client) return null;
+
+  return (
+    <OssoProvider
+      client={{
+        baseUrl: "http://localhost:9292",
+      }}
+    >
+      <Form layout="vertical" component="div">
+        <div className={styles.container}>
+          <div className={styles.mainContent}>
+            <h1>Please sign in</h1>
+            <p>
+              <small>You won&apos;t actually be able to sign in</small>
+            </p>
+            <OssoLogin
+              containerClass={styles.loginForm}
+              ButtonComponent={ButtonComponent}
+              InputComponent={InputComponent}
+              onSamlFound={submitSaml}
+              onSubmitPassword={onSubmitPassword}
+            />
+          </div>
         </div>
-      </div>
-    </Form>
-  </OssoProvider>
-);
+      </Form>
+    </OssoProvider>
+  );
+};
 
 export default BlogLogin;

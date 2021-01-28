@@ -24,6 +24,7 @@
     "docusaurus-gtm-plugin": "^0.0.2",
     "docusaurus-plugin-less": "^1.0.3",
     "docusaurus2-dotenv": "^1.4.0",
+    "fs": "^0.0.1-security",
     "posthog-docusaurus": "^1.0.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
