@@ -1,8 +1,8 @@
-import "./styles.css";
-
 import CloudPdfViewer from "@openbook/cloudpdf-viewer";
 import useThemeContext from "@theme/hooks/useThemeContext";
 import React, { useCallback, useState } from "react";
+
+import styles from "./styles.module.css";
 
 export default function App() {
   const [instance, setInstance] = useState(null);
@@ -22,5 +22,5 @@ export default function App() {
     }
   }, []);
 
-  return <div className="viewer" ref={measuredRef}></div>;
+  return <div className={styles.viewer} ref={measuredRef}></div>;
 }
