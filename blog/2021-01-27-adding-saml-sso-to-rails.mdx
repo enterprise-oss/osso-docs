@@ -553,11 +553,79 @@ To best serve our SAML SSO users, we'd only send users who belong to an onboarde
 
 We should also aim to reduce the amount of code you need to write to integrate Osso - you shouldn't have to persist in your database whether one of your tenants uses SAML. A user should just be able to come to your login page and login, whatever mechanism their account is set up to use. Yes, we want to save you effort, but we also want to keep things simple, direct and easy to reason about.
 
-Osso also offers a [React library](https://github.com/enterprise-oss/osso-react) that provides components like a `<SAMLLogin />` form as well as lower level hooks for interacting with your Osso instance. Rather than you persisting data about which of your customers use SAML for auth, you can use the Osso React library to talk directly to Osso in order to build out your login form. Of course if you're not already using React on your front end it won't make a ton of sense to take this approach, but the Osso React source code should help you understand how you can implement such a form yourself.
+Osso also offers a [React library](https://github.com/enterprise-oss/osso-react) that provides components like an `<OssoLogin />` form as well as lower level hooks for interacting with your Osso instance. Rather than you persisting data about which of your customers use SAML for auth, you can use the Osso React library to talk directly to Osso in order to build out your login form. Of course if you're not already using React on your front end it won't make a ton of sense to take this approach, but the Osso React source code should help you understand how you can implement such a form yourself.
 
+We'll skip past a bit of Rails and React setup - the result PR will show everything you need to do to get React set up with webpacker, but let's assume that we've got a JSX file we can treat as a Javascript pack that includes React and renders the React app to the DOM. We'll reuse the markup from previous steps to start building our login form.
 
+```js title="javascripts/packs/index.jsx"
+import React from 'react'
+import ReactDOM from 'react-dom'
 
+const App = () => (
+  <div className="container">
+    <div className="main-content login">
+      <h1>Welcome!</h1>    
+    </div>
+  </div>
+)
 
+document.addEventListener('DOMContentLoaded', () => {
+  ReactDOM.render(
+    <App />,
+    document.body.appendChild(document.createElement('div')),
+  )
+})
+
+```
+
+We can install Osso's React library from npm:
+
+```bash
+$ yarn install @enterprise-oss/osso
+```
+
+And we need to wrap any of our Osso components in an `<OssoProvider />`, passing a `baseUrl` to the client options:
+
+```javascript title="javascripts/packs/index.jsx" {2-6,13}
+const App = () => (
+  <OssoProvider
+    client={{
+      baseUrl: 'https://demo.ossoapp.com',
+    }}
+  >
+    <div className="container">
+      <div className="main-content login">
+        <h1>Welcome!</h1>
+      </div>
+    </div>
+  </OssoProvider>
+)
+```
+
+Then we can add the `<OssoLogin />` component - we'll review the props afterwards:
+
+```javascript title="javascripts/packs/index.jsx" {10-16}
+const App = () => (
+  <OssoProvider
+    client={{
+      baseUrl: 'http://localhost:9292',
+    }}
+  >
+    <div className="container">
+      <div className="main-content login">
+        <h1>Welcome!</h1>
+        <OssoLogin
+          containerClass="login-form"
+          ButtonComponent={Button}
+          InputComponent={Input}
+          onSamlFound={submitSaml}
+          onSubmitPassword={onSubmitPassword}
+        />
+      </div>
+    </div>
+  </OssoProvider>
+)
+```
 
 
 
