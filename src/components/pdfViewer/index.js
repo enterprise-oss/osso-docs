@@ -9,7 +9,7 @@ export default function PdfViewer({ documentId }) {
   const { isDarkTheme } = useThemeContext();
 
   useEffect(() => {
-    instance.setDarkMode(isDarkTheme);
+    instance?.setDarkMode(isDarkTheme);
   }, [isDarkTheme]);
 
   const measuredRef = useCallback((node) => {
