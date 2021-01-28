@@ -16,6 +16,7 @@
     "@docusaurus/preset-classic": "^2.0.0-alpha.65",
     "@enterprise-oss/ant-theme": "^1.0.7",
     "@enterprise-oss/osso": "^0.1.2",
+    "@openbook/cloudpdf-viewer": "^0.1.0-beta.9",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.11.0",
     "add": "^2.0.6",
