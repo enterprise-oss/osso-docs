@@ -1,23 +1,26 @@
+import "./styles.css";
+
 import CloudPdfViewer from "@openbook/cloudpdf-viewer";
 import useThemeContext from "@theme/hooks/useThemeContext";
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useState } from "react";
 
-import styles from "./styles.module.css";
-
-export default function PdfViewer({ documentId }) {
+export default function App() {
+  const [instance, setInstance] = useState(null);
   const { isDarkTheme } = useThemeContext();
 
-  const viewer = useRef(null);
+  const measuredRef = useCallback((node) => {
+    if (node !== null && !instance) {
+      CloudPdfViewer(
+        {
+          documentId: "eee2079d-b0b6-4267-9812-b6b9eadb9c60",
+          darkMode: isDarkTheme,
+        },
+        node
+      ).then((instance) => {
+        setInstance(instance);
+      });
+    }
+  }, []);
 
-  useEffect(() => {
-    CloudPdfViewer(
-      {
-        documentId,
-        darkMode: isDarkTheme,
-      },
-      viewer.current
-    ).then((instance) => {});
-  }, [isDarkTheme]);
-
-  return <div key={isDarkTheme} className={styles.viewer} ref={viewer}></div>;
+  return <div className="viewer" ref={measuredRef}></div>;
 }
