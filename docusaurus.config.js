@@ -76,6 +76,9 @@ module.exports = {
       appUrl: "https://a.ossoapp.com",
       enableInDevelopment: false,
     },
+    prism: {
+      additionalLanguages: ["ruby"],
+    },
     footer: {
       style: "dark",
       links: [

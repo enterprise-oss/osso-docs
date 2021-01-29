@@ -1,0 +1,715 @@
+---
+slug: saml-sso-rails
+title: Add SAML SSO to a Rails 6 app
+author: Sam Bauch
+author_title: Co-founder
+author_url: https://github.com/sbauch
+author_image_url: https://avatars1.githubusercontent.com/u/923033?s=460&u=db9bb41f9b279750c74afc1be0ab51db05539593&v=4
+tags: [Osso, SAML, SSO, Rails, Ruby]
+image: /img/railssaml.jpg
+description: Learn 3 approaches to add SAML SSO to a Rails 6 application.
+keywords: [Rails, SAML, SSO, Ruby, OSS, 'open source']
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
+import BrowserOnly from "@docusaurus/BrowserOnly";
+import BlogLogin from '../src/components/blogLogin/index';
+import PDFViewer from '../src/components/pdfViewer/index';
+
+
+<img className="blog-image" alt="rails saml abstract" src={useBaseUrl('img/railssaml.jpg')} />
+
+### SAML Background
+
+SAML SSO refers to an authentication mechanism preferred by enterprise companies. The SSO part stands for Single Sign-On. From the enterprise’s perspective, they desire a centralized service where their employees can authenticate, which then provides authenticated access to the applications they use for work. These services are called Identity Providers (IDPs), and they are the *Single* place where enterprise employees *Sign-On.* This is an alternative to employees using password-based authentication for each of the various applications they use.
+
+
+The SAML part stands for Secure Assertion Markup Language. SAML utilizes a domain-specific flavor of XML that describes an authenticated user, encoded to a string and passed to your application in a query parameter. Your application decodes the `SAMLResponse` using a key that the enterprise provides to you.
+<!-- truncate -->
+The details of the SAML Response are less important than understanding the general flow. When a user wants to sign in using SAML, you must send that user to their Identity Provider with a `SAMLRequest` that identifies your application. The user signs in to their IDP, and is redirected back to you with the `SAMLResponse`. What makes this a tiny bit complicated for a multi-tenant application is routing the user to the correct IDP, as SAML SSO breaks our common understanding of a login flow.
+
+A typical login screen might have an email and password field, then a few buttons to sign in with OAuth services, like Google or GitHub. But now, you’ll need to gather something from the user who wants to sign in such that you can send them to the correct IDP instance.  We like to say that SAML is _instance based_, especially when <Link to={useBaseUrl('/blog/saml-vs-oauth')}>compared to OAuth</Link>, which we can think of as _class based_. Domain is a common key for this process - you can ask a user for their email, grab the domain, and use that as a key to find the correct IDP instance and redirect the user.
+
+
+### Let’s Build and Iterate
+
+Once you wrap your head around understanding the SAML flow, it’s really not challenging to implement SAML in a Rails app - IDPs themselves offer great open source libraries to help with your integration. You can definitely get very far in a day or two. But like most things in engineering, the last 10% can take 90% of the effort, and while we all love to say “I could build that in a weekend,” we often later eat our words when we realize all of the edge cases, documentation needs, scaling challenges and unknown unknowns that make this or any other project worth doing a bit more involved than a quick weekend hack.
+
+I’m a co-founder of an open source company Osso - our microservice is a Ruby and React app that allows you to onboard SAML SSO customers, generates custom documentation for each customer to perform their onboarding tasks in their IDP, and allows your Rails app to consume Osso using OAuth - we even provide `omniauth-osso` to make consuming an Osso instance from your Rails app incredibly simple.
+
+Osso also offers paid plans, and you can skip right to our <Link to={useBaseUrl('/pricing')}>pricing page</Link> to learn more about hosted Osso if you need SAML yesterday. Or you can jump right in to <Link to={useBaseUrl('/docs/deploy/overview')}>deploying an open source Osso instance</Link> from our GitHub repo. There’s certainly the possibility of using `osso-rb` in your Rails app directly — you’ll want to mount our 3 rack based apps, pull in migrations, etc. — but this post will focus instead on a microservices approach.
+
+**So**, if you’d like to begin from first principles, follow along here as we build up a production-ready SAML SSO integration, starting with a single tenant approach, then layering in multi-tenancy. Once we have multi-tenant support, we’ll address questions about scalability and serviceability — how can we repeatedly add additional tenants, without spending significant engineering or customer support cycles? I _will_ encourage you to use Osso, and show you exactly how, but will also highlight the things you need to be considering in order to roll out a production ready SAML integration _without_ Osso.
+
+We’ll use a single Rails app repository throughout this tutorial. The [main branch](https://github.com/enterprise-oss/saml-rails) is a barebones Rails 6 app with Devise and a User model, and for each of our steps below we’ll move to a feature branch so we can see a full diff. Each step adds more functionality, getting you closer to a production-ready, multi-tenant integration. Each step also uses open source software, where the library used in the previous step is a dependency of the next step’s library. Neat!
+
+We’ll also make use of Osso’s [mock IDP](https://github.com/enterprise-oss/sinatra-ruby-idp) and [demo instance](https://demo.ossoapp.com), especially when we get into multi-tenancy. You’ll still want to register with an IDP for a developer account in order to have access to an IDP for a second tenant - we recommend an [Okta developer account](https://developer.okta.com/signup/).
+
+
+### Base Rails application
+
+We’ll use the same Rails 6 application for each step - the source code is available [here] (https://github.com/enterprise-oss/saml-rails). The `main` branch adds Devise with a User model to a brand new Rails app using Postgres as the database. The application doesn’t do anything - there is an index route and a logged in route that will tell you the email for the current user. This guide assumes proficiency with Rails, so it will skip some details. We’ll also use some intentionally naive approaches to demonstrate common challenges of SAML SSO. 
+
+### Single tenant
+#### With ruby-saml and mock IDP
+
+My first experience with SAML was working on [internal software at WeWork](https://medium.com/@tsharon/democratizing-ux-670b95fbc07f) where one of my Osso co-founders was a teammate. The IT department required us to use SAML SSO, which I at first was awfully annoyed by. Google OAuth was super easy, and could be restricted to domain, so what’s the deal with this OneLogin thing? Fortunately, single-tenant SAML was just as simple to implement, and admittedly did include some better security. This is a common situation — an enterprise company requires SAML, and it might seem silly to you, but them’s the rules.
+
+Our project was a Rails app, and we used a Ruby gem from OneLogin to handle the actual SAML encoding and decoding. Since we were building this app for WeWork employees, we had a single tenant, and didn’t need to worry about implementing a scalable solution for multiple tenants, documenting how to set SAML up for the app or training our teammates on how it worked. We also didn’t need to change our login form - we knew every user would be sent to the same IDP instance, so we were able to use a simple *Sign in With OneLogin* button.
+
+That’s what we’ll do here, and if you’re building internal software this will be a fine approach for your production release! We’ll use Osso’s mock IDP for this single tenant to keep things simple too.
+
+First lets install the ruby-saml gem. We’ll include it in our Gemfile and run `$ bundle install`.
+
+```ruby title="Gemfile"
+  gem 'ruby-saml', '~> 1.9.0'
+```
+
+We’ll use this library in two ways:
+
+
+First, when a user wishes to sign in with SAML, we use ruby-saml to generate a url with a `SAMLRequest` - the URL is where we will send the user to sign in, and the `SAMLRequest` is sent along as a query param in order to identify our application to the IDP.
+
+When the user signs in to their IDP, they will be sent back to your application with a `SAMLResponse` query param. We then use ruby-saml to decode and validate the `SAMLResponse`, allowing us to access information describing the user, such as their email address.
+
+Lets define a couple of routes and controller actions to handle this flow.
+
+```ruby title="config/routes.rb"
+  get 'saml_login', to: "application#saml_login"
+  post 'saml_callback', to: "application#saml_callback"
+```
+
+In the `saml_login` action, we create a `OneLogin::RubySaml::Authrequest` and redirect to the return value. Later, in the callback, we validate and decode the response, and will sign the user in and redirect them if valid. Otherwise we’ll raise the validation errors to understand where our SAML config went wrong.
+
+This callback route will also need to accept a POST request with `www-url-form-encoded` parameters, so you will need to skip the Rails `verify_authenticity_token` `before_action`:
+
+```ruby title="app/controllers/application_controller.rb"
+  skip_before_action :verify_authenticity_token, only: :saml_callback
+
+  def saml_login
+    request = OneLogin::RubySaml::Authrequest.new
+    redirect_to(request.create(saml_settings))
+  end
+
+  def saml_callback
+    response = OneLogin::RubySaml::Response.new(
+      params[:SAMLResponse],
+      :settings => saml_settings
+    )
+  
+    if response.is_valid?
+      @user = User.create_or_find_by!(email: response.nameid)
+      sign_in(@user)
+      redirect_to(:logged_in)
+    else
+      raise response.errors.inspect
+    end
+  end
+```    
+
+Both of these actions depend on what ruby-saml calls `settings`. These values are created via the configuration you must perform between your application and the Identity Provider. In a real-world example, your application generates a few values which you provide to your customer. The customer uses these to configure your application in their IDP and returns some data generated by the IDP. We’ll discuss this process in more detail later. Since we are using the Osso Mock IDP we can mostly skip this configuration step, but it’s worth understanding what each of these values represents, how it functions and why it might prevent your user from signing in if misconfigured.
+
+Each of the controller actions above calls a private method `saml_settings`. Since we are dealing with a single tenant, we will essentially hardcode the SAML configuration values to support this one IDP instance.
+
+
+```ruby title="app/controllers/application_controller.rb"
+  private
+
+  def saml_settings
+    settings = OneLogin::RubySaml::Settings.new
+    
+    # You provide to IDP
+    settings.assertion_consumer_service_url = "http://#{request.host_with_port}/saml_callback"
+    settings.sp_entity_id                   = "my-single-tenant"
+    
+    # IDP provides to you
+    settings.idp_sso_target_url             = "https://idp.ossoapp.com/saml-login"
+    settings.idp_cert                       = Rails.application.credentials.idp_cert
+    
+    settings
+  end
+```
+
+**Values you provide**
+
+**ACS URL** - The Assertion Consumer Service URL is where the IDP will send the user with a SAMLResponse when they log in. Similar to a Redirect URI in OAuth, your application will generate this value according to how your routes are set up.
+
+**SP Entity ID**  - Sometimes called the Audience URI, this is a unique identifier for the tenant in your application. This can get hairy! **Google** requires that they be unique for a customer, so you can't just use domain, while **Azure** won't let you use a UUID and **Ping** won't let you use a url. Those are just _some_ of the edge cases we've found!
+
+**Values the IDP provides**
+
+**IDP SSO Target URL** - The single sign on target URL tells your application where to send a user with a `SAMLRequest` in order to sign in.
+
+**IDP Certificate** - An x509 certificate which includes a public key that your application uses to encode and decode the SAML request and response.
+
+Since we are using the Mock IDP, these values can be found in the Mock IDP’s federated metadata: https://github.com/enterprise-oss/sinatra-ruby-idp/blob/main/metadata.xml
+
+To enforce good security practices, we put the certificate in Rails credentials. We won't show you our whole certificate here, but here's part of an example credentials file that shows both single and multiline certificates:
+
+
+<img className="blog-image" alt="Rails credentials example" src={useBaseUrl('img/rails_credentials.png')} />
+
+
+
+Finally, we need to give a way for the user to actually log in. We’ll add a Sign In button to the index route. We’re able to use a single button due to the fact we are supporting only one tenant - we know we’ll send every user to the same SSO URL.
+
+
+```ruby title="app/views/application/index.html.erb" {12} 
+  <div class="container">
+    <div class="main-content">
+      <h1>Welcome!</h1>
+      <% flash.each do |name, msg| %>
+        <% if msg.is_a?(String) %>
+          <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+            <%=raw content_tag :div, msg, id:"flash_#{name}" %>
+          </div>
+        <% end %>
+      <% end %>
+      <!-- Add a button to allow signing in -->
+      <%= button_to 'Sign in with SAML SSO', action: :saml_login %> 
+    </div>  
+  </div> 
+```
+
+That’s it! You should now be able to sign in using SAML against the Osso Mock IDP, which takes any email / password combination. You can see the whole diff for this approach at this Pull Request: https://github.com/enterprise-oss/saml-rails/pull/4
+
+
+### Multi-tenant
+#### with omniauth-multi-provider and omniauth-saml
+
+A single-tenant SAML integration is fine if you’re building internal software. But if your application is a multi-tenant SAAS app and you’re starting to sell to bigger, security-minded enterprises you need to support multi-tenancy.
+
+The main engineering requirement to think about is how to surface the relevant SAML configuration values when a user wants to sign in with SAML. In our single-tenant approach, we were able to hard code these values for the single tenant. We’ll also hard code values in this multi-tenant approach before discussing the weaknesses of this approach. We’ll also need to update our sign in UX in order to ascertain which tenant a user belongs to in order to send them to the correct IDP.
+
+We’ll also use the second tenant to demonstrate SAML configuration in an Identity Provider and discuss the documentation challenges. We recommend signing up for an Okta developer account for your testing purposes - https://www.okta.com/developer/signup
+
+We’ll use a Ruby gem `omniauth-multi-provider`  to support SAML multi-tenancy. `omniauth-saml` will handle that actual SAML bits, and this library uses `ruby-saml` internally, much in the same manner we used it in the single-tenant approach. OmniAuth is a Ruby library that “standardizes multi-provider authentication for web applications.” If you’ve implemented OAuth in a Rails app you’re likely familiar with this library. It integrates well with Devise, and offers a framework for engineers to create *Strategies* for OmniAuth for authenticating against external services. If you’re not familiar with OmniAuth it’s worth familiarizing yourself - https://github.com/omniauth/omniauth.
+
+To begin, let’s add `omniauth-multi-provider` and `omniauth-saml`to our Gemfile, and we can remove the `ruby-saml` gem:
+
+```ruby title="Gemfile"
+  gem 'omniauth-multi-provider'
+  gem 'omniauth-saml', '= 1.10.3'
+```
+
+We’ll also extend our Devise configuration in the User model to integrate with OmniAuth:
+
+```ruby title="app/models/user.rb"
+  class User < ApplicationRecord
+    devise :timeoutable, :omniauthable
+  end
+```
+
+OmniAuth will handle our routes now, so let’s update our `routes.rb`, replacing the routes and controller actions we created in our single-tenant branch. We wrap these routes in a `devise_scope` block in order to let Devise know we want to map these routes to the User resource:
+
+
+```ruby title="config/routes.rb"
+  devise_scope :user do
+    post '/auth/saml/:identity_provider_id/callback',
+      to: 'omniauth_callbacks#saml',
+      as: 'user_omniauth_callback'
+    post '/auth/saml/:identity_provider_id',
+      to: 'omniauth_callbacks#passthru',
+      as: 'user_omniauth_authorize'
+  end
+```
+
+We do need to create this `OmniauthCallbacks` controller, and it will inherit the `Devise::OmniauthCallbacksController`. We only need to define the `saml` controller action - `omniauth-multi-provider` acts as a sort of meta-provider as we’ll see below. We also need to skip verifying the authenticity token - some IDPs will submit the callback request as a POST with `www-url-form-encoded` parameters, and we need to allow that on this route. Since we want actions added in the future to enforce CSRF, let's be sure to allow-list the saml action rather than disable the check for the whole controller.
+
+```ruby title="app/controllers/omniauth_callbacks.rb"
+  class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+    protect_from_forgery with: :exception, except: :saml 
+    
+    def saml
+      auth_hash = request.env['omniauth.auth']
+      @user = User.create_or_find_by!(email: auth_hash['uid'])
+      
+      sign_in(@user)
+      
+      redirect_to(:logged_in)
+    end
+  end
+```
+
+The `omniauth-multi-provider` gem offers some Rack middleware that will intercept requests to each of these routes. You’ll want to add an initializer that allows our OmniAuth implementation to route a user to the relevant IDP. On the callback, the middleware will intercept the request, handle SAML validation, and convert the SAMLResponse into an omniauth authentication hash, passing the request on to your controller action:
+
+
+```ruby title="config/initializers/omniauth.rb"
+    
+  SAML_SETTINGS = {
+    'example.com': {
+      issuer: "my-single-tenant",
+      idp_sso_target_url: "https://idp.ossoapp.com/saml-login",
+      idp_cert: Rails.application.credentials.idp_cert,
+    }
+  }
+  
+  Rails.application.config.middleware.use OmniAuth::Builder do
+    OmniAuth::MultiProvider.register(
+      self,
+      provider_name: :saml,
+      identity_provider_id_regex: /[a-z]*/,
+      path_prefix: '/users/auth/saml',
+      callback_suffix: 'callback',
+    ) do |identity_provider_id, rack_env|
+      request = Rack::Request.new(rack_env)
+      SAML_SETTINGS[identity_provider_id.chomp('/callback').to_sym].merge({
+        assertion_consumer_service_url: acs_url(request.url)
+      })
+    end
+  
+    def acs_url(request_url)
+      url = request_url.chomp('/callback')
+      url + '/callback'
+    end
+  end
+```
+
+This block must return the same `saml_settings` we saw in the single-tenant approach for both the request and callback actions - `omniauth-saml` uses `ruby-saml` under the hood, so the keys are the same. We’ve replaced our private controller method with a class constant that includes the same attributes for the same tenant. We’re using a hash with a key of `example.com` - in order to use these SAML settings, we need to submit a POST request to `/users/auth/saml/example.com`. This sorta breaks Rails conventions, so we'll adjust it later.
+
+We also add a convenience method here for the ACS url - since this block is used for both the request and callback, we need to be a little hacky to ensure this block always returns a hash with the proper callback path - a better approach, as we’ll see later, would be to derive all of these config values from a model instance.
+
+With that in place, we can slightly adjust our login flow and should still be able to log in using the first tenant. We’re hardcoding the `identity_provider_id` as `example.com` to match the key above. We’re not quite supporting multi-tenancy yet, but most of the parts are in place.
+
+```ruby title="app/views/application/index.html.erb"
+  <%= button_to 'Sign in with SAML SSO', user_omniauth_authorize_url(identity_provider_id: 'example.com') %> 
+```  
+
+Now let’s get a second tenant onboarded! We’ll use Okta as the IDP for the second tenant. You can sign up for a free developer account at https://developer.okta.com/signup/
+
+Once you have an account, configure our Rails app in your Okta instance. We’ll wait.
+
+[some stupid waiting gif]
+
+Feeling a bit lost? That’s what your enterprise customers will experience if you don’t provide them documentation. You’ll want to create a SAML 2.0 Web App, and the Okta form even suggests that the app you’re trying to integrate should provide instructions.
+
+Lots of SaaS companies take a similar approach where they provide [one-size-fits-all documentation](https://learning.postman.com/docs/administration/sso/intro-sso/) to [configure](https://docs.datadoghq.com/account_management/saml/) an [application](https://docs.looker.com/admin-options/security/saml-auth#saml_auth_settings) in an [IDP](https://support.airtable.com/hc/en-us/articles/115006448948-Configuring-SSO-with-Okta), and then [separately](https://help.figma.com/hc/en-us/articles/360040532333-Guide-to-SAML-SSO-in-Figma) provides the [configuration](https://support.box.com/hc/en-us/articles/360043696514-Setting-Up-Single-Sign-On-SSO-for-your-Enterprise) [values](https://www.intercom.com/help/en/articles/3974587-integrate-with-an-identity-provider-and-log-in-with-saml-sso).
+
+Osso takes a slightly different approach and generates bespoke documentation for end users in a portable and easy to use format. Here’s a doc we generated that you can use to set up the demo app in your Okta instance:
+
+<BrowserOnly>
+  {() => <PDFViewer documentId="65e6bc94-9f46-4548-a482-3e0a4cd413c0" />}
+</BrowserOnly>
+
+Once you configure the demo app in your Okta instance, you’ll be able to access the configuration values you need to support the second tenant.
+
+```ruby title="config/initializers/omniauth.rb"
+  SAML_SETTINGS = {
+    'example.com' => {
+      issuer: "my-single-tenant",
+      idp_sso_target_url: "https://idp.ossoapp.com/saml-login",
+      idp_cert: Rails.application.credentials.idp_cert,
+    },
+    'your-email-domain.com' => {
+      issuer: "my-single-tenant",
+      # SSO URL provided by Okta specific to your instance
+      idp_sso_target_url: 'https://dev-634049.okta.com/app/dev-634049_railsdemo_1/exk1yj3meeGRUVVT04x7/sso/saml',
+      idp_cert: Rails.application.credentials.okta_idp_cert, # x509 cert provided by Okta
+    }
+  }
+```
+
+We should be able to log in using your Okta instance by switching the hardcoded `identity_provider_id` in the login form to match the key we just added in the `SAML_SETTINGS` hash. These keys are somewhat arbitrary, but by using a domain we ensure uniqueness for what we can understand as a tenant, and we’ll be able to offer a nice sign in UX when we want to support both SAML and password based logins in the same form. Lets test the Okta tenant before extending this form to actually support multi-tenant logins.
+
+```ruby title="app/views/application/index.html.erb"
+  <%= button_to 'Sign in with SAML SSO', user_omniauth_authorize_url(identity_provider_id: 'your-email-domain.com') %> 
+```
+
+Once you’ve successfully authenticated against the Mock IDP and your Okta instance, let’s make this login form support multi-tenancy. Due to `omniauth-multi-provider`'s RESTful route approach, we need to add another route that at first may seem to just be adding indirection, but it will become useful as we improve our login form.
+
+The route we need to add will be responsible for receiving the login form POST request. For now, we’ll just redirect the user to the `user_omniauth_authorize` route. We won’t want to use this in production - the recently released OmniAuth 2.0 removes support for GET requests in the request phase due to security concerns, and that’s what we’re doing here with this redirect.
+
+You’ll likely notice some other half-baked approaches here.
+
+
+```ruby title="config/routes.rb"
+  post '/users/auth/saml_idp',
+    to: 'application#idp_login',
+    as: 'user_idp_discovery'
+```    
+
+```ruby title="app/controllers/application.rb"
+  TENANTS = {
+    'example.com' => "08909493-cc6f-4a67-9986-f8f4452ba1d4",
+    'your-email-domain.com' => "4eaff58f-40a2-4ebe-b746-a9dbe2103864"
+  }
+
+  def idp_login
+    domain = params[:email].split('@').last
+    idp_id = TENANTS[domain]
+
+    redirect_to(
+      user_omniauth_authorize_path(identity_provider_id: idp_id)
+    ) if idp_id
+
+    status 401
+  end
+```
+
+This action is responsible for accepting an email form parameter, parsing the domain, and using the domain to look up a UUID for a SAML tenant. In our case we’ve generated UUIDs and are looking up the domains in a hash, but we could also start to think about persisting these values in the database. We could redirect using the domain name, but that breaks some Rails conventions, and when something is named ID we should use an ID to meet our teammates expectations. We also need to copy these UUIDs over to our `SAML_SETTINGS` hash, though you could also start to think about persisting the SAML settings in the database as well as we’re starting to get a little copy-paste messy.
+
+
+```ruby title="config/initializers/omniauth.rb"  
+  SAML_SETTINGS = {
+    '08909493-cc6f-4a67-9986-f8f4452ba1d4' => {
+      issuer: "my-single-tenant",
+      idp_sso_target_url: "https://idp.ossoapp.com/saml-login",
+      idp_cert: Rails.application.credentials.idp_cert,
+    },
+    '4eaff58f-40a2-4ebe-b746-a9dbe2103864' => {
+      issuer: "my-single-tenant",
+      idp_sso_target_url: ''# SSO URL provided by Okta,
+      idp_cert: Rails.application.credentials.okta_idp_cert, # x509 cert provided by Okta
+    }
+  }
+```
+
+Since we’re now using UUIDs, we’ll also want to change the regex used by `omniauth-multi-provider`:
+
+
+```ruby title="config/initializers/omniauth.rb"
+  UUID_REGEXP =
+        /[0-9a-f]{8}-[0-9a-f]{3,4}-[0-9a-f]{4}-[0-9a-f]{3,4}-[0-9a-f]{12}/.
+          freeze
+  
+  Rails.application.config.middleware.use OmniAuth::Builder do
+    OmniAuth::MultiProvider.register(
+      self,
+      provider_name: :saml,
+      identity_provider_id_regex: UUID_REGEXP,
+      path_prefix: '/users/auth/saml',
+      callback_suffix: 'callback',
+    ) do |identity_provider_id, rack_env|
+      #...
+    end
+  end
+```
+
+Now we can adjust our login form to use an email input, and hit the `idp_login` route
+
+```ruby title="app/views/index.html.erb"
+  <%= form_with url: idp_login_url, method: 'post', class: 'login-form' do |form| %>
+    <%= form.label :email, "Email" %>
+    <%= form.email_field :email %>
+    <%= form.submit "Sign in with SAML SSO" %>
+  <% end %>
+```
+
+You should be able to sign in using either tenant now! We’re definitely making progress - the login form scales reasonably well for SAML users, but it won’t support falling back to password. And we really should address the GET request we’re making in our redirect in order to be ready for OmniAuth 2.0.
+
+We’re going to write a little bit of Javascript to help. If you’re using a front-end framework like React this will give you the general idea of what you’ll want to do with a login form, but we’ll stick with unobtrusive vanilla JS.
+
+We’re going to update our idp_login action to accept an ajax request and return json. If we submit an email where a SAML tenant exists for the email’s domain, then we’ll return the SAML Tenant UUID, and use that to append another form on the page and submit it. We’ll now be posting to the user_omniauth_authorize_url with a UUID that we know maps to a SAML tenant. If we don’t get a UUID back, then we know the user will need to provide a password to sign in and we can display a password input. We’re a little hacky here again with things like the authenticity token, and we won’t actually implement the password login, but this should serve as a fine example for what you’ll want to do however you write JS.
+
+```javascript title="app/javascript/packs/login.js"
+  document.addEventListener("turbolinks:load", function() {
+    const loginForm = document.querySelector("#login-form");
+    loginForm.addEventListener("ajax:success", (event) => {
+      const [data, ..._rest] = event.detail;
+      if (data.identity_provider_id) {
+        return samlLogin(data.identity_provider_id)
+      }
+      passwordLogin(loginForm)
+    });
+  });
+  
+  function samlLogin(idpId) {
+    const form = document.createElement("form");
+    const tokenInput = document.createElement("input"); 
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content
+    tokenInput.value = csrfToken;
+    tokenInput.name = "authenticity_token"
+    form.action = `/users/auth/saml/${idpId}`;   
+    form.hidden = true
+    form.method = "POST";
+    
+    form.appendChild(tokenInput);  
+    document.body.appendChild(form);
+    
+    form.submit();
+  }
+
+  function passwordLogin(loginForm) {
+    const passwordInput = document.createElement("input"); 
+    passwordInput.name = "password"
+    loginForm.appendChild(passwordInput);
+    loginForm.action = '/users/auth/password'   
+  }
+```  
+
+Now let’s update our controller action:
+
+```ruby title="app/controllers/application_controller.rb"
+  def idp_login
+    domain = params[:email].split('@').last
+    idp_id = TENANTS[domain]
+    render json: { identity_provider_id: idp_id }
+  end
+```
+
+And we can also adjust our routes: 
+
+```ruby title="config/routes.rb"
+  devise_scope :user do
+    post '/users/auth/saml_idp',
+      to: 'omniauth_callbacks#idp_login',
+      as: 'user_idp_discovery'
+    match '/users/auth/saml/:identity_provider_id/callback',
+      via: [:get, :post],
+      to: 'omniauth_callbacks#saml',
+      as: 'user_omniauth_callback'
+    post '/users/auth/saml/:identity_provider_id',
+      to: 'omniauth_callbacks#passthru',
+      as: 'user_omniauth_authorize'
+  end
+```
+
+We’re now POSTing to the `user_omniauth_authorize` route, and including the authenticity token. But we still need to protect this route from CSRF attacks, which we can use the `omniauth-rails_csrf_protection` gem to achieve this. See [this security vulnerability](https://nvd.nist.gov/vuln/detail/CVE-2015-9284) for more information on why this is important. Adding this to your Gemfile includes middleware that locks down your OmniAuth routes:
+
+```ruby title="Gemfile"
+  gem 'omniauth-rails_csrf_protection'
+```
+
+And that does it! We’ve now got a working proof of concept for multi-tenancy. The login form can scale well and support other auth approaches if needed. We’re using POST requests with authenticity tokens for OmniAuth so we’re ready for OmniAuth 2.0 and practicing good security. You can see the whole diff for this branch here - https://github.com/enterprise-oss/saml-rails/pull/5
+
+A couple of things stand out as issues that should be improved. First, we’re hardcoding things still. That does not scale well - we don’t want to ship a new release with hardcoded data every time we want to onboard a new customer. The obvious approach is to model the SAML configuration data and persist it in the database. Of course this starts to suggest you need a UI for CRUD on this data. That’s all a bit outside of the scope of this guide, and if you go down this path you’ll discover lots of more threads to pull on, like parsing Federated Metadata XML files for SAML config values.
+
+Another issue here is end-user documentation. We cheated by providing you docs generated by Osso, but if you go down this multi-tenancy path, you’ll need to create similar documentation, and figure out the best way to securely exchange the config values with your customer, recognizing that the software buyer is likely not the same person who has administrative access to their IDP.
+
+Or, you could not bother thinking about any of this, and use Osso to handle your SAML SSO needs.
+
+### Production ready with Osso
+
+Osso provides an open source web app that you can use to implement SAML SSO in your Rails app. Osso handles multi-tenant SAML much like we just built in the previous section. But it also provides SAML configuration persistence and an intuitive UI to onboard customers, generating bespoke documentation for each customer to integrate your app in their IDP. In short, Osso solves all of the challenges that the previous libraries don't address. Osso provides the last 10% of a scalable SAML SSO integration that you'd normally need to implement yourself, while saving your engineering team time. Your app consumes Osso using an OAuth2 authorization code grant flow, and Osso provides [omniauth-osso](https://github.com/enterprise-oss/omniauth-osso) to make consuming Osso in your Rails app incredibly simple.
+
+There are alternatives to Osso - Auth0 is a popular choice and works quite similarly to Osso, but doesn't provide documentation for your customers. AWS Cognito and Google Cloud Identity Platform also have support for SAML but also skimp on UI and documentation. Pricing for each of these services is also complicated, opaque and unpredictable.
+
+Osso is available as an open source application that you can <Link to={useBaseUrl('docs/deploy/overview')}>deploy yourself</Link>. You can also purchase an Osso subscription, and we'll maintain an Osso instance for you - see <Link to={useBaseUrl('/pricing')}>Osso's pricing</Link>. We also offer a [demo instance](https://demo.ossoap.com) which we will use in this guide. The demo instance is re-seeded hourly, but will always have a Demo Production OAuth Client and a customer configured against the Osso Mock IDP.
+
+Let's start by adding the `omniauth-osso` and `omniauth-rails_csrf_protection` gems - the former for interacting with an Osso instance, and the latter for the same CSRF and POST only protection for OmniAuth as we saw in the previous section. We also want to add `omniauth` and pin it to a version before 2.0.0 until Devise supports OmniAuth 2:
+
+```ruby title="Gemfile"
+  gem 'omniauth', '< 2.0.0'
+  gem 'omniauth-osso'
+  gem 'omniauth-rails_csrf_protection'
+```
+
+Since Osso will handle all the SAML bits, we consume Osso using OAuth, so we'll need to configure the Osso strategy in our Devise initializer. These values are for the demo instance, but you'll want to use your own instance, and should use Rails credentials to store the client ID and secret rather than committing to git.
+
+```ruby title="config/initializers/devise.rb"
+  config.omniauth(
+    :osso,
+    'demo-client-id',
+    'demo-client-secret',
+    client_options: { 
+      site: 'https://demo.ossoapp.com',
+    }
+  )
+```
+
+For our sign in UX, let's iteratively build up a deeply integrated form. Osso supports varying levels fo integration for sign in UX, and we suggest starting by using Osso's hosted login page. If you submit a POST request to `/auth/users/osso`, the user will be redirected to Osso where they will enter their email address to be routed to their IDP. Let's create a quick little form that will post to this endpoint:
+
+```ruby title="application/views/index.html.erb"
+  <div class="container">
+    <div class="main-content login">
+      <h1>Welcome!</h1>
+      <% flash.each do |name, msg| %>
+        <% if msg.is_a?(String) %>
+          <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+            <%=raw content_tag :div, msg, id:"flash_#{name}" %>
+          </div>
+        <% end %>
+      <% end %>
+      <%= form_with(url: '/users/auth/osso', method: 'post', class: 'login-form') do |form| %>
+        <button type='submit'>Login with SAML SSO</button>
+      <% end %>
+    </div>  
+  </div> 
+```
+
+With this in place, we can successfully log in again using `user@example.com`. The demo instance is configured for the `example.com` domain to use the Mock IDP, and the Mock IDP takes any password, so you should be able to test this easily.
+
+What about a second tenant? If you're following the guide and using the demo instance, you'll be able to onboard another tenant as a customer, but since the data here gets reset, it won't be available beyond your initial testing. The Osso UI should be intuitive, but you can review our <Link to={useBaseUrl('docs/user-guide/onboarding-customers')}>Onboarding Customers</Link> guide. You can generate docs for yourself for whatever IDP you might have access to. Okta and OneLogin both offer developer accounts, and Google workspaces also allow for SAML apps. You can even add multiple IDPs for your second tenant - Osso will ask the user which service they use to sign in.
+
+If you have a few SAML customers you might stop here - there's sure to be other things you need to work on that are more central to your product, and we are absolutely supporting multi-tenant SAML at this point. But what if we wanted to improve the sign in UX? The Osso hosted login page isn't branded, so it would be best if our users didn't have to hit that.
+
+In our previous section we integrated SAML login into our email / password flow. Some companies take this approach, while others provide an entirely separate login form for SAML SSO. Let's go with the latter for now, where we nonetheless ask the user to enter their email address by adding an email input to our login form.
+
+```ruby title="application/views/index.html.erb" {13-14}
+  <div class="container">
+    <div class="main-content login">
+      <h1>Welcome!</h1>
+      <% flash.each do |name, msg| %>
+        <% if msg.is_a?(String) %>
+          <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+            <%=raw content_tag :div, msg, id:"flash_#{name}" %>
+          </div>
+        <% end %>
+      <% end %>
+      <%= form_with(url: '/users/auth/osso', method: 'post', class: 'login-form') do |form| %>
+        <%= form.label :email, "Email" %>
+        <%= form.email_field :email %>
+        <button type='submit'>Login with SAML SSO</button>
+      <% end %>
+    </div>
+  </div> 
+```
+
+Now we can log in again using an `example.com` email address, and we'll skip over Osso's hosted login page. The downside of this approach is that Osso will display an error if there is not a SAML configured customer for the supplied domain. 
+
+To best serve our SAML SSO users, we'd only send users who belong to an onboarded SAML customer to Osso, and we wouldn't require a user to remember that they use SAML SSO to sign in. Unfortunately this issue has become _incredibly fraught_. Non-SAML users _hate_ when you split a login form into two steps, and they usually have no idea why anyone would implement such a poor UX. There's no perfect solution if we want to serve all of our users well, just the least bad solution. We'll do our best to make our login flow frustrate the least number of users — engineering is, after all, about tradeoffs.  
+
+We should also aim to reduce the amount of code you need to write to integrate Osso - you shouldn't have to persist in your database whether one of your tenants uses SAML. A user should just be able to come to your login page and login, whatever mechanism their account is set up to use. Yes, we want to save you effort, but we also want to keep things simple, direct and easy to reason about.
+
+Osso also offers a [React library](https://github.com/enterprise-oss/osso-react) that provides components like an `<OssoLogin />` form as well as lower level hooks for interacting with your Osso instance. Rather than you persisting data about which of your customers use SAML for auth, you can use the Osso React library to talk directly to Osso in order to build out your login form. Of course if you're not already using React on your front end it won't make a ton of sense to take this approach, but the Osso React source code should help you understand how you can implement such a form yourself.
+
+We'll skip past a bit of Rails and React setup - the result PR will show everything you need to do to get React set up with webpacker, but let's assume that we've got a JSX file we can treat as a Javascript pack that includes React and renders the React app to the DOM. We'll reuse the markup from previous steps to start building our login form.
+
+```js title="javascripts/packs/index.jsx"
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const App = () => (
+  <div className="container">
+    <div className="main-content login">
+      <h1>Welcome!</h1>    
+    </div>
+  </div>
+)
+
+document.addEventListener('DOMContentLoaded', () => {
+  ReactDOM.render(
+    <App />,
+    document.body.appendChild(document.createElement('div')),
+  )
+})
+
+```
+
+We can install Osso's React library from npm:
+
+```bash
+$ yarn add @enterprise-oss/osso
+```
+
+And we need to wrap any of our Osso components in an `<OssoProvider />`, passing a `baseUrl` to the client options. We're still using the Osso Demo instance here, which is an anything goes environment. If you're using your own instance, you'll need to set the `CORS_ORIGINS` ENV var to the origin where you're using this form.
+
+```javascript title="javascripts/packs/index.jsx" {1,3-7,14}
+import { OssoLogin, OssoProvider } from '@enterprise-oss/osso';
+
+const App = () => (
+  <OssoProvider
+    client={{
+      baseUrl: 'https://demo.ossoapp.com',
+    }}
+  >
+    <div className="container">
+      <div className="main-content login">
+        <h1>Welcome!</h1>
+      </div>
+    </div>
+  </OssoProvider>
+)
+```
+
+Then we can add the `<OssoLogin />` component - we'll review the props afterwards.
+
+```javascript title="javascripts/packs/index.jsx" {10-16}
+const App = () => (
+  <OssoProvider
+    client={{
+      baseUrl: 'https://demo.ossoapp.com',
+    }}
+  >
+    <div className="container">
+      <div className="main-content login">
+        <h1>Welcome!</h1>
+        <OssoLogin
+          ButtonComponent={Button}
+          InputComponent={Input}
+          containerClass="login-form"
+          onSamlFound={submitSaml}
+          onSubmitPassword={onSubmitPassword}
+        />
+      </div>
+    </div>
+  </OssoProvider>
+)
+```
+The OssoLogin component displays an email input and submit button, and on submit, the component talks directly to your Osso instance to determine if that user can sign in using SAML via Osso. Osso's components are typically "headless" - they allow you to provide your own UI components to match the rest of your application, and surround them with some logic. We use Ant at Osso, and here's an example of a live Login component using Ant UI components, and the repo has an example for Material UI.
+
+<BrowserOnly>
+  {() => <BlogLogin />}
+</BrowserOnly>
+
+
+For our purposes, let's create our own basic components to use here:
+
+```javascript title="javascripts/packs/index.jsx"
+  const Button = props => (
+    <button {...props} />
+  )
+
+  const Input = ({ onChange, ...props}) => (
+    <>
+      <label htmlFor={props.id}>{props.label}</label>
+      <input 
+        {...props}
+        // Osso expects a value in change handlers rather than events
+        onChange={(e) => onChange && onChange(e.target.value)} 
+      />
+    </>
+  )
+```
+
+The event handler props are what makes the form work with your back end authentication. When we do find that a user can log in with SAML via Osso, the login component calls the `onSamlFound` prop function. We don't want to send users to Osso right away - we need to send them through your back end to protect against CSRF attacks and to properly use our OmniAuth strategy. 
+
+So we'll use a similar function to what we've used previously for submitting the SAML sign in form. We need to again grab the authenticity token, and submit a POST request from the browser via a form submit, including the email address for the user:
+
+```javascript title="javascripts/packs/index.jsx"
+  const submitSaml = (email) => {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content
+    const form = document.createElement("form");
+    
+    const tokenInput = document.createElement("input"); 
+    tokenInput.value = csrfToken;
+    tokenInput.name = "authenticity_token"
+    
+    const emailInput = document.createElement("input"); 
+    emailInput.value = email;
+    emailInput.name = "email"
+    
+    form.action = `/users/auth/osso`;   
+    form.hidden = true
+    form.method = "POST";
+    
+    form.appendChild(tokenInput);  
+    form.appendChild(emailInput);  
+    document.body.appendChild(form);
+    
+    return form.submit();
+  }
+```
+
+Any onboarded SAML user is now able to sign in, but we also need to handle non-SAML users. The login component will display a password field, and on a form submit with an email and password, will call the `onSubmitPassword` function. Without knowing more about your authentication approach, we can't really say how to handle these - you may want to do something similar to the SAML handler if you use session based authentication, or post an ajax request if you use something like JWTs. We'll just show you the function signature and log the values:
+
+```javascript title="javascripts/packs/index.jsx"
+  const onSubmitPassword = (email, password) => {
+    console.warn(`Submit a request to sign the user in 
+      to your server. Email: ${email}, Password: ${password}`);
+    return Promise.resolve();
+  }
+```
+
+The final diff for integrating Osso into our Rails app [can be found here](https://github.com/enterprise-oss/saml-rails/pull/6).
+
+### Conclusion
+
+If you need to add SAML SSO to your Rails application you should now be able to make an informed decision about how you want to approach this project. If you're working on a multi-tenant application, we've seen that the challenges of releasing a production-ready integration are due to the _instance based_ nature of SAML SSO. 
+
+Existing OSS handles a lot of the nitty-gritty of SAML, but without Osso, you're responsible for building a scalable system to onboard new customers. We feel pretty strongly that you need to document this process for your customers, and unless you plan on having an engineer add database rows by hand for each new tenant, you'll also need a UI and CRUD operations for your SAML configurations. You'll need to work through edge cases for various Identity Providers and you'll need to sign up for a few of them yourself to have confidence that you've properly integrated that provider. You'll also need to think through how to approach sign in UX for your SAML users, while still providing a good UX for your non-SAML users.
+
+We hope you'll consider using Osso so we can handle all of these challenges while you focus on features that are more core to your application. We think you'll find <Link to={useBaseUrl('/pricing')}>our pricing</Link> fair, transparent and predictable, and we're also more than happy to help you get going with an open source deployment.
+
+You can reach us via chat, at <a href="mailto:hello@ossoapp.com" target="_blank" referrer="noopener nofollow">hello@ossoapp.com</a>, or me personally on Twitter [@sammybauch](https://twitter.com/sammybauch).
