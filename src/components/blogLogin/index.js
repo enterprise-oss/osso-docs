@@ -1,6 +1,6 @@
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import { OssoLogin, OssoProvider } from "@enterprise-oss/osso";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Spin } from "antd";
 import React, { useState } from "react";
 
 import styles from "./styles.module.css";
@@ -26,7 +26,7 @@ const BlogLogin = () => {
   );
 
   return (
-    <BrowserOnly>
+    <BrowserOnly fallback={<Spin />}>
       {() => (
         <OssoProvider
           client={{
