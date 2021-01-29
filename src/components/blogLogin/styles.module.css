@@ -1,5 +1,6 @@
 .container {
-  max-width: 400px;
+  width: 100%;
+  max-width: 320px;
   margin: 40px auto;
   justify-content: center;
   height: auto
@@ -14,7 +15,8 @@
   align-items: flex-start;
   background: #fff;
   border-radius: 4px;
-  width: 400px;
+  width: 100%;
+  max-width: 320px;
   filter: drop-shadow(0 4px 12px rgba(0,0,0,.15));
   padding: 32px
 }

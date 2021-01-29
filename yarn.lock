@@ -1524,7 +1524,7 @@
   resolved "https://registry.yarnpkg.com/@enterprise-oss/ant-theme/-/ant-theme-1.0.7.tgz#b4a1e521606d9545a9fd0aaf7fd44feac989cedd"
   integrity sha512-vKYt92gzrvV99jYL+t0wz6hybzpV9wcvKkYHqRQjF8hAeMh5FB4SnoFyEIRN2k1D255xigEf9KOtlAR40QnNnw==
 
-"@enterprise-oss/osso@^0.1.3-pre":
+"@enterprise-oss/osso@^0.1.3-alpha":
   version "0.1.3-alpha"
   resolved "https://registry.yarnpkg.com/@enterprise-oss/osso/-/osso-0.1.3-alpha.tgz#6bd362b4cbff43292163f1878470055a213384b8"
   integrity sha512-JoPi8ARiUdkbPbpVZMMY8zf//kfGAf7Eja42nNfn8uVczolm6zrGjmNUcycdd/qiMWUO2umF13xusRh8i7IqRA==
@@ -7618,6 +7618,11 @@ normalize-url@^4.1.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.0.tgz#453354087e6ca96957bd8f5baf753f5982142129"
   integrity sha512-2s47yzUxdexf1OhyRi4Em83iQk0aPvwTddtFz4hnSSw9dCEsLEGf6SwIO8ss/19S9iBb5sJaOuTvTGDeZI00BQ==
 
+npm-font-open-sans@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/npm-font-open-sans/-/npm-font-open-sans-1.1.0.tgz#8c27a56e43872747b8448dcc30653a649866c6ef"
+  integrity sha512-t1y5ShWm6a8FSLwBdINT47XYMcuKY2rkTBsTdz/76YB2MtX0YD89RUkY2eSS2/XOmlZfBe1HFBAwD+b9+/UfmQ==
+
 npm-run-path@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/npm-run-path/-/npm-run-path-2.0.2.tgz#35a9232dfa35d7067b4cb2ddf2357b1871536c5f"
@@ -11661,6 +11666,11 @@ web-namespaces@^1.0.0, web-namespaces@^1.1.2:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/web-namespaces/-/web-namespaces-1.1.4.tgz#bc98a3de60dadd7faefc403d1076d529f5e030ec"
   integrity sha512-wYxSGajtmoP4WxfejAPIr4l0fVh+jeMXZb08wNc0tMg6xsfZXj3cECqIK0G7ZAqUq0PP8WlMDtaOGVBTAWztNw==
+
+webfontloader@^1.6.28:
+  version "1.6.28"
+  resolved "https://registry.yarnpkg.com/webfontloader/-/webfontloader-1.6.28.tgz#db786129253cb6e8eae54c2fb05f870af6675bae"
+  integrity sha1-23hhKSU8tujq5UwvsF+HCvZnW64=
 
 webidl-conversions@^4.0.2:
   version "4.0.2"

@@ -1,6 +1,9 @@
+import BrowserOnly from "@docusaurus/BrowserOnly";
 import CloudPdfViewer from "@openbook/cloudpdf-viewer";
 import useThemeContext from "@theme/hooks/useThemeContext";
+import { Spin } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
+import WebFont from "webfontloader";
 
 import styles from "./styles.module.css";
 
@@ -22,9 +25,19 @@ export default function PdfViewer({ documentId }) {
         node
       ).then((instance) => {
         setInstance(instance);
+        WebFont.load({
+          google: {
+            families: ["Open Sans"],
+          },
+          context: node.children[0].contentWindow,
+        });
       });
     }
   }, []);
 
-  return <div className={styles.viewer} ref={measuredRef}></div>;
+  return (
+    <BrowserOnly fallback={<Spin />}>
+      {() => <div className={styles.viewer} ref={measuredRef}></div>}
+    </BrowserOnly>
+  );
 }

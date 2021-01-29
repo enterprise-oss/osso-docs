@@ -33,6 +33,7 @@
     "react-responsive": "^8.0.3",
     "request": "^2.88.2",
     "url-search-params-polyfill": "^8.1.0",
+    "webfontloader": "^1.6.28",
     "yarn": "^1.22.4"
   },
   "browserslist": {
