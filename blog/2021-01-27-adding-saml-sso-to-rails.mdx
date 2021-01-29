@@ -13,6 +13,7 @@ keywords: [Rails, SAML, SSO, Ruby, OSS, 'open source']
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Link from '@docusaurus/Link';
+import BrowserOnly from "@docusaurus/BrowserOnly";
 import BlogLogin from '../src/components/blogLogin/index';
 import PDFViewer from '../src/components/pdfViewer/index';
 
@@ -287,8 +288,9 @@ Lots of SaaS companies take a similar approach where they provide [one-size-fits
 
 Osso takes a slightly different approach and generates bespoke documentation for end users in a portable and easy to use format. Here’s a doc we generated that you can use to set up the demo app in your Okta instance:
 
-<PDFViewer documentId="65e6bc94-9f46-4548-a482-3e0a4cd413c0" />
-
+<BrowserOnly>
+  {() => <PDFViewer documentId="65e6bc94-9f46-4548-a482-3e0a4cd413c0" />}
+</BrowserOnly>
 
 Once you configure the demo app in your Okta instance, you’ll be able to access the configuration values you need to support the second tenant.
 
@@ -637,7 +639,10 @@ const App = () => (
 ```
 The OssoLogin component displays an email input and submit button, and on submit, the component talks directly to your Osso instance to determine if that user can sign in using SAML via Osso. Osso's components are typically "headless" - they allow you to provide your own UI components to match the rest of your application, and surround them with some logic. We use Ant at Osso, and here's an example of a live Login component using Ant UI components, and the repo has an example for Material UI.
 
-<BlogLogin />
+<BrowserOnly>
+  {() => <BlogLogin />}
+</BrowserOnly>
+
 
 For our purposes, let's create our own basic components to use here:
 

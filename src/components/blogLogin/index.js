@@ -26,40 +26,36 @@ const BlogLogin = () => {
   );
 
   return (
-    <BrowserOnly fallback={<Spin />}>
-      {() => (
-        <OssoProvider
-          client={{
-            baseUrl: "https://demo.ossoapp.com",
-          }}
-        >
-          <Form layout="vertical" component="div">
-            <div className={styles.container}>
-              <div className={styles.mainContent}>
-                <p>{msg}</p>
-                <OssoLogin
-                  containerClass={styles.loginForm}
-                  ButtonComponent={ButtonComponent}
-                  InputComponent={InputComponent}
-                  onSamlFound={(email) => {
-                    setMsg(
-                      `${email} submitted and SAML tenant found - POST to your server to kick off Osso auth.`
-                    );
-                    return Promise.resolve();
-                  }}
-                  onSubmitPassword={(email, password) => {
-                    setMsg(
-                      `Password submitted - sign the user in with Email: ${email}, Password: ${password}`
-                    );
-                    return Promise.resolve();
-                  }}
-                />
-              </div>
-            </div>
-          </Form>
-        </OssoProvider>
-      )}
-    </BrowserOnly>
+    <OssoProvider
+      client={{
+        baseUrl: "https://demo.ossoapp.com",
+      }}
+    >
+      <Form layout="vertical" component="div">
+        <div className={styles.container}>
+          <div className={styles.mainContent}>
+            <p>{msg}</p>
+            <OssoLogin
+              containerClass={styles.loginForm}
+              ButtonComponent={ButtonComponent}
+              InputComponent={InputComponent}
+              onSamlFound={(email) => {
+                setMsg(
+                  `${email} submitted and SAML tenant found - POST to your server to kick off Osso auth.`
+                );
+                return Promise.resolve();
+              }}
+              onSubmitPassword={(email, password) => {
+                setMsg(
+                  `Password submitted - sign the user in with Email: ${email}, Password: ${password}`
+                );
+                return Promise.resolve();
+              }}
+            />
+          </div>
+        </div>
+      </Form>
+    </OssoProvider>
   );
 };
 

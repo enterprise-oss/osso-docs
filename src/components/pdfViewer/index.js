@@ -1,7 +1,5 @@
-import BrowserOnly from "@docusaurus/BrowserOnly";
 import CloudPdfViewer from "@openbook/cloudpdf-viewer";
 import useThemeContext from "@theme/hooks/useThemeContext";
-import { Spin } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import WebFont from "webfontloader";
 
@@ -35,9 +33,5 @@ export default function PdfViewer({ documentId }) {
     }
   }, []);
 
-  return (
-    <BrowserOnly fallback={<Spin />}>
-      {() => <div className={styles.viewer} ref={measuredRef}></div>}
-    </BrowserOnly>
-  );
+  return <div className={styles.viewer} ref={measuredRef}></div>;
 }
