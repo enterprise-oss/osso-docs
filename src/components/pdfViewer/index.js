@@ -1,7 +1,6 @@
 import CloudPdfViewer from "@openbook/cloudpdf-viewer";
 import useThemeContext from "@theme/hooks/useThemeContext";
 import React, { useCallback, useEffect, useState } from "react";
-import WebFont from "webfontloader";
 
 import styles from "./styles.module.css";
 
@@ -23,6 +22,7 @@ export default function PdfViewer({ documentId }) {
         node
       ).then((instance) => {
         setInstance(instance);
+        const WebFont = require("webfontloader");
         WebFont.load({
           google: {
             families: ["Open Sans"],
