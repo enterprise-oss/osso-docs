@@ -687,7 +687,7 @@ So we'll use a similar function to what we've used previously for submitting the
   }
 ```
 
-A SAML user should at this point be able to sign in, but we also need to handle non-SAML users. The login component will display a password field, and on a form submit with an email and password, will call the `onSubmitPassword` function. Without knowing more about your authentication, we can't really say how to handle these - you may want to do something similar to the SAML handler if you use session based authentication, or post an ajax request if you use something like JWTs. We'll just show you the function signature and log the values:
+Any onboarded SAML user is now able to sign in, but we also need to handle non-SAML users. The login component will display a password field, and on a form submit with an email and password, will call the `onSubmitPassword` function. Without knowing more about your authentication approach, we can't really say how to handle these - you may want to do something similar to the SAML handler if you use session based authentication, or post an ajax request if you use something like JWTs. We'll just show you the function signature and log the values:
 
 ```javascript title="javascripts/packs/index.jsx"
   const onSubmitPassword = (email, password) => {
@@ -697,5 +697,14 @@ A SAML user should at this point be able to sign in, but we also need to handle 
   }
 ```
 
+The final diff for integrating Osso into our Rails app [can be found here](https://github.com/enterprise-oss/saml-rails/pull/6).
 
+### Conclusion
 
+If you need to add SAML SSO to your Rails application you should now be able to make an informed decision about how you want to approach this project. If you're working on a multi-tenant application, we've seen that the challenges of releasing a production-ready integration are due to the _instance based_ nature of SAML SSO. 
+
+Existing OSS handles a lot of the nitty-gritty of SAML, but without Osso, you're responsible for building a scalable system to onboard new customers. We feel pretty strongly that you need to document this process for your customers, and unless you plan on having an engineer add database rows by hand for each new tenant, you'll also need a UI and CRUD operations for your SAML configurations. You'll need to work through edge cases for various Identity Providers and you'll need to sign up for a few of them yourself to have confidence that you've properly integrated that provider. You'll also need to think through how to approach sign in UX for your SAML users, while still providing a good UX for your non-SAML users.
+
+We hope you'll consider using Osso so we can handle all of these challenges while you focus on features that are more core to your application. We think you'll find <Link to={useBaseUrl('/pricing')}>our pricing</Link> fair, transparent and predictable, and we're also more than happy to help you get going with an open source deployment.
+
+You can reach us via chat, at <a href="mailto:hello@ossoapp.com" target="_blank" referrer="noopener nofollow">hello@ossoapp.com</a>, or me personally on Twitter [@sammybauch](https://twitter.com/sammybauch).
