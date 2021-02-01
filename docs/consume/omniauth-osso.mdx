@@ -29,7 +29,7 @@ Add `omniauth-osso` to your Gemfile and run `$ bundle install`. It's highly reco
 gem 'omniauth-osso', '~> 0.2.0'
 ```
 
-Then configure your Osso instance in an `OmniAuth::Builder` block:
+Then configure your Osso instance in an `OmniAuth::Builder` block. Get your Client ID and Client Secret from your Osso instance's OAuth clients page and store them in your application's environment. You can also put your 
 
 ```ruby title="/config/initializers/omniauth.rb"
 
@@ -48,3 +48,4 @@ For convenience, let's use Osso's hosted login page. Later you can more deeply i
 ```
 
 ### Callback
+

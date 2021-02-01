@@ -20,13 +20,13 @@ If you use the Deploy to Heroku button Osso will run this script for you. Otherw
   bundle exec rake osso:bootstrap
 ```
 
-This task depends on having the ENV variable `ADMIN_EMAIL` set - see our <Link to={useBaseUrl('/docs/deploy-env-variables')}>Environment Variables guide</Link>. You can set this when running this script like so:
+This task depends on having the ENV variable `ADMIN_EMAIL` set - see our <Link to={useBaseUrl('/docs/deploy/env-variables')}>Environment Variables guide</Link>. You can set this when running this script like so:
 
 ```bash
   ADMIN_EMAIL=me@example.com bundle exec rake osso:bootstrap
 ```
 
-The script will create the first user for that email, and send an email invitation to confirm the account and choose a password.
+The script will create the first user for that email, and send an email invitation to confirm the account and choose a password. You'll be able to invite subsequent users via email through Osso's admin UI.
 
 ## Updates
 
