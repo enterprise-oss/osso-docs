@@ -1,15 +1,50 @@
 ---
 id: omniauth-osso
-title: omniauth-osso
+title: ' '
 sidebar_label: 'omniauth-osso'
 ---
 
-import UnderConstruction from '../../src/components/constructionCallout'
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
 
-<UnderConstruction 
-  message={
-    <span>
-      This content is under construction. Please view the relevant <a href="https://github.com/enterprise-oss/omniauth-osso">GitHub repo</a> for more.
-    </span>
-  } 
-/>
+
+Osso's Ruby gem `omniauth-osso` helps you integrate your Osso instance with a Rails or other Ruby/Rack based application. It's a provider strategy for the OmniAuth framework thats uses an OAuth 2.0 authorization code grant flow.
+
+## Examples
+
+- [osso-rails-example](https://github.com/enterprise-oss/osso-rails-example) - a clean Rails app using omniauth-osso
+- [enterprise-oss/forem](https://github.com/enterprise-oss/forem) - fork of Rails app forem which powers dev.to, using omniauth-osso
+- <Link to={useBaseUrl('/blog/saml-sso-rails')}>SAML on Rails</Link> - a detailed guide on SAML in a rails app, including integrating with Osso
+
+
+## Quick start
+
+Integrating `omniauth-osso` is a 3 step process of installation, providing a sign in mechanism and handling sign in callbacks from Osso.
+
+### Install
+
+Add `omniauth-osso` to your Gemfile and run `$ bundle install`. It's highly recommended that you use version `>= 0.2.0` which depends on OmniAuth 2.0. If you can't upgrade to OmniAuth 2.0, be sure to only allow POST requests to your OmniAuth request routes, i.e. `/users/auth/osso`.
+
+```ruby title="Gemfile"
+gem 'omniauth-osso', '~> 0.2.0'
+```
+
+Then configure your Osso instance in an `OmniAuth::Builder` block:
+
+```ruby title="/config/initializers/omniauth.rb"
+
+```
+
+### Sign in
+
+To kick off a SAML sign in request via Osso, a user must submit a POST request to `/auth/osso`. If you include a query parameter for `email` or `domain`, the user will be routed to their IDP automatically. Otherwise the user will be shown an Osso hosted login page.
+
+For convenience, let's use Osso's hosted login page. Later you can more deeply integrate Osso into your login flow - check out Osso's React library if you use React on your front end.
+
+```ruby title="app/views/application/login.html.erb"
+  <%= form_tag("/auth/osso", method: "post") do %>
+    <%= submit_tag("Sign in with SAML SSO") %>
+  <% end %>
+```
+
+### Callback

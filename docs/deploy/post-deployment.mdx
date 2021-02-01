@@ -2,31 +2,51 @@
 id: post-deployment
 title: Post deployment
 ---
-
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
 import PaidCallout from '../../src/components/paidCallout/index'
 
 <PaidCallout />
 
-## Setup scripts
+Once you successfully deploy Osso, visit the index path - if you see the Osso login screen, then you're ready to start setting up your instance.
+
+## Setup script
+
+Osso provides a [setup script](https://github.com/enterprise-oss/osso-rb/blob/main/lib/tasks/bootstrap.rake) to bootstrap your instance with a first user and default OAuth Clients. Separately Osso also provides a [seed script](https://github.com/enterprise-oss/osso/blob/main/db/seeds.rb) that's more useful for local development and CI testing - we [use it in our Cypress tests](https://github.com/enterprise-oss/osso/blob/main/cypress/support/index.js#L8).
+
+If you use the Deploy to Heroku button Osso will run this script for you. Otherwise run
+
+```bash
+  bundle exec rake osso:bootstrap
+```
+
+This task depends on having the ENV variable `ADMIN_EMAIL` set - see our <Link to={useBaseUrl('/docs/deploy-env-variables')}>Environment Variables guide</Link>. You can set this when running this script like so:
+
+```bash
+  ADMIN_EMAIL=me@example.com bundle exec rake osso:bootstrap
+```
+
+The script will create the first user for that email, and send an email invitation to confirm the account and choose a password.
 
 ## Updates
 
 We recommend maintaining a GitHub repository for your Osso instance. This will let you implement GitHub based deploys on Heroku, utilize Dependabot for package updates, and manage any updates made to the main Osso project using Git.
 
-You'll want to treat the main Osso repository as an **upstream** remote. Note that Osso uses **main** as the default branch.
+You can also treat the main Osso repository as an **upstream** remote. Note that Osso uses **main** as the default branch.
 
 The simplest approach is to first **Fork** the main Osso repository to your own account.
 
 Then, from the command line, clone your fork and add the upstream remote:
-```
-git clone git@github.com:[your-username]/osso.git
-cd osso
-git remote add upstream git://github.com/enterprise-oss/osso.git
+```bash
+  git clone git@github.com:[your-username]/osso.git
+  cd osso
+  git remote add upstream git://github.com/enterprise-oss/osso.git
 ```
 You can then merge upstream changes to your local clone, and push to your GitHub repo:
-```
-git fetch upstream
-git merge upstream/main main
-git push origin/main
+
+```bash
+  git fetch upstream
+  git merge upstream/main main
+  git push origin/main
 ```
 You can use GitHub actions, Buildkite, or any CI tool to run Osso's tests as part of your deployment process.

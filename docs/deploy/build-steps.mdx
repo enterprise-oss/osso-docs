@@ -1,8 +1,43 @@
 ---
 id: build-steps
-title: Deployment steps
+title: Build steps
 ---
 
 import PaidCallout from '../../src/components/paidCallout/index'
 
 <PaidCallout />
+
+Osso can be deployed anywhere you can deploy Ruby apps. A Node runtime (v14) is required to build assets. CI steps for Buildkite and Cypress e2e tests are included in the main Osso repository which you can use or adapt for your instance.
+
+If you use the Deploy to Heroku button, the Heroku buildpacks specified by `app.json` will handle all of the build steps needed to serve Osso.
+
+If you deploy to another cloud provider or your own infrastructure, you'll need to run a build script with yarn or npm, provide a Postgres database and serve a Ruby/Rack application with Puma.
+
+### Requirements
+
+- Ruby `2.6.6`, plus `Bundler`
+- NodeJS `14.4.0`, plus `npm` or `yarn`
+- Postgres `10.0.0`
+
+### Building
+
+Build assets with `yarn` or `npm`. The compiled assets are used for the admin UI and hosted Osso login.
+
+```bash
+  yarn build
+  // or
+  npm build
+```
+
+### Database
+
+Once you've specified a `DATABASE_URL` you can use `rake` to manage the database. Run `bundle exec rake db:migrate` whenever you update Osso in order to keep your database schema up to date.
+
+### Serving
+
+Osso ships with Puma for serving the Ruby/Rack application. See [Puma's documentation](https://github.com/puma/puma#puma-a-ruby-web-server-built-for-concurrency) for more details.
+
+```bash
+  bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}
+```
+
