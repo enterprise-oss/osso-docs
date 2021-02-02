@@ -27,13 +27,13 @@ These are the query parameters you must include:
 
 - redirect_uri - Tells Osso where to send the user back to after they've successfully logged in. Must be included in the allow list for the OAuth Client registered on the Osso Admin UI.
 
-- state - Generate a random string and includes it in the request. Osso returns the user back to your application with the same state param - check that is matches in order to prevent CSRF attacks.
+- state - Generate a random string and includes it in the request. Osso returns the user back to your application with the same state param - store in a server session and check that is matches in your callback in order to prevent CSRF attacks.
 
-- domain OR email - One of domain or email is required. Osso uses the value to look up the configured IDP for the user or domain in order to know where to redirect the user. If you pass domain and multiple IDPs are configured for the domain, the user will always be shown a selector. If you pass email, the user will be shown a selector once, and then automatically sent to the chosen IDP in the future.
+- domain or email (optional) - If you don't provide this paramater, Osso will present the user the hosted login form. Otherwise, Osso uses this value to look up the configured IDP for the user or domain in order to know where to redirect the user. If you pass domain and multiple IDPs are configured for the domain, the user will always be shown a selector. If you pass email, the user will be shown a selector once, and then automatically sent to the chosen IDP in the future.
 
 ### 2. Code Exchange
 
-Once the user successfully signs in to their IDP, the user is redirected back to the `redirect_uri` you specified in the authorization URL query param. This URI must also have been registered for the OAuth client in your Osso Admin UI. The redirect URL will include `code` and `state` parameters:
+Once the user successfully signs in to their IDP, the user is redirected back to the `redirect_uri` you specified in the authorization URL query param. This URI must also have been allow-listed for the OAuth client in your Osso Admin UI. The redirect URL will include `code` and `state` parameters:
 
 ```bash
 https://example-app.com/2Fcallback
@@ -43,7 +43,7 @@ https://example-app.com/2Fcallback
 
 Ensure that the state param matches the value you previously generated to prevent CSRF attacks.
 
-Then, exchange the `code` for an access token by making a POST request:
+Then, exchange the `code` for an access token by making a POST request from your server:
 
 ```bash
 curl --request POST \
