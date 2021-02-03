@@ -17,6 +17,10 @@ import SkipToContent from "@theme/SkipToContent";
 import clsx from "clsx";
 import React from "react";
 
+window?.posthog?.register({
+  branch: process.env.BRANCH,
+});
+
 function Layout(props) {
   const { children, noFooter, wrapperClassName } = props;
   useKeyboardNavigation();
