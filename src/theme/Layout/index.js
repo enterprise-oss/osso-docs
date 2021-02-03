@@ -23,7 +23,7 @@ function Layout(props) {
 
   useEffect(() => {
     window?.posthog?.register({
-      branch: process.env.BRANCH,
+      branch: "process.env.BRANCH",
     });
   }, []);
 
