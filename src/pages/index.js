@@ -15,7 +15,7 @@ import styles from "./styles.module.css";
 
 const features = [
   {
-    title: <>Treat SAML as OAuth</>,
+    title: <>Treat SAML like OAuth</>,
     description: (
       <>
         Osso authenticates users against SAML Identity Provider services,
