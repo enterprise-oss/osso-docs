@@ -15,11 +15,18 @@ import LayoutProviders from "@theme/LayoutProviders";
 import Navbar from "@theme/Navbar";
 import SkipToContent from "@theme/SkipToContent";
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect } from "react";
 
 function Layout(props) {
   const { children, noFooter, wrapperClassName } = props;
   useKeyboardNavigation();
+
+  useEffect(() => {
+    window?.posthog?.register({
+      branch: process.env.BRANCH,
+    });
+  }, []);
+
   return (
     <LayoutProviders>
       <LayoutHead {...props} />
