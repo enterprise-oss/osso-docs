@@ -20,11 +20,12 @@ import React, { useEffect } from "react";
 function Layout(props) {
   const { children, noFooter, wrapperClassName } = props;
   useKeyboardNavigation();
+
   useEffect(() => {
     window?.posthog?.register({
       branch: process.env.BRANCH,
     });
-  }, [window]);
+  }, []);
 
   return (
     <LayoutProviders>
