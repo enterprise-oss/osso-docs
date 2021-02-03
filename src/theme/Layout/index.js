@@ -20,6 +20,7 @@ import React from "react";
 function Layout(props) {
   const { children, noFooter, wrapperClassName } = props;
   useKeyboardNavigation();
+
   return (
     <LayoutProviders>
       <LayoutHead {...props} />
