@@ -57,7 +57,9 @@ function Home() {
       <div className={styles.heroContainer}>
         <header className={classnames("hero", styles.heroBanner)}>
           <div className={styles.heroCopy}>
-            <p>Add enterprise-grade SSO to your application today</p>
+            <p>
+              Authenticate Single Sign-On users with free, open source software
+            </p>
             <div className={styles.buttons}>
               <Link to={useBaseUrl("docs/quick-start")}>
                 <Button ghost size="large" className={styles.heroBtn}>
