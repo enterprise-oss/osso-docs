@@ -74,7 +74,10 @@ module.exports = {
     posthog: {
       apiKey: process.env.POSTHOG_API_KEY || "no",
       appUrl: "https://a.ossoapp.com",
-      enableInDevelopment: false,
+      enableInDevelopment: true,
+      loaded: function (posthog) {
+        posthog.register({ branch: process.env.BRANCH || "main" });
+      },
     },
     prism: {
       additionalLanguages: ["ruby"],
