@@ -12,7 +12,7 @@ package = "netlify-plugin-inline-functions-env"
   buildEvent = "onBuild"
 
 [context.deploy-preview.environment]
-  POSTHOG_API_KEY = 'not-real'
+  # POSTHOG_API_KEY = 'not-real'
 
 [[headers]]
   for = "*.js"
