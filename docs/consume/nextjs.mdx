@@ -63,7 +63,53 @@ export default NextAuth({
 
 ### Session provider and hook
 
+NextAuth.js provides some tooling for determining whether a user is signed in. First let's wrap our whole application with the NextAuth.js `Provider` so that we can share session state across the client app without making additional API calls.
 
+Using the supplied React `<Provider>` allows instances of `useSession()` to share the session object across components, by using [React Context](https://reactjs.org/docs/context.html) under the hood.
+
+This improves performance, reduces network calls and avoids page flicker when rendering. It is highly recommended and can be easily added to all pages in Next.js apps by using `pages/_app.js`.
+
+```jsx title="pages/_app.js"
+import { Provider } from 'next-auth/client'
+
+export default function App ({ Component, pageProps }) {
+  return (
+    <Provider session={pageProps.session}>
+      <Component {...pageProps} />
+    </Provider>
+  )
+}
+```
+
+Then, in your page components, you can implement the `useSession` hook to get information about the current user if a user is signed in.
+
+```jsx
+import { useSession } from 'next-auth/client'
+
+export default function Component() {
+  const [ session, loading ] = useSession()
+
+  if(session) {
+    return <p>Signed in as {session.user.email}</p>
+  }
+
+  return <a href="/api/auth/signin">Sign in</a>
+}
+```
+
+The shape of the session object:
+
+```js
+{
+  user: {
+    name: string,
+    email: string,
+    image: uri
+  },
+  accessToken: string,
+  expires: "YYYY-MM-DDTHH:mm:ss.SSSZ"
+}
+```
 
 ## Sign in UX
 
