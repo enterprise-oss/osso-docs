@@ -4,6 +4,7 @@ title: NextAuth.js
 ---
 
 import BlogLogin from '../../src/components/blogLogin/index';
+import BrowserOnly from "@docusaurus/BrowserOnly";
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Link from '@docusaurus/Link';
 import Tabs from '@theme/Tabs';
@@ -129,7 +130,9 @@ Osso's React library provides a component for a login form that interacts with y
 
 Here's an example of the component using UI components from Ant. Try `user@example.com` for SAML, `user@other.com` to reveal the password field, and try to autofill with your password manager - the password field should fill and reveal itself.
 
-<BlogLogin />
+<BrowserOnly>
+  {() => <BlogLogin /> }
+</BrowserOnly>  
 
 First, add Osso's React library with yarn or NPM:
 
