@@ -9,6 +9,18 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Link from '@docusaurus/Link';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import UnderConstruction from '../../src/components/constructionCallout'
+
+<UnderConstruction 
+  message={
+    <span>
+      Osso is not yet completely supported by NextAuth.js - we have{' '}
+      <a href="https://github.com/enterprise-oss/passport-osso">an open PR</a>{' '}
+      you can help us get merged 🤞
+    </span>
+  } 
+/>
+
 
 The easiest way to integrate Osso with a NextJS app is to use [NextAuth.js](https://next-auth.js.org/), an open source library for integrating OAuth providers into a NextJS app. Osso is [supported as a Provider](https://next-auth.js.org/providers/osso) in NextAuth.js.
 
