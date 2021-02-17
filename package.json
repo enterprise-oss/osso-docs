@@ -14,7 +14,7 @@
     "@docusaurus/core": "^2.0.0-alpha.65",
     "@docusaurus/plugin-google-gtag": "^2.0.0-alpha.37",
     "@docusaurus/preset-classic": "^2.0.0-alpha.65",
-    "@enterprise-oss/ant-theme": "^1.0.7",
+    "@enterprise-oss/ant-theme": "^1.0.8",
     "@enterprise-oss/osso": "^0.1.3-beta",
     "@openbook/cloudpdf-viewer": "^0.1.0-beta.9",
     "@stripe/react-stripe-js": "^1.1.2",

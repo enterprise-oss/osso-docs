@@ -28,8 +28,10 @@ module.exports = {
       items: [
         "consume/overview",
         "consume/consuming-osso",
-        "consume/passport-osso",
+        // "consume/clojure",
+        "consume/nextjs",
         "consume/omniauth-osso",
+        "consume/passport-osso",
       ],
     },
     {
