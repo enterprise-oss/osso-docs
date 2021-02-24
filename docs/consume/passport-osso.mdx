@@ -4,12 +4,139 @@ title: passport-osso
 sidebar_label: 'passport-osso'
 ---
 
-import UnderConstruction from '../../src/components/constructionCallout'
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-<UnderConstruction 
-  message={
-    <span>
-      This content is under construction. Please view the relevant <a href="https://github.com/enterprise-oss/passport-osso">GitHub repo</a> for more.
-    </span>
-  } 
-/>
+Osso's Passport library `passport-osso` helps you integrate your Osso instance with a Connect-based NodeJS application, such as a NodeJS express application. It's a provider strategy for the PassportJS framework thats uses an OAuth 2.0 authorization code grant flow.
+
+## Examples
+
+- [osso-node-example](https://github.com/enterprise-oss/osso-nodejs-example) - a clean NodeJS express app using passport-osso
+- [enterprise-oss/saas](https://github.com/enterprise-oss/saas/pulls/1) - fork of a SaaS boilerplate NodeJS express app, using passport-osso
+
+## Quick start
+
+Integrating `passport-osso` is a 3 step process of installation, configuration and handling sign in callbacks from Osso, and providing a sign in mechanism for users.
+
+### Install
+
+Install `passport-osso` as a runtime dependency with Yarn or NPM:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    { label: 'Yarn', value: 'yarn', },
+    { label: 'NPM', value: 'npm', },
+  ]
+}>
+  <TabItem value="yarn">
+
+  ```bash
+    yarn add passport-osso
+  ```
+  </TabItem>
+  
+  <TabItem value="yarn">
+
+  ```bash
+    npm install passport-osso
+  ```
+  </TabItem>
+ </Tabs> 
+
+ ### Configuration and callback
+
+In order to configure our NodeJS app to use Osso's passport strategy, we need to setup both passport and Osso as a provider.
+
+You'll need to provide your `clientId`, `clientSecret` and `baseUrl` values for your Osso instance. You specify the callback path, just ensure you add the fully qualified URL to your Osso OAuth Client's allow list in the Osso UI.
+
+The final argument to the strategy constructor is a function that you can use to find or create a user from your database and pass to the callback function, allowing passport to sign the user in.
+
+```js title="server.js"
+  /*  Passport Setup  */
+  const passport = require('passport');
+  var userProfile;
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  passport.serializeUser(function(user, cb) {
+    cb(null, user);
+  });
+
+  passport.deserializeUser(function(obj, cb) {
+    cb(null, obj);
+  });
+
+  /*  Osso Setup  */
+  
+  const OssoStrategy = require('passport-osso').Strategy;
+
+  passport.use(new OssoStrategy({
+    baseUrl: process.env.OSSO_BASE_URL,
+    callbackURL: `${process.env.ROOT_URL}/auth/osso/callback`,
+    clientID: process.env.OSSO_CLIENT_ID,
+    clientSecret: process.env.OSSO_CLIENT_SECRET,
+  },
+    function(_req, _accessToken, _expiresIn, profile, done) {
+      User.findOrCreate({ email: profile.email }, function(err, user) {
+        return done(err, user);
+      });
+    }
+  ));
+
+```
+
+The `passport-osso` middleware handles the intermediate requests - exchanging the `authorization_code` for an `access_token` and then using the `access_token` to request a profile for the user. But we need to handle both the initial request from your frontend, and later Passport passes the return request on to your callback path, and the user is available on `req.user`. Here we print the user to the screen as JSON.
+
+```js
+  app.post('/auth/osso', passport.authenticate('osso'), function(req, res) {
+    // The request will be redirected to osso for authentication, so this
+    // function will not be called.
+  });
+
+  app.get('/auth/osso/callback', 
+    passport.authenticate('osso', { failureRedirect: '/error' }),
+    (req, res) => res.send(JSON.stringify(req.user))
+  );
+```
+
+### Sign in UI
+
+To kick off a SAML sign in request via Osso, a user must submit a POST request to your server in order for passport to take over and redirect the user to Osso. It's important you don't send your users from your frontend directly to Osso to prevent CSRF attacks.
+
+If you include a query parameter for `email` or `domain`, the user will be routed to their IDP automatically. Otherwise the user will be shown an Osso hosted login page.
+
+For convenience, let's use Osso's hosted login page by sticking a button on our login page that POSTs to `/auth/osso`. 
+
+```html title="views/pages/login.ejs"
+  <form action="/auth/osso" method="post">
+    <button type="submit">Sign in with SSO</button>
+  </div>  
+```
+
+Alternatively we can offer a SAML-only login form, where we ask for the user's email address, which `passport-osso` will pass to your Osso instance, allowing Osso to redirect the user to the correct IDP without rendering it's own form.
+
+```html title="views/pages/login.ejs"
+  <form action="/auth/osso" method="post">
+    <label>Email</label>
+    <input type="email" name="email" />
+    <button type="submit">Sign in with SSO</button>
+  </div>  
+```
+
+If we make this change, we need to update our route handler for this POST request to pass `email` to Osso.
+
+```js title="server.js"
+  app.post('/auth/osso', (req, res, next) => {
+    const { email } = req.body;
+    const authenticator = passport.authenticate('osso', { email })
+    authenticator(req, res, next)
+  })
+
+```
+
+Later you can more deeply integrate Osso into your main login flow - check out Osso's React library if you use React on your front end.
+
