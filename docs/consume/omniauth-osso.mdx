@@ -6,7 +6,8 @@ sidebar_label: 'omniauth-osso'
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Link from '@docusaurus/Link';
-
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 Osso's Ruby gem `omniauth-osso` helps you integrate your Osso instance with a Rails or other Ruby/Rack based application. It's a provider strategy for the OmniAuth framework thats uses an OAuth 2.0 authorization code grant flow.
 
@@ -29,17 +30,68 @@ Add `omniauth-osso` to your Gemfile and run `$ bundle install`. It's highly reco
 gem 'omniauth-osso', '~> 0.2.0'
 ```
 
-Then configure your Osso instance in an `OmniAuth::Builder` block. Get your Client ID and Client Secret from your Osso instance's OAuth clients page and store them in your application's environment. You can also put your 
+Then configure your Osso instance in an `OmniAuth::Builder` block. Get your Client ID and Client Secret from your Osso instance's OAuth clients page and store them in your application's environment. If you use Devise, this config would go inside of your Devise initializer. You'll also need to set the base URL of your Osso instance.
 
-```ruby title="/config/initializers/omniauth.rb"
+<Tabs
+  defaultValue="omniauth"
+  values={[
+    { label: 'OmniAuth', value: 'omniauth', },
+    { label: 'with Devise', value: 'devise', },
+    { label: 'Sinatra', value: 'sinatra', },
+  ]
+}>
+  <TabItem value="omniauth">
 
-```
+  ```ruby title="/config/initializers/omniauth.rb"
+    OmniAuth::Builder do
+      provider(
+        :osso,
+        client_id: ENV.fetch('OSSO_CLIENT_ID'),
+        client_secret: ENV.fetch('OSSO_CLIENT_SECRET'),
+        client_options: {
+          site: 'https://demo.ossoapp.com'
+        }
+      )
+    end  
+  ```
+  </TabItem>
+  
+  <TabItem value="devise">
+
+  ```ruby title="/config/initializers/devise.rb"
+    Devise.setup do |config|
+      config.omniauth :osso, 
+        ENV.fetch('OSSO_CLIENT_ID'),
+        ENV.fetch('OSSO_CLIENT_SECRET'),
+        client_options: { site: 'https://demo.ossoapp.com' }
+    end
+  ```
+  </TabItem>
+
+  <TabItem value="sinatra">
+
+  ```ruby title="app.rb"
+    require 'omniauth-osso'
+
+    use OmniAuth::Builder do
+      provider(
+        :osso,
+        client_id: ENV.fetch('OSSO_CLIENT_ID'),
+        client_secret: ENV.fetch('OSSO_CLIENT_SECRET'),
+        client_options: {
+          site: 'https://demo.ossoapp.com'
+        }
+      )
+    end
+  ```
+  </TabItem>
+</Tabs>
 
 ### Sign in
 
 To kick off a SAML sign in request via Osso, a user must submit a POST request to `/auth/osso`. If you include a query parameter for `email` or `domain`, the user will be routed to their IDP automatically. Otherwise the user will be shown an Osso hosted login page.
 
-For convenience, let's use Osso's hosted login page. Later you can more deeply integrate Osso into your login flow - check out Osso's React library if you use React on your front end.
+For convenience, let's use Osso's hosted login page by sticking a button on our login page that POSTs to `/auth/osso`. 
 
 ```ruby title="app/views/application/login.html.erb"
   <%= form_tag("/auth/osso", method: "post") do %>
@@ -47,4 +99,118 @@ For convenience, let's use Osso's hosted login page. Later you can more deeply i
   <% end %>
 ```
 
+Alternatively we can offer a SAML-only login form, where we ask for the user's email address, which `omniauth-osso` will pass to your Osso instance, allowing Osso to redirect the user to the correct IDP without rendering it's own form.
+
+```ruby title="app/views/application/login.html.erb"
+  <%= form_tag("/auth/osso", method: "post") do %>
+    <%= label_tag('email','Work Email') %>
+    <%= text_field_tag('email') %>
+    <%= submit_tag("Sign in with SAML SSO") %>
+  <% end %>
+```
+
+Later you can more deeply integrate Osso into your main login flow - check out Osso's React library if you use React on your front end.
+
 ### Callback
+
+Once a user authenticates against their IDP, they are returned to Osso, where Osso decodes the SAML response, normalizes a profile for the user, and returns the user to your application's `redirect_uri` in order to complete the OAuth authorization code grant flow.
+
+The `omniauth-osso` middleware handles the intermediate requests - exchanging the `authorization_code` for an `access_token` and then using the `access_token` to request a profile for the user. The profile for the user will then be available in your callback method under `request.env['omniauth.auth']`.
+
+If Osso is your first OmniAuth provider, you'll want to set up a controller to handle the Osso callback. You're responsible for creating or updating a user, and signing that user into your application however you handle user sessions.
+
+<Tabs
+  defaultValue="omniauth"
+  values={[
+    { label: 'Rails + OmniAuth', value: 'omniauth', },
+    { label: 'Rails + Devise', value: 'devise', },
+    { label: 'Sinatra', value: 'sinatra', },
+  ]
+}>
+  <TabItem value="omniauth">
+
+  ```ruby title="config/routes.rb"
+    Rails.application.routes.draw do
+      get '/auth/osso/callback', to: 'sessions#create'
+    end  
+  ```
+
+  ```ruby title="app/controllers/sessions_controller.rb"
+    class SessionsController < ApplicationController
+      def create
+        @user = User.find_or_create_from_auth_hash(auth_hash)
+        self.current_user = @user
+        redirect_to '/'
+      end
+
+      protected
+
+      def auth_hash
+        request.env['omniauth.auth']
+      end
+    end
+  ```
+  </TabItem>
+  
+  <TabItem value="devise">
+
+  ```ruby title="config/routes.rb"
+    Rails.application.routes.draw do
+      devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+    end  
+  ```
+
+  ```ruby title="app/controllers/users/omniauth_callbacks_controller.rb"
+    class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+      def osso
+        @user = User.find_or_create_from_auth_hash(auth_hash)
+        sign_in_and_redirect(@user)
+      end
+
+      protected
+
+      def auth_hash
+        request.env['omniauth.auth']
+      end
+    end
+  ```  
+  </TabItem>
+
+  <TabItem value="sinatra">
+
+  ```ruby title="app.rb"
+    class App < Sinatra::Base
+      get '/auth/osso/callback' do
+        @current_user = User.find_or_create_from_auth_hash(auth_hash)
+
+        erb :logged_in_view
+      end
+    end
+  ```
+  </TabItem>
+</Tabs>
+
+Here's an example auth hash you'll find in `request.env['omniauth.auth']`.
+
+```ruby
+  {
+    "provider" => "osso",
+    "uid" => "0f2525e2-0ae1-4c3a-8f6e-ab6d5f014efd",
+    "info" => {
+      "email" => "user@example.com",
+      "name" => "user@example.com"
+    },
+    "credentials" => {
+      "token" => "bc0d962705d3808a2de90384664dda230d293670a981a924aff7e2f074db16da",
+      "expires_at" => 1614190321,
+      "expires" => true
+    },
+    "extra" => {
+      "idp" => "Okta",
+      "requested" => {
+        "email" => "user@example.com",
+        "domain" => nil
+      }
+    }
+  }
+```

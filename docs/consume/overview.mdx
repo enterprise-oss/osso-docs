@@ -1,0 +1,125 @@
+---
+id: overview
+title: How to consume Osso
+sidebar_label: Overview
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
+import BrowserOnly from "@docusaurus/BrowserOnly";
+import BlogLogin from '../../src/components/blogLogin/index';
+
+Consuming Osso in your application is primarily a backend engineering task. Your application will allow users to sign in via Osso using an OAuth 2.0 code grant authorization flow. Osso provides libraries in a handful of languages to make this task easier. In some cases, Osso is integrated into a popular authentication library like [NextAuth.js](https://next-auth.js.org) or [Python Social Auth](https://python-social-auth.readthedocs.io/). In other cases, a language or framework approaches OAuth from a spec-driven standpoint, and integrating Osso requires using a generic OAuth library and plugging in Osso values. Osso can be used with an app written in any language. If you're already using OAuth with other providers the integration process will feel familiar to you.  
+
+You will also need to provide your users a way to sign in via SAML SSO in a manner that routes the user to the right Identity Provider. Osso provides a [hosted login page](https://demo.ossoapp.com/oauth/authorize?response_type=code&redirect_uri=https%3A%2F%2Fnextjs-demo.ossoapp.com%2Fapi%2Fauth%2Fcallback%2Fosso&scope=&state=907a2b4878d1c219480f92dbbd96add0209223cf6f2bfe7ffa3093e7f037f7bc&client_id=nextjs-demo-client-id), allowing you to use a button or link in your login form. A common approach to SAML logins is to provide an alternative login form where you collect the email or corporate domain for the user - you can take this approach with Osso and send the domain or email to your Osso instance to automatically route the user to the correct IDP. Finally, Osso provides a React library that includes a Login component as well as lower level hooks you can use to implement a single login flow that support SAML SSO, passwords, and other OAuth based login approaches.
+
+
+## Backend
+
+### OAuth Flow
+
+The OAuth 2.0 Authorization Code Grant is the most common OAuth 2.0 grant type - if you've implemented OAuth before with a service like Google or Github, then you've used this approach already. Osso's OAuth client libraries handle the intermediate requests, authorization code exchange, etc., but this describes the entire flow for consuming Osso.
+
+#### 1. Authorization
+
+Send a user who wishes to sign in with SAML to your Osso instance `authorization_url`. If you provide a `domain` or `email` param, Osso will route the user to their Identity Provider. Otherwise Osso will display a hosted login page before routing to an IDP. Start with the hosted login page and later implement your sign in UX.
+
+#### 2. Code Exchange
+
+Once the user successfully signs in to their Identity Provider, the user is redirected back to the `redirect_uri` you specified in the authorization URL query param and previously allow-listed in the Osso Admin UI. You exchange a `code` parameter for an `access_token`.
+
+#### 3. Request profile
+
+Use the `access_token` to fetch a profile for the user, allowing you to sign them in to your application. Osso access tokens are short lived and profiles are intentionally limited, but are augmented with information describing the user's Identity Provider and login flow.
+
+### Libraries and examples
+
+#### Clojure
+
+The Clojure ring ecosystem solves third party auth through a spec-compliant approach. The [ring-oauth2](https://github.com/weavejester/ring-oauth2) middleware is a popular choice for ring framework applications and Osso provides an example Clojure ring application using this library. 
+
+Get started in our <Link to={useBaseUrl('/docs/consume/clojure')}>Clojure docs</Link> or check out our example app:
+
+- [osso-clojure-example source code](https://github.com/enterprise-oss/osso-clojure-example)
+- [Osso Clojure live demo](https://https://osso-clojure-demo.herokuapp.com/)
+
+#### NodeJS
+
+The NodeJS ecosystem has a popular framework [PassportJS](http://www.passportjs.org/) for third party authentication. Osso offers a PassportJS library [passport-osso](https://github.com/enterprise-oss/passport-osso).
+
+Get started in our <Link to={useBaseUrl('/docs/consume/passport-osso')}>passport-osso docs</Link> or check out some example apps:
+
+- [osso-nodejs-example](https://github.com/enterprise-oss/osso-nodejs-example) - a clean NodeJS express app using passport-osso
+- [saas](https://github.com/enterprise-oss/saas) - a fork of saas, a boilerplate SAAS app in Node / express, typescript and using passport-osso
+
+
+#### NextJS
+
+Osso is supported as a provider in [NextAuth.js](https://next-auth.js.org), a popular authentication library for NextJS apps.
+
+Get started in our <Link to={useBaseUrl('/docs/consume/nextjs')}>NextAuthJS docs</Link> or check out our example app:
+
+- [osso-next-auth-example source code](https://github.com/enterprise-oss/osso-next-auth-example)
+- [NextJS live example](https://nextjs-demo.ossoapp.com)
+
+#### Python
+
+Osso is supported as a provider in [Python Social Auth](https://python-social-auth.readthedocs.io/), a popular authentication library for Python.
+
+Get started in our <Link to={useBaseUrl('/docs/consume/python-social-auth')}>Python docs</Link> or check out our example app:
+
+- [Python Social Auth in Django source code](https://github.com/enterprise-oss/django-example)
+
+#### Ruby
+
+The Ruby ecosystem has a popular framework [OmniAuth](https://github.com/omniauth/omniauth) for handling third party authentication. Osso offers an OmniAuth gem [omniauth-osso](https://github.com/enterprise-oss/omniauth-osso).
+
+Get started in our <Link to={useBaseUrl('/docs/consume/omniauth-osso')}>omniauth-osso docs</Link> or check out some example apps and a detailed blog post for Rails:
+
+- [osso-rails-example](https://github.com/enterprise-oss/osso-rails-example) - a clean Rails app using omniauth-osso
+- [enterprise-oss/forem](https://github.com/enterprise-oss/forem) - fork of Rails app forem which powers dev.to, using omniauth-osso
+- <Link to={useBaseUrl('/blog/saml-sso-rails')}>SAML on Rails</Link> - a detailed blog post on implementing SAML SSO in Rails
+- [Osso Rails example Live Demo](https://rails-demo.ossoapp.com/)
+
+#### SuperTokens.io
+
+If you're using SuperTokens to manage authentication in your app, Osso can be integrated as a custom OAuth provider. We provide sample code you can use to create your provider class.
+
+Get started in our <Link to={useBaseUrl('/docs/consume/supertokens')}>SuperTokens docs</Link>, the [SuperTokens docs on custom providers](https://supertokens.io/docs/thirdparty/common-customizations/sign-in-and-up/custom-providers), or check out our example app:
+
+- [osso-supertokens-node-example source code](https://github.com/enterprise-oss/osso-supertokens-node-example)
+- [Osso + SuperTokens live demo](https://supertokens-demo.ossoapp.com)
+
+## Frontend
+
+Once your backend integration is in place, users will be able to sign in to your app using Identity Provider initiated sign in. IDPs provide a dashboard where a user can see all of the apps they can access. When a user clicks on your app, they'll be sent through Osso and to your callback path.
+
+While IDP initiated sign in is convenient for SAML users, you should also provide a way for those users to authenticate directly from your application - this is known as Service Provider initiated sign in.
+
+SP initiated sign in breaks the common understanding of a login flow. Typically you will have users who sign in with email and password, and you might also support some OAuth providers like Google. But with SAML, you need to route the user to the right IDP for authentication, so you need to know who the user is before you can start authenticating them.
+
+### Osso hosted login page
+
+To begin, we recommend using Osso's [hosted login page](https://demo.ossoapp.com/oauth/authorize?response_type=code&redirect_uri=https%3A%2F%2Fnextjs-demo.ossoapp.com%2Fapi%2Fauth%2Fcallback%2Fosso&scope=&state=907a2b4878d1c219480f92dbbd96add0209223cf6f2bfe7ffa3093e7f037f7bc&client_id=nextjs-demo-client-id). 
+
+To do so, you send a user to Osso's `authorization_url` without any domain or email parameter. This allows you to put a **Sign in with SAML SSO** button in your login form, and users who click this button will be asked to enter their email address on an Osso-rendered form. Osso then handles routing the user to the correct IDP and back to your application.
+
+### SAML-only form
+
+For better branding control, you'll want to grab a user's email or domain from user input before sending the user to Osso. A common approach is to create a separate login form for SAML SSO, linking to it from your main form.
+
+In this form you can ascertain the domain or email for the user and include it as a query parameter to Osso's `authorization_url`. Depending on your backend language this might be supported by Osso's SDK, by the generic OAuth library, or not at all. Let us know if you find an OAuth library that doesn't support extra params to the `authorization_url`, we'll put a PR together.
+
+The primary drawback to this approach is that a user must remember that they use SAML SSO.
+
+### React &lt;SamlLogin /&gt; form
+
+The ideal solution is to build a single login flow that supports email / password users and SAML SSO users while not breaking password managers.
+
+If you're using React, Osso provides a React library that includes a component and lower level hooks for implementing such a login form.
+
+Here's a live example. Try entering `user@example.com` to see what happens for a user configured for SAML SSO. `user@password.com` will show you what happens when an email address is entered that is not configured for SAML SSO. Finally, try resetting the component and auto-filling from a password manager - even though we don't see the password field on load, we can still fill it!
+
+<BrowserOnly>
+  {() => <BlogLogin />}
+</BrowserOnly>
