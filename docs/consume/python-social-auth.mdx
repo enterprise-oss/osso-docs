@@ -5,6 +5,19 @@ title: Python Social Auth
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Link from '@docusaurus/Link';
+import UnderConstruction from '../../src/components/constructionCallout'
 
-Osso does not provide a Clojure SDK and is not integrated into any popular Clojure OAuth libraries. If you're using [ring](https://github.com/ring-clojure/ring), then we recommend using the [`ring-oauth2`](https://github.com/weavejester/ring-oauth2) package.
+<UnderConstruction 
+  message={
+    <span>
+      Osso's Python Social Auth integration is under construction. 
+    </span>
+  } 
+/>
+
+Osso can be used with Python Social Auth as a custom backend provider.
+
+The Osso team is working on a PR that would make Osso a first-class supported provider in Python Social Auth.
+
+While we work on that PR and better documentation here, you can review our sample app [source code](https://github.com/enterprise-oss/django-example) for a Django framework example.
 
