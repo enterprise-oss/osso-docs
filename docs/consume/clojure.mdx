@@ -1,0 +1,154 @@
+---
+id: clojure
+title: Clojure
+---
+
+import BrowserOnly from "@docusaurus/BrowserOnly";
+import BlogLogin from '../../src/components/blogLogin/index';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
+import UnderConstruction from '../../src/components/constructionCallout'
+
+Osso does not provide a Clojure SDK and is not integrated into any popular Clojure OAuth libraries. If you're using [ring](https://github.com/ring-clojure/ring), then we recommend using the [`ring-oauth2`](https://github.com/weavejester/ring-oauth2) library.
+
+We do provide a demo Clojure ring application - you can [view the source](https://github.com/enterprise-oss/osso-clojure-example) or a [live demo](https://clojure-demo.ossoapp.com). The Osso team also worked with the `ring-oauth2` maintainer to ensure this project supported all of Osso's functionality.
+
+You can review [ring-oauth2's docs](https://github.com/weavejester/ring-oauth2#installation) on the project's GitHub repo, and follow along below for a walkthrough of how to integrate Osso to this middleware.
+
+### Quick start
+
+To install `ring-oauth2`, add the following to your project `:dependencies`:
+
+    [ring-oauth2 "0.1.5"]
+
+
+Next, use the middleware function `ring.middleware.oauth2/wrap-oauth2` to wrap your application routes. 
+
+```clojure
+
+(:require [ring.middleware.oauth2 :refer [wrap-oauth2]]
+          [ring.middleware.params :refer [wrap-params]])
+
+(def handler
+  (-> myroutes
+    (wrap params)
+      (wrap-oauth2
+        ;;  ...
+      )))
+```
+
+This middleware function accepts a map of third party providers. Each provider is identified by a key and requires a map of values that instruct the middleware how to interact with the provider. Here's what this would look like for Osso.
+
+
+```clojure
+
+(:require [ring.middleware.oauth2 :refer [wrap-oauth2]]
+          [ring.middleware.params :refer [wrap-params]])
+
+(def handler
+  (-> myroutes
+    (wrap-params)
+      (wrap-oauth2 
+        {:osso
+          {
+            :authorize-uri   "https://demo.ossoapp.com/oauth/authorize"
+            :access-token-uri "https://demo.ossoapp.com/oauth/token"
+            :client-id        "demo-client-id"
+            :client-secret    "demo-client-secret"
+            :launch-uri       "/auth/osso"
+            :redirect-uri     "/auth/osso/callback"
+            :landing-uri      "/welcome" }})
+```
+
+You'll need to replace the `authorize-uri` and `access-token-uri` values with your own instance URL, and Client ID and secret values with values from your instance - these should not be placed in version control.
+
+The `launch-uri` and `redirect-uri` are specific to your application - just be sure to include the redirect URI on your Osso OAuth Client allow list. A user will be redirected to your `redirect-uri`, and `ring-oauth2` will handle exchanging the authorization code for an access token. Once the user is authenticated, a new key is added to every request that includes the access token. You are responsible for requesting a profile for the user from Osso in order to sign the user into your application.
+
+You can write a function that calls the Osso API with the access token to get the user profile:
+
+```clojure
+  (:require [clj-http.client :as client])
+
+  (defn get-osso-profile 
+    [token]
+    (-> (client/get "https://demo.ossoapp.com/oauth/me" {:oauth-token token, :as :json})
+        :body))
+```
+
+Finally, you can provide a `landing-uri` or `redirect-handler` to `ring-oauth2`. If you use the the landing URI, the user will be redirected there once an access token is available, and you'll need to write your own handler. Alternatively, provide a `redirect-handler`. Here our handler calls the Osso API to get the user's profile and prints the json to the browser. You'll instead want to sign the user in and render a logged in state.
+
+```clojure
+
+(:require [ring.middleware.oauth2 :refer [wrap-oauth2]]
+          [ring.middleware.params :refer [wrap-params]]
+          [clj-http.client :as client])
+
+(defn get-osso-profile 
+    [token]
+    (-> (client/get "https://demo.ossoapp.com/oauth/me" {:oauth-token token, :as :json})
+        :body))
+
+(defn osso-callback-handler
+  (fn [request]
+    (let [token (get-in request [:session :ring.middleware.oauth2/access-tokens :osso :token])]
+    (let [profile (get-osso-profile token)]
+    {
+      :status 200
+      :headers {"Content-Type" "application/json"}
+      :body (json/write-str profile)}))))
+
+(def handler
+  (-> myroutes
+    (wrap-params)
+      (wrap-oauth2 
+        {:osso
+          {
+            :authorize-uri   "https://demo.ossoapp.com/oauth/authorize"
+            :access-token-uri "https://demo.ossoapp.com/oauth/token"
+            :client-id        "demo-client-id"
+            :client-secret    "demo-client-secret"
+            :launch-uri       "/auth/osso"
+            :redirect-uri     "/auth/osso/callback"
+            :landing-uri      "/signed_in"
+            :redirect-handler osso-callback-handler }})
+```
+
+With that in place, your users are ready to start signing in when performing an IDP initiated login. But you'll still want to provide a way for your users to kick off the login flow when they come to your website without a current session.
+
+The simplest approach is to use Osso's hosted login page by adding a **Sign in with SAML SSO** button to your application's login page. The button should submit a POST request to `auth/osso`, so we'll stick it in a form. We also should be locking down our POST routes with CSRF protection, so we also need to post an `__anti-forgery-token`:
+
+```html
+  <form action="/auth/osso" method="post">
+    <input type="hidden" value='{{csrf_token}}' name="__anti-forgery-token" />
+    <button type="submit">Sign in with SSO</button>
+  </form>  
+```
+
+If we wanted to avoid Osso's hosted login page, we need to ascertain the email or domain from the user and include it as a parameter that we submit to our `ring-oauth2` `launch-uri`. The ring middleware will automatically include this parameter when sending the user to your Osso `authorization_url`, and Osso will use the included parameter to send the user to the proper IDP.
+
+```html {2-3}
+  <form action="/auth/osso" method="post" class="login-form">
+    <label>Email</label>
+    <input type="email" name="email" />
+    <input type="hidden" value='{{csrf_token}}' name="__anti-forgery-token" />
+    <button type="submit">Sign in with SSO</button>
+  </form>
+```
+
+<UnderConstruction 
+  message={
+    <span>
+      We have an open PR on <code>ring-oauth2</code> to include support for passing additional query params to the authorization URL. Until that's merged, you'll be forced to use Osso's hosted login page. If you need this functionality, help us <a href="https://github.com/weavejester/ring-oauth2/pull/42">get our PR merged</a>!
+    </span>
+  } 
+/>
+
+But this is really only appropriate to use if all of your users sign in with SAML, or as a SAML-only login flow. A user who is not configured for SAML will be shown an error page on Osso when they submit this form.
+
+Osso's point of view is that you should offer a single flow that starts with an email input, determines on a submit if that user should be signed in using SAML, and displaying a password input otherwise. You should take care to ensure your login form also supports auto-filling logins with one click from a password manager.
+
+If you use React, Osso provides a login component that offers this functionality. Here's a quick demo of it in action, and check out our <Link to={useBaseUrl('/docs/consume/osso-react')}>Osso React docs</Link> to learn more.
+
+<BrowserOnly>
+  {() => <BlogLogin />}
+</BrowserOnly>

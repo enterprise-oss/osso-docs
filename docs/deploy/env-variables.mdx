@@ -4,6 +4,8 @@ title: Environment variables
 ---
 
 import PaidCallout from '../../src/components/paidCallout/index'
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
 
 <PaidCallout />
 
@@ -36,7 +38,7 @@ _Example Value:_ `9c670917322529f383c1df29e861e2ea21c03d09e30ead661846fa87ebc5b3
 
 ### CORS_ORIGINS
 
-If you use Osso's React components in your application, you need to allow-list origin servers that can perform a cross-origin request as a comma separated list of origins. Be sure to remove any localhost origins from production deployments.
+If you use <Link to={useBaseUrl('docs/consume/osso-react')}>Osso's React</Link> components in your application, you need to allow-list origin servers that can perform a cross-origin request as a comma separated list of origins. Be sure to remove any localhost origins from production deployments.
 
 _Example Value:_ `https://staging.myapp.com,https://myapp.com`
 

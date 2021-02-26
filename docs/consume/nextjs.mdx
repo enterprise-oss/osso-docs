@@ -1,0 +1,316 @@
+---
+id: nextjs
+title: NextAuth.js
+---
+
+import BlogLogin from '../../src/components/blogLogin/index';
+import BrowserOnly from "@docusaurus/BrowserOnly";
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import UnderConstruction from '../../src/components/constructionCallout'
+
+<UnderConstruction 
+  message={
+    <span>
+      Osso is not yet completely supported by NextAuth.js - we have{' '}
+      <a href="https://github.com/nextauthjs/next-auth/pull/928">an open PR</a>{' '}
+      you can help us get merged 🙏
+    </span>
+  } 
+/>
+
+
+The easiest way to integrate Osso with a NextJS app is to use [NextAuth.js](https://next-auth.js.org/), an open source library for integrating OAuth providers into a NextJS app. Osso is [supported as a Provider](https://next-auth.js.org/providers/osso) in NextAuth.js.
+
+## Getting started
+
+NextAuth.js provides their own [getting started docs](https://next-auth.js.org/getting-started/example), and you can also view an [example app](https://github.com/enterprise-oss/osso-next-auth-example) that implements Osso as a provider.
+
+### Install
+
+First, add `next-auth` as a dependency with `yarn` or `npm`
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    { label: 'Yarn', value: 'yarn', },
+    { label: 'NPM', value: 'npm', },
+  ]
+}>
+  <TabItem value="yarn">
+
+  ```bash
+    yarn add next-auth
+  ```
+  </TabItem>
+  
+  <TabItem value="npm">
+
+  ```bash
+    npm install next-auth
+  ```
+  </TabItem>
+</Tabs>
+
+### Configure routes
+
+To handle auth requests, create a file called `[...nextauth].js` in `pages/api/auth`. All requests to `/api/auth/*` (signin, callback, signout, etc) will automatically be handed by NextAuth.js.
+
+```javascript title="pages/api/auth/[...nextauth].js"
+import NextAuth from 'next-auth'
+import Providers from 'next-auth/providers'
+
+export default NextAuth({
+  providers: [
+    Providers.Osso({
+      clientId: process.env.OSSO_ID,
+      clientSecret: process.env.OSSO_SECRET,
+      domain: process.env.OSSO_DOMAIN
+    }),
+  ],
+})
+```
+
+### Session provider and hook
+
+NextAuth.js provides some tooling for determining whether a user is signed in. First let's wrap our whole application with the NextAuth.js `Provider` so that we can share session state across the client app without making additional API calls.
+
+Using the supplied React `<Provider>` allows instances of `useSession()` to share the session object across components, by using [React Context](https://reactjs.org/docs/context.html) under the hood.
+
+This improves performance, reduces network calls and avoids page flicker when rendering. It is highly recommended and can be easily added to all pages in Next.js apps by using `pages/_app.js`.
+
+```jsx title="pages/_app.js"
+import { Provider } from 'next-auth/client'
+
+export default function App ({ Component, pageProps }) {
+  return (
+    <Provider session={pageProps.session}>
+      <Component {...pageProps} />
+    </Provider>
+  )
+}
+```
+
+Then, in your page components, you can implement the `useSession` hook to get information about the current user if a user is signed in.
+
+```jsx
+import { useSession } from 'next-auth/client'
+
+export default function Component() {
+  const [ session, loading ] = useSession()
+
+  if(session) {
+    return <p>Signed in as {session.user.email}</p>
+  }
+
+  return <a href="/api/auth/signin">Sign in</a>
+}
+```
+
+The shape of the session object:
+
+```js
+{
+  user: {
+    name: string,
+    email: string,
+    image: uri
+  },
+  accessToken: string,
+  expires: "YYYY-MM-DDTHH:mm:ss.SSSZ"
+}
+```
+
+## Sign in UX
+
+Once your routes are set up and you're using NextAuth's tooling for determining whether a user is signed in, you need to provide a way for your SAML SSO users to actually log in.
+
+Depending on your needs, you can begin with a simple button for signing in with SAML SSO, which would then send the user to Osso's hosted login page. If you need more customization, you can implement a SAML-only login flow that sends the user directly to their IDP, bypassing Osso's hosted login page. Finally, you can use Osso's React library to implement a login form that supports SAML SSO and email / password based logins.
+
+### Osso hosted login
+
+NextAuth.js includes a page that renders buttons for each of the Providers you implement. A user who navigates to `/api/auth/signin` will be able to click a Sign in with SAML SSO button to kick off the authentication flow.
+
+gif?
+
+You can also implement your own log in button with NextAuth's `signIn` function.
+
+```jsx title="pages/login.jsx" {1,7}
+import { signIn } from 'next-auth/client';
+
+export default function Page () {
+  return (
+    <>
+      <h1>Please Sign In</h1>
+      <button onClick={() => signIn("osso")}>
+        Sign In with SSO
+      </button>
+    </>
+  )
+}
+
+```
+
+### SAML-only form
+
+The login buttons above will take the user to Osso's hosted login page. You can have your users skip that page and instead ascertain either their email or domain, include that in the authorization request to Osso, and send the user straight through to their IDP.
+
+We once again use NextAuth's `signIn` function, but this time we need to implement a form field to get the domain from the user and include it in the `signIn` call. You could also use an email address and send that to Osso instead.
+
+```jsx title="pages/login.jsx" {1,10-12}
+import { signIn } from 'next-auth/client';
+import { useState } from "react";
+
+export default function Page () {
+  const [domain, setDomain] = useState('');
+  
+  return (
+    <>
+      <h1>Please Sign In</h1>
+      <label>Enter your company's domain</label>
+      <input type="text" value={domain} onChange={(e) => setDomain(e.target.value)}>
+      <button onClick={() => signIn("osso", null, { domain })}>
+        Sign In with SSO
+      </button>
+    </>
+  );
+}
+
+```
+
+This is an improvement over using Osso's hosted login, and plenty of companies use this approach for their SAML login flow. It allows email / password based users to use the primary login flow, meaning we aren't breaking support for password managers. But we are asking our SAML SSO users to remember that they sign in with SAML SSO. If we use a login component from Osso's React library we can solve both of these problems.
+
+### React &lt;OssoLogin /&gt;
+
+Osso's React library provides a component for a login form that interacts with your Osso instance. The component allows you to provide your own UI elements, like inputs and buttons, and acts as a "headless" component that handles determining whether a user who wants to sign in is configured to sign in with SAML via Osso. The `OssoLogin` component also supports password managers for email / password based users, so no type of user is prioritized - everyone gets a great experience.
+
+Here's an example of the component using UI components from Ant. Try `user@example.com` for SAML, `user@other.com` to reveal the password field, and try to autofill with your password manager - the password field should fill and reveal itself.
+
+<BrowserOnly>
+  {() => <BlogLogin /> }
+</BrowserOnly>  
+
+First, add Osso's React library with yarn or NPM:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    { label: 'Yarn', value: 'yarn', },
+    { label: 'NPM', value: 'npm', },
+  ]
+}>
+  <TabItem value="yarn">
+
+  ```bash
+    yarn add @enterprise-oss/osso
+  ```
+  </TabItem>
+  
+  <TabItem value="npm">
+
+  ```bash
+    npm install @enterprise-oss/osso
+  ```
+  </TabItem>
+</Tabs>
+
+We need to set up the components we want OssoLogin to use. Here we'll use an input and button from Ant, but the Osso react Repo also has examples for MaterialUI, and the API is documented here.
+
+```jsx title="pages/login.jsx"
+const ButtonComponent = ({ type, ...props }) => (
+  <Button type="primary" {...props} htmlType={type}>
+    Sign In
+  </Button>
+);
+
+const InputComponent = ({ onChange, label, ...inputProps }) => (
+  <Form.Item label={label}>
+    <Input
+      onChange={(e) => onChange && onChange(e.target.value)} // Osso expects a value in change handlers rather than events
+      {...inputProps}
+    />
+  </Form.Item>
+);
+```
+
+Then we can import the `OssoProvider` and `OssoLogin` components, ensuring to wrap our `OssoLogin` component with an `OssoProvider` configured with your Osso base URL, and providing the UI components we created above to OssoLogin. For now, we'll `console.log` the result of our auth handler props.
+
+```jsx title="pages/login.jsx"
+import { OssoLogin, OssoProvider } from "@enterprise-oss/osso";
+
+export default function Page () {  
+  return (
+    <OssoProvider
+      client={{
+        baseUrl: `https://${process.env.OSSO_DOMAIN}`,
+      }}
+    >
+      <OssoLogin
+        ButtonComponent={ButtonComponent}
+        InputComponent={InputComponent}
+        onSamlFound={(email) => {console.log(email)}}
+        onSubmitPassword={(email, password) => console.log(email, password)}}
+      />
+    </OssoProvider>
+  );
+}
+
+```
+
+When a user submits an email address, the OssoLogin component calls your Osso instance to determine if that user can sign in with SAML via Osso. If so, we'll want to kick off that auth process. It's vital that the auth flow pass through your server in order to prevent against CSRF attacks, and NextAuth will enforce that approach. We want to implement this in the `onSamlFound` prop, again using `signIn` from NextAuth and passing the email address entered by the user.
+
+```jsx title="pages/login.jsx" {2,14}
+import { OssoLogin, OssoProvider } from "@enterprise-oss/osso";
+import { signIn } from 'next-auth/client';
+
+export default function Page () {  
+  return (
+    <OssoProvider
+      client={{
+        baseUrl: `https://${process.env.OSSO_DOMAIN}`,
+      }}
+    >
+      <OssoLogin
+        ButtonComponent={ButtonComponent}
+        InputComponent={InputComponent}
+        onSamlFound={(email) => signIn("osso", null, { email })}
+        onSubmitPassword={(email, password) => console.log(email, password)}}
+      />
+    </OssoProvider>
+  );
+```
+
+If a user who cannot sign in with SAML submits an email address, the OssoLogin component will render a password field. When the user again submits the form with a password, the `onSubmitPassword` prop function is called. 
+
+Without knowing more about your authentication approach we can't instruct you too much here. NextAuth ships with support for email / password based accounts, so let's assume you're using that for simplicity here (note that NextAuth requires some additional config to speak to your database if you take this approach).
+
+We can add another sign in call, this time using `email` as the provider and providing the email and password submitted by the user.
+
+```jsx title="pages/login.jsx" {15}
+import { OssoLogin, OssoProvider } from "@enterprise-oss/osso";
+import { signIn } from 'next-auth/client';
+
+export default function Page () {  
+  return (
+    <OssoProvider
+      client={{
+        baseUrl: `https://${process.env.OSSO_DOMAIN}`,
+      }}
+    >
+      <OssoLogin
+        ButtonComponent={ButtonComponent}
+        InputComponent={InputComponent}
+        onSamlFound={(email) => signIn("osso", null, { email })}
+        onSubmitPassword={(email, password) => signIn("email", { email, password })}}
+      />
+    </OssoProvider>
+  );
+```
+
+## All done!
+
+That's it! Your NextJS app now has support for SAML SSO authentication. Our login form makes every type of user happy, we're being secure about how we consume Osso's OAuth server and we aren't forcing our SAML users to remember that they need to sign in with SAML.
+
+[Continue reading about NextAuth.js](https://next-auth.js.org/getting-started/introduction) for adding features like a sign out button.

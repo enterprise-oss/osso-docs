@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  margin: 12px;
+}
+
+.message {
+  margin: auto;
+  text-align: center;
+}
