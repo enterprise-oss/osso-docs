@@ -10,6 +10,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import UnderConstruction from '../../src/components/constructionCallout'
 import SupportedProviders from '../../src/components/supportedProviders'
+import BlogLogin from '../../src/components/BlogLogin'
 import CustomLogin from '../../src/components/customLogin'
 import BrowserOnly from "@docusaurus/BrowserOnly";
 
@@ -98,8 +99,109 @@ Osso's components make an effort to be "headless" - they handle logic and layout
 
 ### &lt;OssoLogin&gt;
 
+The Osso Login component is designed to allow you to craft a login experience that serves SAML SSO users and email / password users equally well, while not breaking password managers and maintaining the look and feel of your application.
+
+When a user wants to sign in to your application with SAML SSO, Osso needs to route the user to the correct Identity Provider. The simplest way to achieve this is using Osso's hosted login page, but the strongest UX would be for you to ascertain whether a user is configured for SAML SSO and to send them directly to their IDP. `<OssoLogin>` allows you to do this without building your own form.
+
+We like to call this component "headless" - it renders layout and handles interaction, but accepts UI components as props in order to match your look and feel.
+
+Here's a live example, and we have CodeSandbox examples using [Material UI](https://codesandbox.io/s/github/enterprise-oss/osso-react/tree/main/examples/mui) and [Ant Design](https://codesandbox.io/s/github/enterprise-oss/osso-react/tree/main/examples/ant):
+
+<BrowserOnly>
+  {() => <BlogLogin /> }
+</BrowserOnly>  
+
+Here's a code sample:
+
+```jsx
+ <OssoLogin
+  containerClass={styles.loginForm}
+  ButtonComponent={ButtonComponent}
+  InputComponent={InputComponent}
+  onSamlFound={(email) => console.log(email)}
+  onSubmitPassword={(email, password) => console.log(email, password)}
+/>
+```
+
+These are the available props:
+
+| Prop     | Required | Description |
+| ------- | :---------:|-------------|
+| containerClass | false | The className to put on the form container rendered by the component
+| ButtonComponent | false | A UI component for the login form's submit button - see below for API
+| InputComponent | false | A UI component for the login form's inputs - see below for API
+| onSamlFound | **true** | A function to be called when an IDP is found for the provided email address
+| onSubmitPassword | **true** | A function to be called when a non-SAML user submits the login form with a password
+
+**ButtonComponent**
+
+By default, Osso will render an HTML button.
+
+Here's a quick example of a button component that fits Osso's requirements, assuming you already have a Button component in your application.
+
+```js
+
+const ButtonComponent = ({ type, ...props }) => (
+  <Button type="primary" {...props} htmlType={type}>
+    Sign In
+  </Button>
+);
+
+```
+
+Here are the props OssoLogin will provide to an instance of your ButtonComponent class or function. You should accept all of these props, but the props marked as **required** are absolutely necessary for functionality.
+
+| Prop     | Required | Description |
+| ------- | :---------:|-------------|
+| children | false | The default button text
+| disabled | false | Will be `true` when user input is required
+| loading | false | Will be `true` when an API call is in flight
+| onClick | **true** | When your button is clicked, it must call the `onClick` prop function provided by OssoLogin
+| type | false | Osso will provide the expected ARIA role type, one of `'button'` or `'submit'`
+
+
+**InputComponent**
+
+By default, Osso will render an HTML input.
+
+Here's a quick example of a input component that fits Osso's requirements, assuming you already have an Input component in your application.
+
+```js
+const InputComponent = ({ onChange, label, id,  ...inputProps }) => (
+  <>
+  <label htmlFor={id}>{label}</label>
+  <Input
+    onChange={(e) => onChange && onChange(e.target.value)} // Osso expects a value in change handlers rather than events
+    {...inputProps}
+    id={id}
+  />
+);
+```
+
+Here are the props OssoLogin will provide to an instance of your InputComponent class or function. You component should accept all of these props in order to avoid React errors, but the props marked as **required** are necessary for functionality.
+
+| Prop     | Required | Description |
+| ------- | :---------:|-------------|
+| autoComplete | false | HTML autocomplete type, one of `'email'` or `'password'`
+| id | false | The ID of the input - useful for a label's `htmlFor` prop.
+| label | false | A string for the Input's label - highly recommended you use this
+| onChange | **true** | A function to be called when the controlled input value changes - must update the value, and provides the actual value rather than the change event
+| required | false | Whether the input is required by the HTML form, highly recommended that you use this
+| type | false | Osso will provide HTML type, one of `'email'` or `'password'`, used by the browser for validation and hiding the password, highly recommended that you use this
+| value | **true** | A prop for holding the controlled input's value
+
+
+
 ### SAML Configuration
 
+The SAML configuration components included in the Osso React library are the same components Osso uses in the Admin UI to allow SAML configuration. The components themselves are relatively stable, but the Osso team is still working through how best to authenticate end-user requests made by these components. 
+
+We recommend starting with onboarding customers via the Admin UI. Let us know if moving that configuration flow to your own application is important to your integration.
+
+The configuration components can be found in the [Osso React Github repository](https://github.com/enterprise-oss/osso-react/tree/main/src/hooks), and the [main Osso repository](https://github.com/enterprise-oss/osso/tree/main/client/src) provides examples. You can also view some examples on CodeSandbox:
+
+- [MaterialUI codesandbox](https://codesandbox.io/s/github/enterprise-oss/osso-react/tree/main/examples/mui)
+- [Ant Design codesandbox](https://codesandbox.io/s/github/enterprise-oss/osso-react/tree/main/examples/ant)
 
 
 ## Hooks
@@ -166,7 +268,7 @@ Here's a quick example hooked up to the Osso demo instance:
 
 ## Utilities
 
-Osso React provides some utility functions that may be useful to you whether you use an Osso instance or not. 
+Osso React provides some utility functions that may be useful to you whether you use an Osso instance or not.
 
 ### documentationWriter
 
