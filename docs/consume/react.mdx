@@ -1,0 +1,299 @@
+---
+id: osso-react
+title: Osso React
+sidebar_label: React
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import UnderConstruction from '../../src/components/constructionCallout'
+import SupportedProviders from '../../src/components/supportedProviders'
+import BlogLogin from '../../src/components/blogLogin'
+import CustomLogin from '../../src/components/customLogin'
+import BrowserOnly from "@docusaurus/BrowserOnly";
+
+<UnderConstruction 
+  message={
+    <span>
+      Osso's React library is still under construction. <code>&lt;OssoLogin /&gt;</code> is fully documented and ready for you to use in your application, but portions of this library for adding SAML configuration flows to your application are still under construction.
+    </span>
+  } 
+/>
+
+Osso offers a React library that you can use to deepen your Osso integration with your application. The package includes high level components for things like a login form as well as lower level hooks and utilities for crafting your own login or SAML configuration features. The library is written natively in Typescript and provides it's own type definitions.
+
+## Get started
+
+### Examples
+
+- [MaterialUI codesandbox](https://codesandbox.io/s/github/enterprise-oss/osso-react/tree/main/examples/mui)
+- [Ant Design codesandbox](https://codesandbox.io/s/github/enterprise-oss/osso-react/tree/main/examples/ant)
+- [Osso](https://github.com/enterprise-oss/osso) - Osso uses our own React library to build our Admin UI
+- [NextJS live demo](https://nextjs-demo.ossoapp.com)
+- [NextJS example source code](https://github.com/enterprise-oss/osso-next-auth-example)
+
+### Install
+
+Install `@enterprise-oss/osso` as a runtime dependency with Yarn or NPM:
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    { label: 'Yarn', value: 'yarn', },
+    { label: 'NPM', value: 'npm', },
+  ]
+}>
+  <TabItem value="yarn">
+
+  ```bash
+    yarn add @enterprise-oss/osso
+  ```
+  </TabItem>
+  
+  <TabItem value="npm">
+
+  ```bash
+    npm install @enterprise-oss/osso
+  ```
+  </TabItem>
+ </Tabs> 
+
+### Setup
+
+After installing the package, you need to use the `<OssoProvider>` component to wrap any Osso components to provide them context about your Osso instance. If you're planning on using the `<OssoLogin>` component then we suggest placing the `<OssoProvider/>` as high up in your application's component tree as possible.
+
+```js title="app.js"
+import { OssoProvider } from "@enterprise-oss/osso";
+import React from "react";
+
+function App() {
+  return (
+    <OssoProvider
+      client={{
+        baseUrl: "https://demo.ossoapp.com",
+      }}
+    >
+    {/* The rest of your application components */}
+     </OssoProvider>
+  );
+}
+
+export default App;
+
+```
+
+The `<OssoProvider>` requires a **client** prop with the following properties.
+
+| Key     | Required | Description |
+| ------- | :---------:|-------------|
+| baseUrl | **true** | The base URL of your Osso instance, i.e. `https://sso.myapp.com`
+| jwt     | false    | A JSON web token authenticating an end user. Utilized for self-serve SAML configuration which is under construction 👷🏽‍♀️
+
+## Components
+
+Osso React components can be divided into two categories - a component for crafting a login form and components that allow your users to configure their own SAML identity providers.
+
+Osso's components make an effort to be "headless" - they handle logic and layout, but allow you to provide your own UI elements to match the look and feel of the rest of your application.
+
+### &lt;OssoLogin&gt;
+
+The Osso Login component is designed to allow you to craft a login experience that serves SAML SSO users and email / password users equally well, while not breaking password managers and maintaining the look and feel of your application.
+
+When a user wants to sign in to your application with SAML SSO, Osso needs to route the user to the correct Identity Provider. The simplest way to achieve this is using Osso's hosted login page, but the strongest UX would be for you to ascertain whether a user is configured for SAML SSO and to send them directly to their IDP. `<OssoLogin>` allows you to do this without building your own form.
+
+We like to call this component "headless" - it renders layout and handles interaction, but accepts UI components as props in order to match your look and feel.
+
+Here's a live example, and we have CodeSandbox examples using [Material UI](https://codesandbox.io/s/github/enterprise-oss/osso-react/tree/main/examples/mui) and [Ant Design](https://codesandbox.io/s/github/enterprise-oss/osso-react/tree/main/examples/ant):
+
+<BrowserOnly>
+  {() => <BlogLogin /> }
+</BrowserOnly>  
+
+Here's a code sample:
+
+```jsx
+ <OssoLogin
+  containerClass={styles.loginForm}
+  ButtonComponent={ButtonComponent}
+  InputComponent={InputComponent}
+  onSamlFound={(email) => console.log(email)}
+  onSubmitPassword={(email, password) => console.log(email, password)}
+/>
+```
+
+These are the available props:
+
+| Prop     | Required | Description |
+| ------- | :---------:|-------------|
+| containerClass | false | The className to put on the form container rendered by the component
+| ButtonComponent | false | A UI component for the login form's submit button - see below for API
+| InputComponent | false | A UI component for the login form's inputs - see below for API
+| onSamlFound | **true** | A function to be called when an IDP is found for the provided email address
+| onSubmitPassword | **true** | A function to be called when a non-SAML user submits the login form with a password
+
+**ButtonComponent**
+
+By default, Osso will render an HTML button.
+
+Here's a quick example of a button component that fits Osso's requirements, assuming you already have a Button component in your application.
+
+```js
+
+const ButtonComponent = ({ type, ...props }) => (
+  <Button type="primary" {...props} htmlType={type}>
+    Sign In
+  </Button>
+);
+
+```
+
+Here are the props OssoLogin will provide to an instance of your ButtonComponent class or function. You should accept all of these props, but the props marked as **required** are absolutely necessary for functionality.
+
+| Prop     | Required | Description |
+| ------- | :---------:|-------------|
+| children | false | The default button text
+| disabled | false | Will be `true` when user input is required
+| loading | false | Will be `true` when an API call is in flight
+| onClick | **true** | When your button is clicked, it must call the `onClick` prop function provided by OssoLogin
+| type | false | Osso will provide the expected ARIA role type, one of `'button'` or `'submit'`
+
+
+**InputComponent**
+
+By default, Osso will render an HTML input.
+
+Here's a quick example of a input component that fits Osso's requirements, assuming you already have an Input component in your application.
+
+```js
+const InputComponent = ({ onChange, label, id,  ...inputProps }) => (
+  <>
+  <label htmlFor={id}>{label}</label>
+  <Input
+    onChange={(e) => onChange && onChange(e.target.value)} // Osso expects a value in change handlers rather than events
+    {...inputProps}
+    id={id}
+  />
+);
+```
+
+Here are the props OssoLogin will provide to an instance of your InputComponent class or function. You component should accept all of these props in order to avoid React errors, but the props marked as **required** are necessary for functionality.
+
+| Prop     | Required | Description |
+| ------- | :---------:|-------------|
+| autoComplete | false | HTML autocomplete type, one of `'email'` or `'password'`
+| id | false | The ID of the input - useful for a label's `htmlFor` prop.
+| label | false | A string for the Input's label - highly recommended you use this
+| onChange | **true** | A function to be called when the controlled input value changes - must update the value, and provides the actual value rather than the change event
+| required | false | Whether the input is required by the HTML form, highly recommended that you use this
+| type | false | Osso will provide HTML type, one of `'email'` or `'password'`, used by the browser for validation and hiding the password, highly recommended that you use this
+| value | **true** | A prop for holding the controlled input's value
+
+
+
+### SAML Configuration
+
+The SAML configuration components included in the Osso React library are the same components Osso uses in the Admin UI to allow SAML configuration. The components themselves are relatively stable, but the Osso team is still working through how best to authenticate end-user requests made by these components. 
+
+We recommend starting with onboarding customers via the Admin UI. Let us know if moving that configuration flow to your own application is important to your integration.
+
+The configuration components can be found in the [Osso React Github repository](https://github.com/enterprise-oss/osso-react/tree/main/src/hooks), and the [main Osso repository](https://github.com/enterprise-oss/osso/tree/main/client/src) provides examples. You can also view some examples on CodeSandbox:
+
+- [MaterialUI codesandbox](https://codesandbox.io/s/github/enterprise-oss/osso-react/tree/main/examples/mui)
+- [Ant Design codesandbox](https://codesandbox.io/s/github/enterprise-oss/osso-react/tree/main/examples/ant)
+
+
+## Hooks
+
+If Osso's React components don't suit your needs, the library also exposes lower level React hooks that you can use in your own components. 
+
+Our hooks aren't yet fully documented and still under construction, but here are a couple you might find useful. You can find th rest in the [Osso React Github repository](https://github.com/enterprise-oss/osso-react/tree/main/src/hooks).
+
+### useOssoFields
+
+The `useOssoFields` hook is useful for relaying data about Osso's supported Identity Providers.
+
+You might use this to construct a flow for SAML self-config, or to tell your users which Identity Providers you support without having to hardcode anything.
+
+```javascript
+import { useOssoFields } from "@enterprise-oss/osso";
+import React from "react";
+
+import styles from "./styles.module.css";
+
+const SupportedProviders = () => {
+  const { providers } = useOssoFields();
+
+  return (
+    <div className={styles.container}>
+      {providers.map((provider) => (
+        <img
+          key={provider.value}
+          src={provider.iconUrl}
+          className={styles.image}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default SupportedProviders;
+
+```
+The above code would produce the following:
+
+<SupportedProviders />
+
+### useOssoLogin
+
+The `useOssoLogin` hook is useful for crafting a login form that supports both SAML and email / password inputs. The hook allows you to call a function that asks the Osso API whether a configured Identity Provider exists for the submitted email. The return tuple for the hook includes this function as well as a `loading` prop.
+
+```javascript
+
+const { providerExists, loading } = useOssoLogin();
+  
+const checkForProvider = async (email) => {
+  const exists = await providerExists(email.split("@")[1]);
+  // Do something with existence - if true, start signing the user in via Osso,
+  // otherwise display a password field.
+};
+
+```
+
+Here's a quick example hooked up to the Osso demo instance:
+
+<CustomLogin />
+
+
+## Utilities
+
+Osso React provides some utility functions that may be useful to you whether you use an Osso instance or not.
+
+### documentationWriter
+
+One of the best parts about Osso is our sparkling custom documentation for IDP admins to configure your app in their IDP. 
+
+The `documentationWriter` utility function will interpolate the required data into Osso's raw PDF docs to create a custom document for a customer.
+
+The best place to understand how to use this functionality without Osso is taking a look at the [unit tests](https://github.com/enterprise-oss/osso-react/blob/main/src/utils/documentationWriter/index.test.js). If you want to use this utility within an OssoProvider, your best bet is to use the `useOssoDocs` hook.
+
+### parseMetadataXML
+
+The easiest way to receive SAML config data back from your customer is to have them send you a federated metadata XML file. 
+
+This utility parses those XML files from all Osso supported IDPs into a JS object with the required values for finalizing config.
+
+```js
+
+import { parseMetadataXML } from '@enterprise-oss/osso'
+
+  const idpMetadata = // An XML string 
+  const result = parseMetadataXML(idpMetadata);
+
+  // => {
+  //   ssoUrl: 'https://...',
+  //   ssoCert: 'MIIDdDCCAlygAwIBAgIGAXPpk/8...'    
+  // }
+
+```

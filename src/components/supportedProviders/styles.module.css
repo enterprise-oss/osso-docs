@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-content: center;
+  max-width: 300px;
+  grid-gap: 24px;
+}
+
+.image {
+  padding: 12px;
+  margin: auto;
+}
+

@@ -80,7 +80,7 @@ module.exports = {
       },
     },
     prism: {
-      additionalLanguages: ["ruby"],
+      additionalLanguages: ["ruby", "clojure"],
     },
     footer: {
       style: "dark",
