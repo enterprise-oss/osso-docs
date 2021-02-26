@@ -34,6 +34,7 @@ module.exports = {
         "consume/passport-osso",
         "consume/python-social-auth",
         "consume/supertokens",
+        "consume/osso-react",
       ],
     },
     {
