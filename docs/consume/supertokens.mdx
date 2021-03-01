@@ -10,14 +10,103 @@ import UnderConstruction from '../../src/components/constructionCallout'
 <UnderConstruction 
   message={
     <span>
-      Osso's SuperTokens integration is under construction. 
+      SuperTokens is pretty new and is missing some core features for a best-in-class Osso integration. If you're starting out building an enterprise application in NodeJS, we wouldn't recommend using SuperTokens just yet. Roll your own authentication and use <Link to={useBaseUrl('docs/consume/passport-osso')}>passport-osso</Link> to integrate Osso.
     </span>
   } 
 />
 
-Osso can be used with SuperTokens as a custom thirdparty provider if you're using SuperTokens with NodeJS.
+Osso can be used with SuperTokens as a custom thirdparty provider for SuperToken's login feature. SuperTokens login is only currently only supported in their NodeJS middleware, but the Osso team will ensure compatibility with SuperToken's future modules.
 
-The Osso team is working on [a PR that would tighten the SuperTokens integration](https://github.com/supertokens/supertokens-node/issues/94), allowing developers to skip Osso's hosted login page and send a user directly to their IDP.
+SuperTokens is still pretty new and does not yet perfectly support all of Osso's capabilities. You will be restricted to using Osso's hosted login page if you're using SuperTokens React library for login unless you dive deep into SuperTokens internals and create your own login flow.
 
-While we work on that PR and better documentation here, you can review our sample app [source code](https://github.com/enterprise-oss/osso-supertokens-node-example) or [live example](https://supertokens-demo.ossoapp.com)
+Osso provides a sample app with [source code](https://github.com/enterprise-oss/osso-supertokens-node-example) or a [live example](https://supertokens-demo.ossoapp.com).
 
+## Custom provider setup
+
+To integrate Osso to SuperTokens you need to specify Osso as a custom `ThirdParty` provider on at least your back end. If you use the complementary SuperTokens React package on your frontend, you also need to specify Osso in your client-side SuperTokens initialization.
+
+### NodeJS backend
+
+Add Osso to your `supertokens.init` function as a `recipeList` `ThirdParty` `signInAndUpFeature` `provider`. The `init` call here is only showing the `recipeList` key for brevity. Review [SuperTokens getting started docs](https://supertokens.io/docs/nodejs/installation) if you don't already have this function call in place.
+
+You'll need to set three ENV variables from your Osso instance. `OSSO_BASE_URL` is the base url with protocol of your Osso instance, i.e. `https://demo.ossoapp.com`, while the `OSSO_CLIENT_ID` and `OSSO_CLIENT_SECRET` are specific to an OAuth client in your Osso instance. Make sure you add the expected redirect URI to your Osso OAuth Client allow list, i.e. `https://yourapp.com/auth/callback/osso`.
+
+```javascript
+  supertokens.init({
+      //  ...
+      recipeList: [
+          ThirdParty.init({
+              signInAndUpFeature: {
+                  providers: [
+                      {
+                          id: "osso",
+                          get: async (redirectURI, authCodeFromRequest) => {
+                              return {
+                                  accessTokenAPI: {
+                                      url: `${process.env.OSSO_BASE_URL}/oauth/token`,
+                                      params: {
+                                          client_id:  process.env.OSSO_CLIENT_ID,
+                                          client_secret:  process.env.OSSO_CLIENT_SECRET,
+                                          grant_type: "authorization_code",
+                                          redirect_uri: redirectURI,
+                                          code: authCodeFromRequest,
+                                      }
+                                  },
+                                  authorisationRedirect: {
+                                      url: `${process.env.OSSO_BASE_URL}/oauth/authorize`,
+                                      params: {
+                                          client_id: process.env.OSSO_CLIENT_ID,
+                                          response_type: "code",
+                                      }
+                                  },
+                                  getProfileInfo: async (accessTokenAPIResponse) => {
+                                      let authHeader = `Bearer ${accessTokenAPIResponse.access_token}`;
+                                      let response = await axios({
+                                          method: "get",
+                                          url: `${process.env.OSSO_BASE_URL}/oauth/me`,
+                                          headers: {
+                                              Authorization: authHeader,
+                                          },
+                                      });
+                                    
+                                      return {
+                                          id: response.data.id,
+                                          email: {
+                                              id: response.data.email, // emailID
+                                              isVerified: true,
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  ]
+              }
+          }),
+          Session.init()
+      ]
+  });
+```
+
+### React frontend
+
+If you're using SuperTokens React frontend library to manage login and sessions, you need to specify Osso again as a thirdparty provider. This allows SuperTokens to render a button for signing in with SAML SSO, which in turn will send a user to Osso's hosted login page.
+
+```javascript title="App.js"
+  SuperTokens.init({
+    recipeList: [
+      ThirdParty.init({
+        signInAndUpFeature: {
+          providers: [
+            {
+              id: "osso",
+              name: "SAML SSO"
+          }
+          ]
+        },
+      }),
+      Session.init()
+    ]
+  });
+
+```

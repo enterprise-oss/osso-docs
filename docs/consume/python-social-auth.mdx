@@ -5,19 +5,67 @@ title: Python Social Auth
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Link from '@docusaurus/Link';
-import UnderConstruction from '../../src/components/constructionCallout'
 
-<UnderConstruction 
-  message={
-    <span>
-      Osso's Python Social Auth integration is under construction. 
-    </span>
-  } 
-/>
+Osso is supported in Python Social Auth as a backend provider. Python Social Auth is a popular authentication and authorization mechanism for Python projects in various frameworks like Django or Flask. If you're already using Python Social Auth for other providers continue below for integrating Osso. Otherwise start with [Python Social Auth's installation documentation](https://python-social-auth.readthedocs.io/en/latest/installing.html). You can also review Osso's docs for [Python Social Auth here](https://python-social-auth.readthedocs.io/en/latest/backends/osso.html), and view a [Django example that integrates Osso here](https://github.com/enterprise-oss/django-example).
 
-Osso can be used with Python Social Auth as a custom backend provider.
+### Backend configuration
 
-The Osso team is working on a PR that would make Osso a first-class supported provider in Python Social Auth.
+In order to utilize Osso as a provider with Python Social Auth, you first need to add Osso to your `AUTHENTICATION_BACKENDS`:
 
-While we work on that PR and better documentation here, you can review our sample app [source code](https://github.com/enterprise-oss/django-example) for a Django framework example.
+```python title="settings.py" {3}
+    AUTHENTICATION_BACKENDS = (
+        ...
+        'social_core.backends.osso.OssoOAuth2',
+    )
+```
 
+The you need to configure the Osso backend with the Client ID, Client Secret and base URL from your Osso instance. First, ensure that the Osso OAuth Client you are using for this application has a redirect URI on its allow list, replacing `your-app.com` with your application's domain:
+
+```
+  https://yourapp.com/complete/osso/
+```
+
+Grab the `Client ID` and `Client Secret`, and make note of your Osso URL. You need to set these values in your application. The `Client ID` and `Client Secret` should not be committed to version control and instead be set in your application's environment.
+
+```python title="settings.py"
+    SOCIAL_AUTH_OSSO_KEY = os.getenv('SOCIAL_AUTH_OSSO_KEY')
+    SOCIAL_AUTH_OSSO_SECRET = os.getenv('SOCIAL_AUTH_OSSO_SECRET')
+    SOCIAL_AUTH_OSSO_BASE_URL = 'https://demo.ossoapp.com'
+```
+
+Depending on your application, you'll also need to set the following settings to determine where users are sent when they login, when they attempt to access a protected path without a session, and the pipeline, an extendible mechanism where you can implement functions during the authentication, association and disconnection flows:
+
+```python title="settings.py"
+
+LOGIN_REDIRECT_URL='/profile'
+LOGIN_URL='/'
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+```
+
+### Sign in UX
+
+Once your Osso backend is in place we need to provide a way for users to sign in. With SAML SSO, we need to determine who a user is in order to direct them to the proper Identity Provider for authentication.
+
+Osso can handle that on a hosted login page, or you can have your users skip the hosted login page by collecting their email or domain yourself. An example form for collecting the user's email and kicking off authentication via Osso could look like this:
+
+```html
+  <form action="{% url 'social:begin' 'osso' %}" method="post">
+    <label>Email</label>
+    <input type="email" name="email" />
+    {% csrf_token %}
+    <button type="submit">Sign in with SSO</button>
+  </form>  
+  ```
+
+  If you're using React on your front end, check out <Link to={useBaseUrl('docs/consume/osso-react')}>Osso's React library documentation</Link> to learn about our login form component.
