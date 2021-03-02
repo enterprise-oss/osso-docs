@@ -4,12 +4,18 @@
  * and scoped locally.
  */
 
-.hero {
-  padding: 80px;
-  border: 1px solid #fff;
-  border-radius: 60px;
+.heroWrapper {
+  padding: 16px;
   max-width: 984px;
   margin: 126px auto 80px;
+  max-width: 984px;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='60' ry='60' stroke='%23fff' stroke-width='3' stroke-dasharray='26' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  border-radius: 60px;
+}
+
+.hero {
+  padding: 80px;
+  border-radius: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,9 +90,36 @@
   max-height: 62px;
 }
 
+.blogRoll {
+  background-color: var(--ifm-background-color);
+}
+
+.blogTeasers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 64px;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 
 
 @media screen and (max-width: 996px) {
+  .heroWrapper {
+    background-image: none;
+    padding: 0;
+    border-radius: 0;
+  }
 
+  .hero {
+    border-radius: 0;
+  }
+
+  .benefit {
+    max-width: 1144px;
+    margin: 160px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
