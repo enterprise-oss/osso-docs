@@ -4,6 +4,88 @@
  * and scoped locally.
  */
 
+.hero {
+  padding: 80px;
+  border: 1px solid #fff;
+  border-radius: 60px;
+  max-width: 984px;
+  margin: 126px auto 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--ifm-hero-background-color);
+}
+
+.hero h1 {
+  font-size: 64px;
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.benefit {
+  max-width: 1144px;
+  margin: 160px auto;
+  display: grid;
+  grid-column-gap: 64px;
+  grid-template-columns: 52% 1fr;
+  align-items: center;
+}
+
+.benefitReverse {
+  grid-template-columns: 1fr 52%;
+}
+
+.benefit h3 {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 47px;
+}
+
+.benefit p {
+  font-size: 24px;
+}
+
+.separator {
+  stroke: var(--ifm-color-content-secondary);
+}
+
+.alt {
+  background-color: var(--ifm-hero-background-color);
+  padding: 72px;
+}
+
+.alt > h2 {
+  font-size: 48px;
+  margin-bottom: 72px;
+  text-align: center;
+}
+
+
+.providerLogos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.providerLogos > div {
+  width: 130px;
+  height: 130px;
+  background-color: var(--ifm-color-content-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #F1F3F4;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 36px;
+}
+
+.providerLogo {
+  max-height: 62px;
+}
+
+
+
 
 @media screen and (max-width: 996px) {
 
