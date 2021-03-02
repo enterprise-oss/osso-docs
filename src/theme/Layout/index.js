@@ -18,7 +18,7 @@ import clsx from "clsx";
 import React, { useEffect } from "react";
 
 function Layout(props) {
-  const { children, noFooter, wrapperClassName } = props;
+  const { children, noFooter, wrapperClassName, noNavbar } = props;
   useKeyboardNavigation();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function Layout(props) {
 
       <AnnouncementBar />
 
-      <Navbar />
+      {!noNavbar && <Navbar />}
 
       <div className={clsx("main-wrapper", wrapperClassName)}>{children}</div>
 

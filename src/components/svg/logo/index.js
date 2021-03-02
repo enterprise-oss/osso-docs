@@ -3,8 +3,9 @@ import React from "react";
 
 import styles from "./styles.module.css";
 
-export default () => (
+export default (props) => (
   <svg
+    {...props}
     className={classnames("navbar__logo", styles.svg)}
     viewBox="0 0 64 64"
     fill="none"

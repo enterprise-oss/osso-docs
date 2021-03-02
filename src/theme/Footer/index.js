@@ -6,60 +6,89 @@
  */
 
 import Link from "@docusaurus/Link";
-import { Button, Form, Input } from "antd";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import classnames from "classnames";
 import React from "react";
-import { useMediaQuery } from "react-responsive";
 
-import screens from "../../utils/responsive";
+import Logo from "../../components/svg/logo";
 import styles from "./styles.module.css";
 
 function Footer() {
-  const isLargeScreen = useMediaQuery({ query: screens.large });
-
   return (
     <footer className={classnames("footer", styles.footer)}>
-      <div className={classnames("container", styles.container)}>
-        <div className={styles.footerRow}>
-          {isLargeScreen && (
-            <div className={styles.footerCol}>
-              <a href="mailto:hello@enterpriseoss.dev">
-                hello@enterpriseoss.dev
-              </a>
-              <p>Osso © EnterpriseOSS, Inc.</p>
-              <p>Brooklyn, NY</p>
-            </div>
-          )}
-          {isLargeScreen && (
-            <div className={styles.footerCol}>
-              <form
-                name="email-list"
-                method="post"
-                data-netlify="true"
-                data-netlify-honeypot="bot-field"
-              >
-                <input type="hidden" name="form-name" value="email-list" />
-                <label htmlFor="footer-email">
-                  Enter your email to receive updates from Osso
-                </label>
-                <Input.Group>
-                  <Input
-                    id="footer-email"
-                    name="email"
-                    type="email"
-                    style={{ width: "220px" }}
-                  />
-                  <Button htmlType="submit">Submit</Button>
-                </Input.Group>
-              </form>
-            </div>
-          )}
-          <div className={styles.footerCol}>
-            {false && <Link to="/faq">F.A.Q.</Link>}
-            <a href="/legal/cookie">Cookie Policy</a>
-            <a href="/legal/privacy">Privacy Policy</a>
-            <a href="/legal/terms-conditions">Legal Terms</a>
-          </div>
+      <div className={styles.footerContent}>
+        <Logo width={56} />
+        <div>
+          <h3>Connect</h3>
+          <ul>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>Github</Link>
+            </li>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>Discord</Link>
+            </li>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>Twitter</Link>
+            </li>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>LinkedIn</Link>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>Docs</h3>
+          <ul>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>Quick Start</Link>
+            </li>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>Deploy</Link>
+            </li>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>Configure</Link>
+            </li>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>Consume</Link>
+            </li>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>Use</Link>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Learn</h3>
+          <ul>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>SAML vs. OAuth</Link>
+            </li>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>SAML SSO Rails</Link>
+            </li>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>SAML SSO NodeJS</Link>
+            </li>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>SAML SSO Clojure</Link>
+            </li>
+            <li>
+              <Link to={useBaseUrl("/docs/quick-start")}>SAML SSO Python</Link>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <ul>
+            <li>
+              <a href="/legal/cookie">Cookie Policy</a>
+            </li>
+            <li>
+              <a href="/legal/privacy">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="/legal/terms-conditions">Legal Terms</a>
+            </li>
+          </ul>
         </div>
       </div>
     </footer>

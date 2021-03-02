@@ -20,14 +20,14 @@ module.exports = {
         appId: "BH4D9OD16A",
       },
     },
-    announcementBar: {
-      id: "support_us", // Any value that will identify this message.
-      content:
-        'Osso v1.0.0.rc is out! 🎉 🍾 Read our <a href="/blog/1-0-0-release-candidate">launch blog post</a>.',
-      backgroundColor: "#fafbfc", // Defaults to `#fff`.
-      textColor: "#091E42", // Defaults to `#000`.
-      isCloseable: false, // Defaults to `true`.
-    },
+    // announcementBar: {
+    //   id: "support_us", // Any value that will identify this message.
+    //   content:
+    //     'Osso v1.0.0.rc is out! 🎉 🍾 Read our <a href="/blog/1-0-0-release-candidate">launch blog post</a>.',
+    //   backgroundColor: "#fafbfc", // Defaults to `#fff`.
+    //   textColor: "#091E42", // Defaults to `#000`.
+    //   isCloseable: false, // Defaults to `true`.
+    // },
     googleAnalytics: {
       trackingID: "UA-177630158-1",
     },
@@ -110,6 +110,8 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} Enterprise OSS - Built with Docusaurus.`,
     },
     colorMode: {
+      defaultMode: "dark",
+      respectPrefersColorScheme: false,
       switchConfig: {
         darkIcon: "🌙",
         darkIconStyle: {},
@@ -157,7 +159,6 @@ module.exports = {
     ],
     path.resolve(__dirname, "netlify-forms"),
     path.resolve(__dirname, "stripe-js"),
-    path.resolve(__dirname, "chatwoot"),
     path.resolve(__dirname, "cookie-consent"),
     "posthog-docusaurus",
   ],
