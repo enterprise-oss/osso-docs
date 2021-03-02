@@ -10,6 +10,7 @@ import { useMediaQuery } from "react-responsive";
 
 import BlogTeaser from "../components/blogTeaser";
 import AdminUI from "../components/svg/AdminUI.svg";
+import NextJS from "../components/svg/nextjs.svg";
 import OAuth from "../components/svg/Oauth.svg";
 import OssoDiagram from "../components/svg/OssoDiagram.svg";
 import PDFs from "../components/svg/PDFs.svg";
@@ -28,6 +29,7 @@ const integrations = [
   "ruby",
   "ror",
   "clojure",
+  NextJS,
   Python,
   "nodejs_small",
   "react",
