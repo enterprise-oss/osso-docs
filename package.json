@@ -22,7 +22,6 @@
     "add": "^2.0.6",
     "antd": "^4.6.3",
     "classnames": "^2.2.6",
-    "devicon-react-svg": "^0.2.3",
     "docusaurus-gtm-plugin": "^0.0.2",
     "docusaurus-plugin-less": "^1.0.3",
     "docusaurus2-dotenv": "^1.4.0",

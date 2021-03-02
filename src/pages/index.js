@@ -4,18 +4,23 @@ import { useOssoFields } from "@enterprise-oss/osso";
 import Layout from "@theme/Layout";
 import { Button } from "antd";
 import classnames from "classnames";
-import DevIcon from "devicon-react-svg";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 
 import BlogTeaser from "../components/blogTeaser";
 import AdminUI from "../components/svg/AdminUI.svg";
+import Clojure from "../components/svg/clojure.svg";
 import NextJS from "../components/svg/nextjs.svg";
+import NodeJS from "../components/svg/nodejs.svg";
 import OAuth from "../components/svg/Oauth.svg";
 import OssoDiagram from "../components/svg/OssoDiagram.svg";
 import PDFs from "../components/svg/PDFs.svg";
 import Python from "../components/svg/python.svg";
+import Rails from "../components/svg/rails.svg";
+import ReactSVG from "../components/svg/react.svg";
+import Ruby from "../components/svg/ruby.svg";
 import SuperTokens from "../components/svg/supertokens.svg";
+import Typescript from "../components/svg/typescript.svg";
 import screens from "../utils/responsive";
 import styles from "./styles.module.css";
 
@@ -26,15 +31,15 @@ const Separator = () => (
 );
 
 const integrations = [
-  "ruby",
-  "ror",
-  "clojure",
+  Ruby,
+  Rails,
+  Clojure,
   NextJS,
   Python,
-  "nodejs_small",
-  "react",
+  NodeJS,
+  ReactSVG,
   OAuth,
-  "typescript_badge",
+  Typescript,
   SuperTokens,
 ];
 
@@ -118,13 +123,9 @@ function Home() {
       <div className={styles.alt}>
         <h2>SDKs & Integrations</h2>
         <div className={styles.providerLogos}>
-          {integrations.map((Lang) =>
-            typeof Lang === "string" ? (
-              <DevIcon className={styles.devicon} key={Lang} icon={Lang} />
-            ) : (
-              <Lang className={styles.devicon} key={Lang} />
-            )
-          )}
+          {integrations.map((Icon, index) => (
+            <Icon className={styles.devicon} key={index} />
+          ))}
         </div>
       </div>
       <Separator />
@@ -154,11 +155,13 @@ function Home() {
             authorImg="https://avatars0.githubusercontent.com/u/5394293?s=460&u=03bbc0c5174d8341157e4cddb3252b74f33b2482&v=4"
             title="The ABCs of IDPs"
             preview="Identity Providers (IDPs) are a category of software applications responsible for managing employee access to the various third party applications (AKA Service Providers) that modern enterprise companies rely on."
+            path="/blog/all-about-idps"
           />
           <BlogTeaser
             authorImg="https://avatars1.githubusercontent.com/u/923033?s=460&u=db9bb41f9b279750c74afc1be0ab51db05539593&v=4"
             title="SAML vs. OAuth"
             preview="OAuth and SAML are both open specifications for exchanging access credentials for a specific user between an identity provider and an application. When a user wants to sign in to an app using either SAML or OAuth, they are sent to a third party where the user must already be registered."
+            path="/blog/saml-vs-oauth"
           />
         </div>
       </div>
