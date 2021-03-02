@@ -62,7 +62,7 @@ function Home() {
     <Layout title="Home" noNavbar={isLargeScreen}>
       <div className={styles.heroWrapper}>
         <div className={styles.hero}>
-          <h1>Add enterprise-grade SSO to any application</h1>
+          <h1>Add enterprise-grade SAML SSO to any application</h1>
           <Link to={useBaseUrl("docs/quick-start")}>
             <Button ghost size="large" className={styles.heroBtn}>
               Get started

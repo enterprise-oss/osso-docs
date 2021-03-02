@@ -38,7 +38,8 @@ html[data-theme='dark'] h1,h2,h3,h4,h5,h6{
 body, html {
   font-family: 'DM Sans', sans-serif;
   color: var(--ifm-font-color-base) !important;
-  background-color: var(--ifm-background-color) !important; 
+  background-color: var(--ifm-background-color) !important;
+  overscroll-behavior-x: none;
 }
 
 html[data-theme='dark']{
