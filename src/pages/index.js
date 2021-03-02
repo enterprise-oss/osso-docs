@@ -4,13 +4,17 @@ import { useOssoFields } from "@enterprise-oss/osso";
 import Layout from "@theme/Layout";
 import { Button } from "antd";
 import classnames from "classnames";
+import DevIcon from "devicon-react-svg";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 
 import BlogTeaser from "../components/blogTeaser";
 import AdminUI from "../components/svg/AdminUI.svg";
+import OAuth from "../components/svg/Oauth.svg";
 import OssoDiagram from "../components/svg/OssoDiagram.svg";
 import PDFs from "../components/svg/PDFs.svg";
+import Python from "../components/svg/python.svg";
+import SuperTokens from "../components/svg/supertokens.svg";
 import screens from "../utils/responsive";
 import styles from "./styles.module.css";
 
@@ -19,6 +23,18 @@ const Separator = () => (
     <line x1="0" x2="100%" strokeWidth="1" strokeDasharray="25" />
   </svg>
 );
+
+const integrations = [
+  "ruby",
+  "ror",
+  "clojure",
+  Python,
+  "nodejs_small",
+  "react",
+  OAuth,
+  "typescript_badge",
+  SuperTokens,
+];
 
 const customSortedIDPs = (idps) => {
   const ordering = {};
@@ -98,17 +114,15 @@ function Home() {
       </div>
       <Separator />
       <div className={styles.alt}>
-        <h2>SDKs and Integrations</h2>
+        <h2>SDKs & Integrations</h2>
         <div className={styles.providerLogos}>
-          {customSortedIDPs(providers).map((provider) => (
-            <div key={provider.value}>
-              <img
-                src={provider.iconUrl}
-                className={styles.providerLogo}
-                alt={provider.label}
-              />
-            </div>
-          ))}
+          {integrations.map((Lang) =>
+            typeof Lang === "string" ? (
+              <DevIcon className={styles.devicon} key={Lang} icon={Lang} />
+            ) : (
+              <Lang className={styles.devicon} key={Lang} />
+            )
+          )}
         </div>
       </div>
       <Separator />
