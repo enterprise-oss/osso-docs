@@ -10,6 +10,7 @@ import Marquee from "react-marquee-slider";
 import { useMediaQuery } from "react-responsive";
 
 import BlogTeaser from "../components/blogTeaser";
+import Separator from "../components/separator";
 import AdminUI from "../components/svg/AdminUI.svg";
 import Clojure from "../components/svg/clojure.svg";
 import NextJS from "../components/svg/nextjs.svg";
@@ -25,18 +26,6 @@ import SuperTokens from "../components/svg/supertokens.svg";
 import Typescript from "../components/svg/typescript.svg";
 import screens from "../utils/responsive";
 import styles from "./styles.module.css";
-
-const Separator = () => (
-  <svg width="100%" height="2px" className={styles.separator}>
-    <line
-      x1="0"
-      x2="100%"
-      strokeWidth="1"
-      strokeDasharray="25"
-      strokeDashoffset={-12.5}
-    />
-  </svg>
-);
 
 const integrations = [
   Rails,
@@ -76,11 +65,19 @@ function Home() {
       <div className={styles.heroWrapper}>
         <div className={styles.hero}>
           <h1>Add enterprise-grade SAML SSO to any application</h1>
-          <Link to={useBaseUrl("pricing")}>
-            <Button ghost size="large" className={styles.heroBtn}>
-              Get started
-            </Button>
-          </Link>
+          <div className={styles.heroButtons}>
+            <Link to={useBaseUrl("pricing")}>
+              <Button ghost size="large">
+                Get started
+              </Button>
+            </Link>
+
+            <Link to={useBaseUrl("/docs/overview")}>
+              <Button type="link" size="large" className={styles.learnMoreBtn}>
+                Learn more &rarr;
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
       <div className={styles.benefit}>
@@ -200,7 +197,6 @@ function Home() {
           />
         </div>
       </div>
-      <Separator />
     </Layout>
   );
 }
