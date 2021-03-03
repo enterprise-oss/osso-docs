@@ -12,6 +12,7 @@
 
 .footer h3 {
   font-size: 24px;
+  font-weight: 700;
 }
 
 .footer a, .footer a:hover {
@@ -42,7 +43,7 @@
     grid-row-gap: 120px;
     grid-column-gap: 64px;
     grid-template-columns: repeat(2, 1fr);
-    margin: 82px 50px 181px 40px;
+    margin: 82px 50px 82px 40px;
   }
 
   .footerContent :first-child {

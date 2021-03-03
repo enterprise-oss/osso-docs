@@ -26,21 +26,27 @@ import styles from "./styles.module.css";
 
 const Separator = () => (
   <svg width="100%" height="2px" className={styles.separator}>
-    <line x1="0" x2="100%" strokeWidth="1" strokeDasharray="25" />
+    <line
+      x1="0"
+      x2="100%"
+      strokeWidth="1"
+      strokeDasharray="25"
+      strokeDashoffset={-12.5}
+    />
   </svg>
 );
 
 const integrations = [
-  Ruby,
   Rails,
   Clojure,
   NextJS,
   Python,
   NodeJS,
+  SuperTokens,
   ReactSVG,
   OAuth,
+  Ruby,
   Typescript,
-  SuperTokens,
 ];
 
 const customSortedIDPs = (idps) => {
@@ -64,11 +70,11 @@ function Home() {
   const isLargeScreen = useMediaQuery({ query: screens.large });
   const { providers } = useOssoFields();
   return (
-    <Layout title="Home" noNavbar={isLargeScreen}>
+    <Layout title="Home" slimNavbar>
       <div className={styles.heroWrapper}>
         <div className={styles.hero}>
           <h1>Add enterprise-grade SAML SSO to any application</h1>
-          <Link to={useBaseUrl("docs/quick-start")}>
+          <Link to={useBaseUrl("pricing")}>
             <Button ghost size="large" className={styles.heroBtn}>
               Get started
             </Button>
@@ -133,11 +139,12 @@ function Home() {
       <div className={styles.benefit}>
         <PDFs />
         <div>
-          <h3>Impress your customers</h3>
+          <h3>Setup for success</h3>
           <p>
             Osso helps your customer success team onboard enterprise customers
             in an intuitive UI, and generates custom documentation for each
-            customer to set up your application in their Identity Provider.
+            customer to easily set up your application in their Identity
+            Provider.
           </p>
         </div>
       </div>
