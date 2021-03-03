@@ -1,3 +1,4 @@
+import BrowserOnly from "@docusaurus/BrowserOnly";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import { useOssoFields } from "@enterprise-oss/osso";
@@ -97,24 +98,31 @@ function Home() {
       <Separator />
       <div className={styles.alt}>
         <h2>Supported Identity Providers</h2>
-        <div className={styles.providerLogos}>
-          <Marquee
-            velocity={15}
-            minScale={1}
-            maxScale={1}
-            scatterRandomly={false}
-          >
-            {customSortedIDPs(providers).map((provider) => (
-              <div key={provider.value} className={styles.providerContainer}>
-                <img
-                  src={provider.iconUrl}
-                  className={styles.providerLogo}
-                  alt={provider.label}
-                />
-              </div>
-            ))}
-          </Marquee>
-        </div>
+        <BrowserOnly>
+          {() => (
+            <div className={styles.providerLogos}>
+              <Marquee
+                velocity={15}
+                minScale={1}
+                maxScale={1}
+                scatterRandomly={false}
+              >
+                {customSortedIDPs(providers).map((provider) => (
+                  <div
+                    key={provider.value}
+                    className={styles.providerContainer}
+                  >
+                    <img
+                      src={provider.iconUrl}
+                      className={styles.providerLogo}
+                      alt={provider.label}
+                    />
+                  </div>
+                ))}
+              </Marquee>
+            </div>
+          )}
+        </BrowserOnly>
       </div>
       <Separator />
 
@@ -136,19 +144,23 @@ function Home() {
       <Separator />
       <div className={styles.alt}>
         <h2>SDKs & Integrations</h2>
-        <div className={styles.integrations}>
-          <Marquee
-            direction="ltr"
-            velocity={15}
-            minScale={1}
-            maxScale={1}
-            scatterRandomly={false}
-          >
-            {integrations.map((Icon, index) => (
-              <Icon className={styles.devicon} key={index} />
-            ))}
-          </Marquee>
-        </div>
+        <BrowserOnly>
+          {() => (
+            <div className={styles.integrations}>
+              <Marquee
+                direction="ltr"
+                velocity={15}
+                minScale={1}
+                maxScale={1}
+                scatterRandomly={false}
+              >
+                {integrations.map((Icon, index) => (
+                  <Icon className={styles.devicon} key={index} />
+                ))}
+              </Marquee>
+            </div>
+          )}
+        </BrowserOnly>
       </div>
       <Separator />
 
