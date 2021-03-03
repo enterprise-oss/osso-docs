@@ -22,16 +22,18 @@ function Footer() {
           <h3>Connect</h3>
           <ul>
             <li>
-              <Link to={useBaseUrl("/docs/quick-start")}>Github</Link>
+              <Link to="https://github.com/enterprise-oss">Github</Link>
             </li>
             <li>
-              <Link to={useBaseUrl("/docs/quick-start")}>Discord</Link>
+              <Link to="https://discord.gg/5xdDgGpE">Discord</Link>
             </li>
             <li>
-              <Link to={useBaseUrl("/docs/quick-start")}>Twitter</Link>
+              <Link to="https://twitter.com/ossoapp">Twitter</Link>
             </li>
             <li>
-              <Link to={useBaseUrl("/docs/quick-start")}>LinkedIn</Link>
+              <Link to="https://www.linkedin.com/company/ossoapp">
+                LinkedIn
+              </Link>
             </li>
           </ul>
         </div>
@@ -42,16 +44,16 @@ function Footer() {
               <Link to={useBaseUrl("/docs/quick-start")}>Quick Start</Link>
             </li>
             <li>
-              <Link to={useBaseUrl("/docs/quick-start")}>Deploy</Link>
+              <Link to={useBaseUrl("/docs/deploy/overview")}>Deploy</Link>
             </li>
             <li>
-              <Link to={useBaseUrl("/docs/quick-start")}>Configure</Link>
+              <Link to={useBaseUrl("/docs/configure/overview")}>Configure</Link>
             </li>
             <li>
-              <Link to={useBaseUrl("/docs/quick-start")}>Consume</Link>
+              <Link to={useBaseUrl("/docs/consume/overview")}>Consume</Link>
             </li>
             <li>
-              <Link to={useBaseUrl("/docs/quick-start")}>Use</Link>
+              <Link to={useBaseUrl("/docs/user-guide/overview")}>Use</Link>
             </li>
           </ul>
         </div>

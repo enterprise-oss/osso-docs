@@ -57,7 +57,7 @@
 
 .alt {
   background-color: var(--ifm-hero-background-color);
-  padding: 72px;
+  padding: 72px 0;
 }
 
 .alt > h2 {
@@ -145,7 +145,7 @@
   }  
 
   .alt {
-    padding: 24px;
+    padding: 24px 0;
   }
 
   .alt > h2 {
