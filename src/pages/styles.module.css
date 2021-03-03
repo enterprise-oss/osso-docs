@@ -73,7 +73,7 @@
   justify-content: space-between;
 }
 
-.providerLogos > div {
+.providerContainer {
   width: 130px;
   height: 130px;
   background-color: var(--ifm-color-content-secondary);
@@ -84,15 +84,23 @@
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   padding: 36px;
+
+  margin-right: 60px;
 }
 
 .providerLogo {
   max-height: 62px;
 }
 
+.integrations {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .devicon{
   width: 80px;
-  fill: #fff;
+  margin-right: 60px;
 }
 
 .blogRoll {
@@ -153,7 +161,7 @@
     padding-bottom: 12px;
   }
 
-  .providerLogos > div {
+  .providerContainer {
     width: 96px;
     height: 96px;
     background-color: var(--ifm-color-content-secondary);
@@ -171,7 +179,7 @@
   .devicon{
     width: 80px;
     fill:#fff;
-    margin-right: 16px;
+    margin-right: 24px;
     flex: none;
   }
   

@@ -5,6 +5,7 @@ import Layout from "@theme/Layout";
 import { Button } from "antd";
 import classnames from "classnames";
 import React from "react";
+import Marquee from "react-marquee-slider";
 import { useMediaQuery } from "react-responsive";
 
 import BlogTeaser from "../components/blogTeaser";
@@ -97,15 +98,22 @@ function Home() {
       <div className={styles.alt}>
         <h2>Supported Identity Providers</h2>
         <div className={styles.providerLogos}>
-          {customSortedIDPs(providers).map((provider) => (
-            <div key={provider.value}>
-              <img
-                src={provider.iconUrl}
-                className={styles.providerLogo}
-                alt={provider.label}
-              />
-            </div>
-          ))}
+          <Marquee
+            velocity={15}
+            minScale={1}
+            maxScale={1}
+            scatterRandomly={false}
+          >
+            {customSortedIDPs(providers).map((provider) => (
+              <div key={provider.value} className={styles.providerContainer}>
+                <img
+                  src={provider.iconUrl}
+                  className={styles.providerLogo}
+                  alt={provider.label}
+                />
+              </div>
+            ))}
+          </Marquee>
         </div>
       </div>
       <Separator />
@@ -128,10 +136,18 @@ function Home() {
       <Separator />
       <div className={styles.alt}>
         <h2>SDKs & Integrations</h2>
-        <div className={styles.providerLogos}>
-          {integrations.map((Icon, index) => (
-            <Icon className={styles.devicon} key={index} />
-          ))}
+        <div className={styles.integrations}>
+          <Marquee
+            direction="ltr"
+            velocity={15}
+            minScale={1}
+            maxScale={1}
+            scatterRandomly={false}
+          >
+            {integrations.map((Icon, index) => (
+              <Icon className={styles.devicon} key={index} />
+            ))}
+          </Marquee>
         </div>
       </div>
       <Separator />
