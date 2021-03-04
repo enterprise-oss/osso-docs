@@ -85,7 +85,14 @@ html[data-theme='dark'] .heroWrapper {
 .providerLogos {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  align-items: top;
+  margin-bottom: 16px;
+}
+
+.providerLogos > div > div {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .providerContainer {
