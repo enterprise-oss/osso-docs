@@ -7,7 +7,7 @@ const Separator = () => (
     <line
       x1="0"
       x2="100%"
-      strokeWidth="1"
+      strokeWidth="3"
       strokeDasharray="25"
       strokeDashoffset={-12.5}
     />

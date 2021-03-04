@@ -2,7 +2,7 @@ import { RightOutlined } from "@ant-design/icons";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import useThemeContext from "@theme/hooks/useThemeContext"; //docs: https://v2.docusaurus.io/docs/2.0.0-alpha.69/theme-classic#usethemecontext
+import useThemeContext from "@theme/hooks/useThemeContext";
 import Layout from "@theme/Layout";
 import { Button, Card, Col, Collapse, Layout as AntLayout, Row } from "antd";
 import classnames from "classnames";

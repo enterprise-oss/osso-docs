@@ -2,12 +2,12 @@ import BrowserOnly from "@docusaurus/BrowserOnly";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import { useOssoFields } from "@enterprise-oss/osso";
+import useThemeContext from "@theme/hooks/useThemeContext";
 import Layout from "@theme/Layout";
 import { Button } from "antd";
 import classnames from "classnames";
 import React from "react";
 import Marquee from "react-marquee-slider";
-import { useMediaQuery } from "react-responsive";
 
 import BlogTeaser from "../components/blogTeaser";
 import Separator from "../components/separator";
@@ -58,16 +58,16 @@ const customSortedIDPs = (idps) => {
 };
 
 function Home() {
-  const isLargeScreen = useMediaQuery({ query: screens.large });
+  const { isDarkTheme } = useThemeContext();
   const { providers } = useOssoFields();
   return (
-    <Layout title="Home" slimNavbar>
+    <>
       <div className={styles.heroWrapper}>
         <div className={styles.hero}>
           <h1>Add enterprise-grade SAML SSO to any application</h1>
           <div className={styles.heroButtons}>
             <Link to={useBaseUrl("pricing")}>
-              <Button ghost size="large">
+              <Button ghost={isDarkTheme} size="large">
                 Get started
               </Button>
             </Link>
@@ -136,7 +136,12 @@ function Home() {
           </p>
         </div>
 
-        <OssoDiagram />
+        <OssoDiagram
+          style={{
+            backgroundColor: "var(--ifm-dark-background-color)",
+            borderRadius: "50%",
+          }}
+        />
       </div>
       <Separator />
       <div className={styles.alt}>
@@ -197,8 +202,14 @@ function Home() {
           />
         </div>
       </div>
-    </Layout>
+    </>
   );
 }
 
-export default Home;
+const WrappedHome = () => (
+  <Layout title="Home" slimNavbar>
+    <Home />
+  </Layout>
+);
+
+export default WrappedHome;

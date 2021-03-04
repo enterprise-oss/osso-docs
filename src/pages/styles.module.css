@@ -9,8 +9,12 @@
   max-width: 984px;
   margin: 126px auto 80px;
   max-width: 984px;
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='60' ry='60' stroke='%23fff' stroke-width='2' stroke-dasharray='26' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='60' ry='60' stroke='%234E61A5' stroke-width='2' stroke-dasharray='26' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
   border-radius: 60px;
+}
+
+html[data-theme='dark'] .heroWrapper {
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='60' ry='60' stroke='%23fff' stroke-width='2' stroke-dasharray='26' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
 }
 
 .hero {
@@ -67,7 +71,7 @@
 }
 
 .alt {
-  background-color: var(--ifm-hero-background-color);
+  background-color: var(--ifm-well-color);
   padding: 72px 0;
 }
 
@@ -87,7 +91,7 @@
 .providerContainer {
   width: 130px;
   height: 130px;
-  background-color: var(--ifm-color-content-secondary);
+  background-color: var(--ifm-color-secondary-lightest);
   display: flex;
   align-items: center;
   justify-content: center;
