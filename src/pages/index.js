@@ -2,11 +2,12 @@ import BrowserOnly from "@docusaurus/BrowserOnly";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import { useOssoFields } from "@enterprise-oss/osso";
+import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import useThemeContext from "@theme/hooks/useThemeContext";
 import Layout from "@theme/Layout";
 import { Button } from "antd";
 import classnames from "classnames";
-import React from "react";
+import React, { useState } from "react";
 import Marquee from "react-marquee-slider";
 
 import BlogTeaser from "../components/blogTeaser";
@@ -57,9 +58,10 @@ const customSortedIDPs = (idps) => {
   return idps.sort((a, b) => ordering[a.value] - ordering[b.value]);
 };
 
-function Home() {
+function Home({ strokeOffset }) {
   const { isDarkTheme } = useThemeContext();
   const { providers } = useOssoFields();
+
   return (
     <>
       <div className={styles.heroWrapper}>
@@ -92,7 +94,7 @@ function Home() {
         </div>
       </div>
 
-      <Separator />
+      <Separator strokeOffset={strokeOffset} />
       <div className={styles.alt}>
         <h2>Supported Identity Providers</h2>
         <BrowserOnly>
@@ -121,7 +123,7 @@ function Home() {
           )}
         </BrowserOnly>
       </div>
-      <Separator />
+      <Separator strokeOffset={strokeOffset} />
 
       <div className={classnames(styles.benefit, styles.benefitReverse)}>
         <div>
@@ -143,7 +145,7 @@ function Home() {
           }}
         />
       </div>
-      <Separator />
+      <Separator strokeOffset={strokeOffset * -1} />
       <div className={styles.alt}>
         <h2>SDKs & Integrations</h2>
         <BrowserOnly>
@@ -164,7 +166,7 @@ function Home() {
           )}
         </BrowserOnly>
       </div>
-      <Separator />
+      <Separator strokeOffset={strokeOffset * -1} />
 
       <div className={styles.benefit}>
         <PDFs />
@@ -178,7 +180,7 @@ function Home() {
           </p>
         </div>
       </div>
-      <Separator />
+      <Separator strokeOffset={strokeOffset} />
       <div className={classnames(styles.alt, styles.blogRoll)}>
         <h2>Recent Blog Posts</h2>
         <div className={styles.blogTeasers}>
@@ -206,10 +208,21 @@ function Home() {
   );
 }
 
-const WrappedHome = () => (
-  <Layout title="Home" slimNavbar>
-    <Home />
-  </Layout>
-);
+const WrappedHome = () => {
+  const [strokeOffset, setStrokeOffset] = useState(-12.5);
+  useScrollPosition(
+    ({ currPos }) => {
+      setStrokeOffset(Math.round((currPos.y / 25 - 12.5) * 10) / 10);
+    },
+    [strokeOffset],
+    null,
+    false
+  );
+  return (
+    <Layout title="Home" slimNavbar strokeOffset={strokeOffset}>
+      <Home strokeOffset={strokeOffset} />
+    </Layout>
+  );
+};
 
 export default WrappedHome;

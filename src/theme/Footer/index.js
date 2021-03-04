@@ -14,10 +14,10 @@ import Separator from "../../components/separator";
 import Logo from "../../components/svg/logo";
 import styles from "./styles.module.css";
 
-function Footer() {
+function Footer({ strokeOffset }) {
   return (
     <>
-      <Separator />
+      <Separator strokeOffset={strokeOffset} />
       <footer className={classnames("footer", styles.footer)}>
         <div className={styles.footerContent}>
           <Logo width={56} />

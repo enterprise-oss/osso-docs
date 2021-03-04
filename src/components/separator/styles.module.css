@@ -1,3 +1,7 @@
 .separator {
   stroke: var(--ifm-dash-color);
 }
+
+.separator > line {
+  transition: stroke-dashoffset 0.2s linear;
+}
