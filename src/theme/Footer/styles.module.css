@@ -32,7 +32,7 @@
 .footerContent {
   margin: 80px auto 120px auto;
   display: flex;
-  align-items: top;
+  align-items: flex-start;
   justify-content: space-between;
   max-width: 922px;
 }
