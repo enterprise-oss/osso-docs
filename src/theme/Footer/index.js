@@ -20,7 +20,9 @@ function Footer({ strokeOffset }) {
       <Separator strokeOffset={strokeOffset} />
       <footer className={classnames("footer", styles.footer)}>
         <div className={styles.footerContent}>
-          <Logo width={56} />
+          <div>
+            <Logo width={56} />
+          </div>
           <div>
             <h3>Connect</h3>
             <ul>

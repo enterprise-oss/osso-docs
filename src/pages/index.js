@@ -83,7 +83,9 @@ function Home({ strokeOffset }) {
         </div>
       </div>
       <div className={styles.benefit}>
-        <AdminUI />
+        <div>
+          <AdminUI />
+        </div>
         <div>
           <h3>Get Enterprise-ready</h3>
           <p>
@@ -138,12 +140,14 @@ function Home({ strokeOffset }) {
           </p>
         </div>
 
-        <OssoDiagram
-          style={{
-            backgroundColor: "var(--ifm-dark-background-color)",
-            borderRadius: "50%",
-          }}
-        />
+        <div>
+          <OssoDiagram
+            style={{
+              backgroundColor: "var(--ifm-dark-background-color)",
+              borderRadius: "50%",
+            }}
+          />
+        </div>
       </div>
       <Separator strokeOffset={strokeOffset * -1} />
       <div className={styles.alt}>
@@ -169,7 +173,9 @@ function Home({ strokeOffset }) {
       <Separator strokeOffset={strokeOffset * -1} />
 
       <div className={styles.benefit}>
-        <PDFs />
+        <div>
+          <PDFs />
+        </div>
         <div>
           <h3>Setup for success</h3>
           <p>

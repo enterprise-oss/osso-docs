@@ -32,5 +32,6 @@
 @media screen and (max-width: 996px) {
   .root {
     max-width: 315px;
+    margin-right: 32px;
   }
 }
