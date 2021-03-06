@@ -69,24 +69,33 @@ function Footer({ strokeOffset }) {
             <h3>Learn</h3>
             <ul>
               <li>
-                <Link to={useBaseUrl("/docs/quick-start")}>SAML vs. OAuth</Link>
+                <Link to={useBaseUrl("/blog/saml-vs-oauth")}>
+                  SAML vs. OAuth
+                </Link>
               </li>
               <li>
-                <Link to={useBaseUrl("/docs/quick-start")}>SAML SSO Rails</Link>
+                <Link to={useBaseUrl("/blog/saml-sso-rails")}>
+                  SAML SSO Rails
+                </Link>
               </li>
               <li>
-                <Link to={useBaseUrl("/docs/quick-start")}>
+                <Link to={useBaseUrl("/docs/consume/passport-osso")}>
                   SAML SSO NodeJS
                 </Link>
               </li>
               <li>
-                <Link to={useBaseUrl("/docs/quick-start")}>
+                <Link to={useBaseUrl("/docs/consume/clojure")}>
                   SAML SSO Clojure
                 </Link>
               </li>
               <li>
-                <Link to={useBaseUrl("/docs/quick-start")}>
+                <Link to={useBaseUrl("/docs/consume/python-social-auth")}>
                   SAML SSO Python
+                </Link>
+              </li>
+              <li>
+                <Link to={useBaseUrl("/docs/consume/nextjs")}>
+                  SAML SSO NextJS
                 </Link>
               </li>
             </ul>
