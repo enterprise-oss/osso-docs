@@ -7,21 +7,47 @@
 
 /* You can override the default Infima variables here. */
 :root {
+  --ifm-color-primary-lightest: #7b8ac1;
+  --ifm-color-primary-lighter: #6274b5;
+  --ifm-color-primary-light: #5a6db1;
   --ifm-color-primary: #4E61A5;
   --ifm-color-primary-dark: #465795;
   --ifm-color-primary-darker: #42528c;
   --ifm-color-primary-darkest: #4d4d4d;
-  --ifm-color-primary-light: #5a6db1;
-  --ifm-color-primary-lighter: #6274b5;
-  --ifm-color-primary-lightest: #7b8ac1;
 
   --ifm-color-secondary-lightest: #FFFFFF;  
   --ifm-color-secondary: #E5E5E5;
 
-  --ifm-hero-background-color: var(--ifm-color-primary);
-
+  --ifm-hero-background-color: var(--ifm-color-secondary-lightest);
   --ifm-landing-page-font-color: var(--ifm-color-primary);
+
+
+  --ifm-dark-background-color: var( --ifm-color-primary); 
+  --ifm-dark-background-text-color: #fff; 
+
+
+  --ifm-color-tertiary: #ffcd83;
+  --ifm-color-tertiary-dark: #ffbd5c;
+  --ifm-color-tertiary-darker: #ffb649;
+  --ifm-color-tertiary-darkest: #ff9e0f;
+  --ifm-color-tertiary-light: #ffddaa;
+  --ifm-color-tertiary-lighter: #ffe4bd;
+  --ifm-color-tertiary-lightest: #fffcf7;
+
+  --ifm-dash-color: var(--ifm-color-tertiary);
+
+  --ifm-well-color: var(--ifm-color-secondary);
 }
+
+html[data-theme='dark']{
+  --ifm-hero-background-color: #1e2125;
+  --ifm-landing-page-font-color: var(--ifm-color-secondary);
+  --ifm-dark-background-color:  #1e2125; 
+  --ifm-dash-color: #fff;
+  --ifm-dark-background-text-color: #fff; 
+  --ifm-well-color: var(--ifm-dark-background-color);
+}
+
 
 html[data-theme='light'] .DocSearch {
   --docsearch-muted-color: #595959;
@@ -32,19 +58,16 @@ html[data-theme='dark'] .DocSearch {
 }
 
 html[data-theme='dark'] h1,h2,h3,h4,h5,h6{
-  color: var(--ifm-landing-page-font-color) !important;
+  color: var(--ifm-landing-page-font-color) !important;  /* overrides ant */
 }
 
 body, html {
   font-family: 'DM Sans', sans-serif;
   color: var(--ifm-font-color-base) !important;
-  background-color: var(--ifm-background-color) !important; 
+  background-color: var(--ifm-background-color) !important;
+  overscroll-behavior-x: none;
 }
 
-html[data-theme='dark']{
-  --ifm-hero-background-color: #1e2125;
-  --ifm-landing-page-font-color: var(--ifm-color-secondary);
-}
 
 html[data-theme='dark'] article a {
   color: var(--ifm-color-primary-lighter);

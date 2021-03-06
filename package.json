@@ -16,6 +16,7 @@
     "@docusaurus/preset-classic": "^2.0.0-alpha.65",
     "@enterprise-oss/ant-theme": "^1.0.8",
     "@enterprise-oss/osso": "^0.1.3-beta",
+    "@n8tb1t/use-scroll-position": "^2.0.3",
     "@openbook/cloudpdf-viewer": "^0.1.0-beta.9",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.11.0",
@@ -25,14 +26,17 @@
     "docusaurus-gtm-plugin": "^0.0.2",
     "docusaurus-plugin-less": "^1.0.3",
     "docusaurus2-dotenv": "^1.4.0",
+    "lodash": "^4.17.21",
     "posthog-docusaurus": "^1.0.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-intersection-observer": "^8.26.2",
+    "react-marquee-slider": "^1.1.2",
     "react-responsive": "^8.0.3",
+    "styled-components": "^5.2.1",
     "url-search-params-polyfill": "^8.1.0",
     "webfontloader": "^1.6.28",
-    "yarn": "^1.22.4"
+    "yarn": "^1.22.10"
   },
   "browserslist": {
     "production": [

@@ -8,6 +8,7 @@
 html,
 body {
   height: 100%;
+  font-display: fallback;
 }
 
 body {
@@ -19,6 +20,10 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+main {
+  padding-bottom: 48px;
 }
 
 .main-wrapper {

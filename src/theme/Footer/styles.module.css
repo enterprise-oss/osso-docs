@@ -5,57 +5,49 @@
  * LICENSE file in the root directory of this source tree.
  */
 
- .footer {
-  background-color: var(--ifm-hero-background-color);
-  color: var(--ifm-color-secondary-lightest);
+.footer {
+  background-color: var(--ifm-dark-background-color);
+  color: var(--ifm-dark-background-text-color);
 }
 
-.container {
-  max-width: 95%;
-}
-
-.footerRow{
-  display: flex;
-  justify-content: space-between;
+.footer h3 {
   font-size: 20px;
-}
-
-@media screen and (max-width: 996px) {
-  .footerRow{
-    flex-direction: column;
-  }
-}
-.footerCol {
-  flex: 1 1 32%;
-  display: flex;
-  flex-direction: column;
-}
-
-.footerCol:nth-of-type(2) {
-  align-items: center;
-}
-
-.footerCol:nth-of-type(3) {
-  align-items: flex-end;
-  text-align: left;
-}
-
-.footerCol:nth-of-type(3) > a {
-  width: 160px;
-}
-
-.footer a, .footer a:hover, .footer p {
-  display: block;
-  margin: 0;
-  color: var(--ifm-color-secondary-lightest);
+  font-weight: 700;
+  color: var(--ifm-dark-background-text-color) !important;
 }
 
 .footer a, .footer a:hover {
-  text-decoration: underline;
+  display: block;
+  margin: 0;
+  color: var(--ifm-dark-background-text-color);
+  text-decoration: none;
+  font-size: 20px;
 }
 
-.footer label {
-  color: var(--ifm-color-secondary-lightest) !important;
-  line-height: 3em;
-  font-size: 14px;
+.footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footerContent {
+  margin: 80px auto 120px auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 922px;
+}
+
+
+@media screen and (max-width: 996px) {
+  .footerContent{
+    display: grid;
+    grid-row-gap: 120px;
+    grid-column-gap: 64px;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 82px 50px 82px 40px;
+  }
+
+  .footerContent :first-child {
+    grid-column: 1 / -1;
+  }
 }

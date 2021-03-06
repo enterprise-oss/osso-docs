@@ -4,125 +4,247 @@
  * and scoped locally.
  */
 
- 
-.heroBanner {
-  position: relative;
-  padding: 4rem 0;
-  height: 630px;
-  background-image: url('/img/bg.png');     
-  background-position: left -40px top -30px;
-  background-blend-mode: soft-light;
-  margin-bottom: 169px;
+.heroWrapper {
+  padding: 16px;
+  max-width: 984px;
+  margin: 126px auto 80px;
+  max-width: 984px;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='60' ry='60' stroke='%234E61A5' stroke-width='2' stroke-dasharray='26' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  border-radius: 60px;
 }
 
-.heroCopy {
-  margin-left: 50%;
-  margin-right: 18%;
+html[data-theme='dark'] .heroWrapper {
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='60' ry='60' stroke='%23fff' stroke-width='2' stroke-dasharray='26' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+}
+
+.hero {
+  padding: 80px;
+  border-radius: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--ifm-hero-background-color);
+}
+
+.hero h1 {
+  font-size: 56px;
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.heroButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.heroButtons > * {
+  margin: 0 24px;
+}
+
+.learnMoreBtn > span {
+  color: #FFCD83;
+  text-decoration: underline;
+}
+
+.benefit {
+  max-width: 85%;
+  margin: 160px auto;
+  display: grid;
+  grid-column-gap: 64px;
+  grid-template-columns: 52% 1fr;
+  align-items: center;
+}
+
+.benefitReverse {
+  grid-template-columns: 1fr 52%;
+}
+
+.benefit h3 {
   font-weight: bold;
-  font-size: 36px;
-  color: var(--ifm-color-secondary-lightest);
-  z-index: 10;
+  font-size: 32px;
   line-height: 47px;
 }
 
-.heroImage {
-  position: absolute;
-  bottom: 60px;
-  left: 132px;
-  width: 80%;
-  user-select: none;
-  z-index: 0;
-}
-
-.heroBtn:hover, .heroBtn:active {
-  color: white !important;
-  border-color: white !important;
-  filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.5));
-}
-
-.buttons {
-  display: flex;
-}
-
-.features {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.row {
-  align-items: center;
-  margin-bottom: 120px;
-}
-
-.titleMarker {
-  display: inline-block;
-  width: 8px;
-  height: 47px;
-  background-color: #FFCD83;
-  margin-right: 16px;
-  margin-left: -24px;
-  vertical-align: top;
-}
-
-.features h3{
-  font-size: 30px;
-  color: var(--ifm-landing-page-font-color); 
-  margin-bottom: 16px;
-}
-
-.features p{
+.benefit p {
   font-size: 20px;
 }
 
+.alt {
+  background-color: var(--ifm-well-color);
+  padding: 72px 0;
+}
+
+.alt > h2 {
+  font-size: 40px;
+  margin-bottom: 72px;
+  text-align: center;
+}
+
+
+.providerLogos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: top;
+  margin-bottom: 16px;
+}
+
+.providerLogos > div > div {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.providerContainer {
+  width: 130px;
+  height: 130px;
+  background-color: var(--ifm-color-secondary-lightest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #F1F3F4;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 36px;
+  margin-right: 60px;
+}
+
+.providerLogo {
+  max-height: 62px;
+}
+
+.integrations {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.providerLogos > div > div {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.devicon{
+  width: 80px;
+  margin-right: 60px;
+}
+
+.blogRoll {
+  padding: 72px;
+  background-color: var(--ifm-background-color);
+}
+
+.blogTeasers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 64px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
 @media screen and (max-width: 996px) {
-  .heroBanner {
-    height: 320px;
-    margin-bottom: 56px;
+  .heroWrapper {
+    background-image: none;
+    padding: 0;
+    border-radius: 0;
+    margin: 80px auto;
   }
 
-  .heroCopy {
-    margin: auto;
-    text-align: center;
+  .hero {
+    border-radius: 0;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    margin-bottom: 48px;
+  }
+
+  .heroButtons {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 24px;
   }
 
-  .imageContainer {
-    margin-bottom: 32px;
+  .heroButtons > * {
+    margin: 8px 0;
+  }
+  
+
+  .benefit {
+    margin: 80px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
   }
 
-  .row {
-    flex-direction: column-reverse;
-    padding-left: 24px;
-    padding-right: 24px;
-    margin-bottom: 0;
-  }
-
-  .row:before {
-    content: "";
-    display: block;
-    border-bottom: 1px solid #FFCD83;
-    margin: 56px 0;
+  .benefit > div {
     width: 100%;
   }
 
-  .row:last-of-type {
-    margin-bottom: 56px;
-  }
-
-  .row:last-of-type:before {
-    display: none;
-  }
-
-
-  .features h3{
+  .benefit h3 {
     font-size: 24px;
+    margin-top: 32px;
   }
-  
-  .features p{
-    font-size: 20px;
+
+  .benefit p {
+    font-size: 18px;
+  }
+
+  .benefitReverse {
+    display: flex;
+    flex-direction: column-reverse;
+  }  
+
+  .alt {
+    padding: 24px 0;
+  }
+
+  .alt > h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+
+  .providerLogos {
+    overflow-x: scroll;
+    padding-bottom: 12px;
+  }
+
+  .providerContainer {
+    width: 96px;
+    height: 96px;
+    background-color: var(--ifm-color-content-secondary);
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #F1F3F4;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    padding: 24px;
+    margin-right: 16px;
+  }
+
+  .devicon{
+    width: 80px;
+    fill:#fff;
+    margin-right: 24px;
+    flex: none;
+  }
+  .blogTeasersContainer {
+    width: 100%;
+    padding: 24px;
+  }
+
+  .blogTeasers {
+    overflow-x: scroll;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 24px 0;
   }
 }

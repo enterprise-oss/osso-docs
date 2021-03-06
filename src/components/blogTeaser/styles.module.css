@@ -1,0 +1,37 @@
+.root {
+  padding: 16px;
+  background-color: var(--ifm-hero-background-color);
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  border: 1px solid var(--ifm-dark-background-color);
+  flex: none;
+}
+
+.titleRow {
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 24px;
+  height: 25px;
+  border-radius: 12px;
+  margin-right: 8px;
+}
+
+.readMore {
+  text-align: right;
+  color: var(--ifm-body-color);
+  margin-top: auto;
+}
+
+@media screen and (max-width: 996px) {
+  .root {
+    max-width: 315px;
+    margin-right: 32px;
+  }
+}
