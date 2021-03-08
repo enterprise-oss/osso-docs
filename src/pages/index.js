@@ -67,19 +67,27 @@ function Home({ strokeOffset }) {
       <div className={styles.heroWrapper}>
         <div className={styles.hero}>
           <h1>Add enterprise-grade SAML SSO to any application</h1>
-          <div className={styles.heroButtons}>
-            <Link to={useBaseUrl("pricing")}>
-              <Button ghost={isDarkTheme} size="large">
-                Get started
-              </Button>
-            </Link>
+          <BrowserOnly>
+            {() => (
+              <div className={styles.heroButtons}>
+                <Link to={useBaseUrl("pricing")}>
+                  <Button ghost={isDarkTheme !== false} size="large">
+                    Get started
+                  </Button>
+                </Link>
 
-            <Link to={useBaseUrl("/docs/overview")}>
-              <Button type="link" size="large" className={styles.learnMoreBtn}>
-                Learn more &rarr;
-              </Button>
-            </Link>
-          </div>
+                <Link to={useBaseUrl("/docs/overview")}>
+                  <Button
+                    type="link"
+                    size="large"
+                    className={styles.learnMoreBtn}
+                  >
+                    Learn more &rarr;
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </BrowserOnly>
         </div>
       </div>
       <div className={styles.benefit}>
