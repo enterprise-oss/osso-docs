@@ -69,7 +69,7 @@ function Home({ strokeOffset }) {
           <h1>Add enterprise-grade SAML SSO to any application</h1>
           <div className={styles.heroButtons}>
             <Link to={useBaseUrl("pricing")}>
-              <Button ghost={isDarkTheme} size="large">
+              <Button ghost={isDarkTheme !== false} size="large">
                 Get started
               </Button>
             </Link>
